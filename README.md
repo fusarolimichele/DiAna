@@ -8,6 +8,9 @@ and a shared toolbox in the pharmacovigilance community.
 Stages
 
 [X] DIANA dictionary for drug name standardization (continuous refinement)
+
 [ ] DIANA access to a clean FAERS (work in progress)
+
 [ ] DIANA R package for drug safety investigations
+
 [ ] Linkage with other ontologies
