@@ -1,4 +1,4 @@
-# DIANA
+# DiAna
 Repository for FAERS cleaning and analysis
 
 This project is voted to the highest transparency and to be open source.
@@ -7,10 +7,10 @@ and a shared toolbox in the pharmacovigilance community.
 
 Stages
 
-[X] DIANA dictionary for drug name standardization (continuous refinement)
+[X] DiAna dictionary for drug name standardization (continuous refinement)
 
-[ ] DIANA access to a clean FAERS (work in progress)
+[ ] DiAna access to a clean FAERS (work in progress)
 
-[ ] DIANA R package for drug safety investigations
+[ ] DiAna R package for drug safety investigations
 
 [ ] Linkage with other ontologies
