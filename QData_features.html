@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Quarterly Data features</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="QData_features_files/libs/clipboard/clipboard.min.js"></script>
+<script src="QData_features_files/libs/quarto-html/quarto.js"></script>
+<script src="QData_features_files/libs/quarto-html/popper.min.js"></script>
+<script src="QData_features_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="QData_features_files/libs/quarto-html/anchor.min.js"></script>
+<link href="QData_features_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="QData_features_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="QData_features_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="QData_features_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="QData_features_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quarterly Data features</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="quarterly-data-features" class="level1">
+<h1><strong>Quarterly Data Features</strong></h1>
+<p>Quarterly data files of the Food and Drug Administration Adverse Event Reporting System can be downloaded from the address&nbsp;<a href="https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html" class="uri">https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html</a>, both in ASCII and XML format. We work on the ASCII files, which delimits different fields by the "$" character. Neither of the two formats are intended to include all the possible data fields. All the information can be obtained through the Freedom of Information Act, referring to "CASE" field for LAERS ASCII files and "CASEID" for FAERS ASCII files.</p>
+<p>Each year data is divided into four quarters: January-March, April-June, July-September, October-December. The first quarter of the FAERS is January-March 2004, but it includes also older reports. Each quarter is fractioned into the following datasets:</p>
+<ul>
+<li><p>DEMO (demographic and administrative information)</p></li>
+<li><p>DRUG (medical products and posology)</p></li>
+<li><p>REAC (adverse events)</p></li>
+<li><p>OUTC (outcomes)</p></li>
+<li><p>RPSR (report sources)</p></li>
+<li><p>THER (temporal information about therapies)</p></li>
+<li><p>INDI (indications)</p></li>
+</ul>
+<p>The name of each file is thus composed &lt;file-descriptor&gt;yyQq, where &lt;file-descriptor&gt; is the 4-letter dataset name already mentioned, ‘yy’ is a 2-digit identifier for the year, ‘Q’ is the letter Q, and ‘q’ is a 1-digit identifier for the quarter. As an example, DEMO12Q4 represents demographic file for the 4th quarter of 2012. The set of seven ASCII data files in each extract contains data for the full quarter covered by the extract. From 19Q1, quarters also have a DELETED file: a list of identities of reports that should be excluded from the database, according to FDA or Manufacturers, because of various reasons and with the aim to align the QDE to public dashboard.</p>
+<p>Data fields have been updated through time, and September 2012 (12Q3) marks the conversion from the Legacy Adverse Event Reporting System to the new&nbsp;FDA Adverse Event Reporting System (FAERS). To avoid the loss of reports, the first extract also includes reports from July 2012.</p>
+<p>The previous LAERS database was Individual Safety Report based, with each ISR representing a separate version of a Case (e.g., Initial, Follow-up 1, Follow-up 2...). The new FAERS database is Case based, with one or more versions beginning from 1 (intermediate versions can be missing if multiple updates were reported during the same quarter).</p>
+<p>It is important to note that LAERS data was compiled in upper case, while FAERS data is in mixed case.</p>
+<p><img src="images/FAERS_flowchart-01.png" class="img-fluid"></p>
+<p>This is the Entity Relationship Diagram of the new FAERS, with each primaryid identifying a specific version of a caseid. The primaryid key joins DEMO, REAC, OUTC, RPSR and DRUG, while the combination of primaryid and drug_seq joins THER and INDI to DRUG. Therefore, in DEMO we should have only one primaryid and sometimes more caseids, while in the other Dataset the same primaryid can spread on multiple rows (e.g., multiple reactions or outcomes or drugs…).</p>
+</section>
+<section id="cleaning-pipeline" class="level1">
+<h1><strong>Cleaning pipeline</strong></h1>
+<p>Here we describe step by step the cleaning procedure. Note that you don't need to understand what is happening at each line of code to have a cleaned database and you can simply run the script (you can also use the already cleaned database). Nonetheless, it is important to read the text accompanying the script to understand how the pre-processing is impacting on the following analysis. The script should be included, together with the project, in a folder called DIANA.</p>
+<p>It is important to have access to an internet connection because the script downloads the needed tools and the FAERS quarterly data from the internet.</p>
+<section id="set-up-packages" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-packages">1. Set up packages</h2>
+<p>Some tools are needed to perform the analyses. R is open-source software that allows the sharing of so-called packages of algorithms to perform specific operations. To clean the FAERS we use the following libraries:</p>
+<ul>
+<li><p>tidyverse: a collection of R packages designed for data science.</p></li>
+<li><p>data.table: package built to perform fast aggregation of extensive data.</p></li>
+<li><p>janitor: package created to help clean dirty data.</p></li>
+<li><p>foreach: package built to perform loops in parallel. Shortens preprocessing time.</p></li>
+<li><p>xml2: package built to perform operations on XML.</p></li>
+<li><p>rvest: package built to scrape the internet and download files.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Diagram.drawio.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Step 1 – Set up packages</figcaption><p></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set up packages-------------------------------------------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tools_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>,<span class="st">"data.table"</span>,<span class="st">"janitor"</span>,<span class="st">"foreach"</span>,<span class="st">"xml2"</span>,<span class="st">"rvest"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tools_to_install <span class="ot">&lt;-</span> tools_needed[</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!</span>(tools_needed <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[,<span class="st">"Package"</span>])]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(tools_to_install)<span class="sc">&gt;</span><span class="dv">0</span>) <span class="fu">install.packages</span>(tools_to_install)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(tools_needed, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="download-faers" class="level2">
+<h2 class="anchored" data-anchor-id="download-faers">2. Download FAERS</h2>
+<p>We included a script to automatically download FAERS quarterly data (ascii files) from the FDA website. This step can take different times depending on Internet and memory speed. During our tests it took from 1h25 (74.4 Mbps) to 2h (8.68 Mbps), but shorter or longer times are admissible.</p>
+<p><img src="images/Diagram.drawio-2.svg" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download FAERS--------------------------------------------------------------</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout=</span><span class="dv">500</span>)<span class="co">#increase if it times out because of low wifi power</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>FAERS_url <span class="ot">&lt;-</span> <span class="st">"https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">read_html</span>(FAERS_url)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>links_to_QD <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(<span class="fu">html_nodes</span>(pg, <span class="st">"a"</span>), <span class="st">"href"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>links_to_QD <span class="ot">&lt;-</span> links_to_QD[<span class="fu">grepl</span>(<span class="st">".zip"</span>,links_to_QD)]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>links_to_QD <span class="ot">&lt;-</span> links_to_QD[<span class="fu">grepl</span>(<span class="st">"ascii"</span>,links_to_QD)]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"Raw_FAERS_QD"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (file <span class="cf">in</span> links_to_QD){</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  zip_name <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"Raw_FAERS_QD"</span>, <span class="fu">basename</span>(file))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(file, zip_name)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  folder_name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".zip"</span>,<span class="st">""</span>,zip_name)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(folder_name)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(zip_name,<span class="at">exdir=</span>folder_name)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.remove</span>(zip_name)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">file.rename</span>(<span class="st">"Raw_FAERS_QD//faers_ascii_2018q1/ascii/DEMO18Q1_new.txt"</span>,<span class="st">"Raw_FAERS_QD//faers_ascii_2018q1/ascii/DEMO18Q1.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="improve-storage" class="level2">
+<h2 class="anchored" data-anchor-id="improve-storage">3. Improve storage</h2>
+<p>In each TXT ASCII file, entries are separated by a $ sign. These datasets were imported and saved to the RDS format to reduce memory usage. Better storage allows to occupy less memory on the computer and makes it faster to read and write files.</p>
+<p>When importing for the first time, some # signs and single quotes or apostrophe signs (') conflicted with the import. Furthermore, the header lines and the data lines had an inconsistent number of fields, due to a missing $ sign at the end of the header line, which caused improper data reading. Finally, the following errors occurred and required manual integration of the files:</p>
+<ul>
+<li><p>In&nbsp;DRUG2011Q2 there was a missing&nbsp;newline at line 322966</p></li>
+<li><p>In&nbsp;DRUG2011Q3 there was a missing newline at line 247895</p></li>
+<li><p>In&nbsp;DRUG2011Q4 there was a missing&nbsp;newline at line 446737</p></li>
+</ul>
+<p>Our script now allows overcoming these errors and conflicts.</p>
+<p><img src="images/Diagram.drawio-3.svg" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Improve storage--------------------------------------------------------------</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>faers_list <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path=</span><span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Raw_FAERS_QD/"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">recursive=</span>T,<span class="at">pattern=</span><span class="st">".TXT"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ignore.case =</span> T, <span class="at">full.names =</span> T)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>faers_list <span class="ot">&lt;-</span> faers_list[<span class="sc">!</span><span class="fu">str_detect</span>(faers_list,<span class="st">"STAT"</span>) <span class="sc">&amp;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                           <span class="sc">!</span><span class="fu">str_detect</span>(faers_list,<span class="st">"SIZE"</span>)]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#dir.create("Clean Data")</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv2</span>(faers_list, <span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">##correct for missing newlines in 3 txt files</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>problematic_file <span class="ot">&lt;-</span> <span class="fu">file</span>(<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Raw_FAERS_QD//aers_ascii_2011q2/ascii/DRUG11Q2.txt"</span>, <span class="at">open =</span> <span class="st">"r"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">readLines</span>(problematic_file)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(<span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$7475791"</span>,<span class="st">"</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$this_insertion_is_used_to_separate_lines7475791"</span>,lines),<span class="st">"this_insertion_is_used_to_separate_lines"</span>))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(lines,<span class="at">con =</span> <span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Raw_FAERS_QD//aers_ascii_2011q2/ascii/DRUG11Q2.txt"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>problematic_file <span class="ot">&lt;-</span> <span class="fu">file</span>(<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Raw_FAERS_QD//aers_ascii_2011q3/ascii/DRUG11Q3.txt"</span>, <span class="at">open =</span> <span class="st">"r"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">readLines</span>(problematic_file)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(<span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$7652730"</span>,<span class="st">"</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$</span><span class="sc">\\</span><span class="st">$this_insertion_is_used_to_separate_lines7652730"</span>,lines),<span class="st">"this_insertion_is_used_to_separate_lines"</span>))</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(lines,<span class="at">con =</span> <span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Raw_FAERS_QD//aers_ascii_2011q3/ascii/DRUG11Q3.txt"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>problematic_file <span class="ot">&lt;-</span> <span class="fu">file</span>(<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Raw_FAERS_QD//aers_ascii_2011q4/ascii/DRUG11Q4.txt"</span>, <span class="at">open =</span> <span class="st">"r"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">readLines</span>(problematic_file)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>lines <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(<span class="fu">gsub</span>(<span class="st">"021487</span><span class="sc">\\</span><span class="st">$7941354"</span>,<span class="st">"021487</span><span class="sc">\\</span><span class="st">$this_insertion_is_used_to_separate_lines7941354"</span>,lines),<span class="st">"this_insertion_is_used_to_separate_lines"</span>))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(lines,<span class="at">con =</span> <span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Raw_FAERS_QD//aers_ascii_2011q4/ascii/DRUG11Q4.txt"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>store_to_rds <span class="ot">&lt;-</span>  <span class="cf">function</span>(f){</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".TXT"</span>,<span class="st">".rds"</span>,f, <span class="at">ignore.case =</span> T)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (name)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  cn<span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(<span class="fu">readLines</span>(<span class="fu">file</span>(f),<span class="at">n=</span><span class="dv">1</span>),<span class="at">split =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">$"</span>))</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">read.table</span>(f,<span class="at">skip=</span><span class="dv">1</span>,<span class="at">sep=</span><span class="st">"$"</span>, <span class="at">comment.char =</span> <span class="st">""</span>,<span class="at">quote=</span><span class="st">""</span>,<span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(x) <span class="ot">&lt;-</span> cn</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">saveRDS</span>(x,<span class="at">file=</span>name)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">closeAllConnections</span>()</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(faers_list, store_to_rds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="merge-quarters" class="level2">
+<h2 class="anchored" data-anchor-id="merge-quarters">4. Merge quarters</h2>
+<p>We started to merge the quarters within each of the dataframe within the relational database, starting from the DEMO dataset, first for the LAERS and then for the FAERS data. Multiple conflicts emerged because of different variable names, not only between LAERS and FAERS, but also between different quarters from the FAERS. We reported both information about variables merged and excluded, and the step-by-step explanation for the script.</p>
+<section id="demo" class="level3">
+<h3 class="anchored" data-anchor-id="demo">DEMO</h3>
+<p>In particular, within the merging process for the dataset DEMO the following steps were performed to provide a cleaner database without conflict:</p>
+<ol type="1">
+<li><p>variable "quarter" was created</p></li>
+<li><p>variables "IMAGE", "CONFID" and "DEATH_DT" were excluded (not included in the FAERS for privacy reasons) to comply with privacy guidelines</p></li>
+<li><p>variables were renamed to avoid conflicts between LAERS and FAERS</p></li>
+<li><p>FAERS'sex was obtained combining sex and gndr_cod variables</p></li>
+<li><p>FAERS'reporter date was obtained combining "rept_dt" and " rept_dt"</p></li>
+<li><p>LAERS and FAERS were merged into a new dataset DEMO</p></li>
+<li><p>Empty DEMO cells were converted to NA (not available) to facilitate then duplicate removal</p></li>
+</ol>
+<p><img src="images/Diagram.drawio-5.svg" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>faers_list <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv"</span>)<span class="sc">$</span>x</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> faers_list[<span class="fu">str_detect</span>(faers_list,<span class="fu">regex</span>(<span class="st">"demo"</span>,<span class="at">ignore_case =</span> T))]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>unify_demo <span class="ot">&lt;-</span> <span class="cf">function</span>(files_list){</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fixing inconsistencies in column names between LAERS and FAERS</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  namekey <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">ISR=</span><span class="st">"primaryid"</span>,<span class="at">CASE=</span><span class="st">"caseid"</span>,<span class="at">FOLL_SEQ=</span><span class="st">"caseversion"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">I_F_COD=</span><span class="st">"i_f_cod"</span>,<span class="at">EVENT_DT=</span><span class="st">"event_dt"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">MFR_DT=</span><span class="st">"mfr_dt"</span>,<span class="at">FDA_DT=</span><span class="st">"fda_dt"</span>,<span class="at">REPT_COD=</span><span class="st">"rept_cod"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">MFR_NUM=</span><span class="st">"mfr_num"</span>,<span class="at">MFR_SNDR=</span><span class="st">"mfr_sndr"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">AGE=</span><span class="st">"age"</span>,<span class="at">AGE_COD=</span><span class="st">"age_cod"</span>,<span class="at">GNDR_COD=</span><span class="st">"sex"</span>,<span class="at">E_SUB=</span><span class="st">"e_sub"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">WT=</span><span class="st">"wt"</span>,<span class="at">WT_COD=</span><span class="st">"wt_cod"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">REPT_DT=</span><span class="st">"rept_dt"</span>, <span class="at">OCCP_COD=</span><span class="st">"occp_cod"</span>,<span class="at">TO_MFR=</span><span class="st">"to_mfr"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">REPORTER_COUNTRY=</span><span class="st">"reporter_country"</span>,<span class="at">quarter=</span><span class="st">"quarter"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">i_f_code=</span><span class="st">"i_f_cod"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">foreach</span> (<span class="at">f=</span>files_list) <span class="sc">%do%</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    {name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".TXT"</span>,<span class="st">".rds"</span>,f, <span class="at">ignore.case =</span> T)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(name)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(name)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">names</span>(x))]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    quart <span class="ot">&lt;-</span> <span class="fu">substr</span>(name, <span class="fu">nchar</span>(name)<span class="sc">-</span><span class="dv">7</span>, <span class="fu">nchar</span>(name)<span class="sc">-</span><span class="dv">4</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">setDT</span>(x)[,quarter<span class="sc">:</span><span class="er">=</span>quart]</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(x) <span class="ot">&lt;-</span> namekey[<span class="fu">names</span>(x)]</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">0</span>){y <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">list</span>(y,x),<span class="at">fill =</span> <span class="cn">TRUE</span>)}<span class="cf">else</span>{y <span class="ot">&lt;-</span> x}</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>DEMO <span class="ot">&lt;-</span> <span class="fu">unify_demo</span>(Demo)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>DEMO<span class="sc">$</span>rept_dt <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(DEMO<span class="sc">$</span>rept_dt),</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                       DEMO<span class="sc">$</span><span class="st">`</span><span class="at"> rept_dt</span><span class="st">`</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                       DEMO<span class="sc">$</span>rept_dt)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>DEMO<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="at">test=</span><span class="fu">is.na</span>(DEMO<span class="sc">$</span>sex),</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.character</span>(DEMO<span class="sc">$</span>gndr_cod),</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.character</span>(DEMO<span class="sc">$</span>sex))</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>DEMO <span class="ot">&lt;-</span> DEMO <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(IMAGE,</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                           DEATH_DT,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                           CONFID,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                           gndr_cod,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                           <span class="st">`</span><span class="at"> rept_dt</span><span class="st">`</span>))</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>DEMO[DEMO<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(DEMO,<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/DEMO.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/Diagram.drawio-4.svg" class="img-fluid"></p>
+<p><img src="images/Untitled-7.png" class="img-fluid"></p>
+<p><img src="images/Untitled-8.png" class="img-fluid"></p>
+<p><img src="images/Untitled-9.png" class="img-fluid"></p>
+<p><img src="images/Untitled-10.png" class="img-fluid"></p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
