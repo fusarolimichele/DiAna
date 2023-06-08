@@ -229,3 +229,201 @@ saveRDS(DEMO,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/DEMO.rds")
 ![](images/Untitled-9.png)
 
 ![](images/Untitled-10.png)
+
+### DRUG
+
+In particular, within the merging process for the dataset DRUG the following steps were performed to provide a cleaner database without conflict:
+
+1.  variables were renamed to avoid conflicts between LAERS and FAERS
+
+2.  \"lot num\" was completed with the information coming from \"lot_nbr\"
+
+3.  LAERS and FAERS were merged into a new dataset DRUG (including only general information about which drugs and the suspect degree) and a new dataset DRUG_INFO (including details about doses, formulations, dechallenge, and routes). Both these datasets kept the primary (primaryid) and secondary key (drug_seq)
+
+4.  Empty cells were converted to NA (not available) to facilitate then duplicate removal
+
+![](images/Diagram.drawio-6.svg)
+
+```{r eval=FALSE}
+faers_list <- read.csv2("D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv")$x
+Drug <- faers_list[str_detect(faers_list,regex("drug",ignore_case = T))]
+
+unify_drug <- function(files_list){
+  i <- 0
+  namekey <- c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
+               DRUGNAME="drugname",VAL_VBM="val_vbm",ROUTE="route",
+               DOSE_VBM="dose_vbm",DECHAL="dechal",
+               RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",
+               EXP_DT="exp_dt")
+  foreach (f=files_list) %do%
+    {name <- gsub(".TXT",".rds",f, ignore.case = T)
+    print(name)
+    x <- readRDS(name)
+    x <- x[!is.na(names(x))]
+    x <- setDT(x)
+    names(x) <- namekey[names(x)]
+    cols <- colnames(x)[colnames(x)%in%c("primaryid","drug_seq","role_cod",
+                                         "drugname","prod_ai")]
+    x <- x[,..cols]
+    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
+    i <- i+1
+    }
+  return(y)
+}
+
+DRUG <- unify_drug(Drug) %>% distinct()
+DRUG[DRUG==""] <- NA
+DRUG <- DRUG %>% distinct()
+saveRDS(DRUG,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Drug.rds")
+rm(DRUG)
+
+unify_drug_info <- function(files_list){
+  i <- 0
+  namekey <- c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
+               DRUGNAME="drugname",
+               VAL_VBM="val_vbm",ROUTE="route",DOSE_VBM="dose_vbm",DECHAL="dechal",
+               RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",EXP_DT="exp_dt")
+  foreach (f=files_list) %do%
+    {name <- gsub(".TXT",".rds",f, ignore.case = T)
+    print(name)
+    x <- readRDS(name)
+    x <- x[!is.na(names(x))]
+    x <- setDT(x)
+    names(x) <- namekey[names(x)]
+    cols <- colnames(x)[colnames(x)%in%c("primaryid","drug_seq",
+                                         "val_vbm","route","dose_vbm",
+                                         "dechal","rechal","lot_nbr",
+                                         "lot_num","nda_num",
+                                         "cum_dose_unit","cum_dose_chr",
+                                         "dose_amt",
+                                         "dose_unit","dose_form","dose_freq",
+                                         "exp_dt")]
+    x <- x[,..cols]
+    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
+    i <- i+1
+    }
+  return(y)
+}
+DRUG_INFO <- unify_drug_info(Drug)
+DRUG_INFO[DRUG_INFO==""] <- NA
+DRUG_INFO <- DRUG_INFO %>% distinct()
+DRUG_INFO$lot_num <- ifelse(!is.na(DRUG_INFO$lot_nbr)&DRUG_INFO$lot_nbr!="",
+                            DRUG_INFO$lot_nbr,
+                            DRUG_INFO$lot_num)
+DRUG_INFO <- DRUG_INFO %>% select(-lot_nbr)
+saveRDS(DRUG_INFO,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Drug_Info.rds")
+rm(DRUG_INFO)
+```
+
+The information included in the DRUG database was stored in two different data frames for storage convenience. One with general information (in white) and one with details doses, lot and expiration dates (in blue).
+
+![](images/Untitled-11.png)
+
+![](images/Untitled-12.png)
+
+![![](images/Untitled-14.png)](images/Untitled-13.png)
+
+### INDI
+
+In particular, within the merging process for the dataset INDI the following steps were performed to provide a cleaner database without conflict:
+
+1.  variables were renamed to avoid conflicts between LAERS and FAERS
+
+2.  LAERS and FAERS were merged into a new dataset INDI
+
+3.  Empty cells were converted to NA (not available) to facilitate then duplicate removal
+
+4.  Rows with no reported indication were removed
+
+![](images/Diagram.drawio-7.svg)
+
+```{r eval=FALSE}
+faers_list <- read.csv2("D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv")$x
+Indi <- faers_list[str_detect(faers_list,regex("indi",ignore_case = T))]
+unify_indi <- function(files_list){
+  i <- 0
+  namekey <- c(ISR="primaryid",DRUG_SEQ="drug_seq",INDI_PT="indi_pt",
+               indi_drug_seq="drug_seq")
+  foreach (f=files_list) %do%
+    {name <- gsub(".TXT",".rds",f, ignore.case = T)
+    print(name)
+    x <- readRDS(name)
+    x <- x[!is.na(names(x))]
+    quart <- substr(name, nchar(name)-7, nchar(name)-4)
+    x <- setDT(x)[,quarter:=quart]
+    names(x) <- namekey[names(x)]
+    cols <- colnames(x)[colnames(x)%in%c("primaryid","drug_seq",
+                                         "indi_pt")]
+    x <- x[,..cols]
+    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
+    i <- i+1
+    }
+  return(y)
+}
+INDI <- unify_indi(Indi) %>% distinct()
+INDI[INDI==""] <- NA
+INDI <- INDI %>% distinct()
+INDI <- INDI[!is.na(indi_pt)]
+saveRDS(INDI,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Indi.rds")
+rm(INDI)
+```
+
+![](images/Untitled-15.png)
+
+### OUTC
+
+In particular, within the merging process for the dataset OUTC the following steps were performed to provide a cleaner database without conflict:
+
+1.  variables were renamed to avoid conflicts between LAERS and FAERS
+
+2.  LAERS and FAERS were merged into a new dataset OUTC
+
+3.  Empty cells were converted to NA (not available) to facilitate then duplicate removal
+
+4.  Rows with no reported outcome were removed
+
+```{r}
+Outc <- faers_list[str_detect(faers_list,regex("outc",ignore_case = T))]
+unify_Outc <- function(files_list){
+  i <- 0
+  namekey <- c(ISR="primaryid",OUTC_COD="outc_cod")
+  foreach (f=files_list) %do%
+    {name <- gsub(".TXT",".rds",f, ignore.case = T)
+    print(name)
+    x <- readRDS(name)
+    x <- x[!is.na(names(x))]
+    quart <- substr(name, nchar(name)-7, nchar(name)-4)
+    x <- setDT(x)[,quarter:=quart]
+    names(x) <- namekey[names(x)]
+    cols <- colnames(x)[colnames(x)%in%c("primaryid","outc_cod","outc_code")]
+    x <- x[,..cols]
+    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
+    i <- i+1
+    }
+  return(y)
+}
+OUTC <- unify_Outc(Outc) %>% distinct()
+OUTC[OUTC==""] <- NA
+OUTC$outc_cod <- ifelse(is.na(OUTC$outc_cod),
+                        OUTC$outc_code,
+                        OUTC$outc_cod)
+OUTC <- OUTC %>% select(-outc_code)
+OUTC <- OUTC[!is.na(outc_cod)] %>% distinct()
+OUTC$outc_cod <- as.factor(OUTC$outc_cod)
+saveRDS(OUTC,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Outc.rds")
+rm(OUTC)
+```
+
+REAC
+
+RPSR
+
+THER
+
+## 5. Remove deleted (nullified) reports
+
+## 6. Standardization
+
+## 7. Flattening of case versions
+
+## 8. Deduplication
