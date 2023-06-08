@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quarterly Data features</title>
+<title>Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,16 +86,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="QData_features_files/libs/clipboard/clipboard.min.js"></script>
-<script src="QData_features_files/libs/quarto-html/quarto.js"></script>
-<script src="QData_features_files/libs/quarto-html/popper.min.js"></script>
-<script src="QData_features_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="QData_features_files/libs/quarto-html/anchor.min.js"></script>
-<link href="QData_features_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="QData_features_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="QData_features_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="QData_features_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="QData_features_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="Documentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Documentation_files/libs/quarto-html/quarto.js"></script>
+<script src="Documentation_files/libs/quarto-html/popper.min.js"></script>
+<script src="Documentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Documentation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Documentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Documentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Documentation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Documentation_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -108,7 +108,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quarterly Data features</h1>
+<h1 class="title">Documentation</h1>
 </div>
 
 
@@ -125,7 +125,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="quarterly-data-features" class="level1">
 <h1><strong>Quarterly Data Features</strong></h1>
-<p>Quarterly data files of the Food and Drug Administration Adverse Event Reporting System can be downloaded from the address&nbsp;<a href="https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html" class="uri">https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html</a>, both in ASCII and XML format. We work on the ASCII files, which delimits different fields by the "$" character. Neither of the two formats are intended to include all the possible data fields. All the information can be obtained through the Freedom of Information Act, referring to "CASE" field for LAERS ASCII files and "CASEID" for FAERS ASCII files.</p>
+<p>Quarterly data files of the Food and Drug Administration Adverse Event Reporting System can be downloaded from the address&nbsp;<a href="https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html" class="uri">https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html</a>, both in ASCII and XML format. We work on the ASCII files, which delimits different fields by the “$” character. Neither of the two formats are intended to include all the possible data fields. All the information can be obtained through the Freedom of Information Act, referring to “CASE” field for LAERS ASCII files and “CASEID” for FAERS ASCII files.</p>
 <p>Each year data is divided into four quarters: January-March, April-June, July-September, October-December. The first quarter of the FAERS is January-March 2004, but it includes also older reports. Each quarter is fractioned into the following datasets:</p>
 <ul>
 <li><p>DEMO (demographic and administrative information)</p></li>
@@ -145,7 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="cleaning-pipeline" class="level1">
 <h1><strong>Cleaning pipeline</strong></h1>
-<p>Here we describe step by step the cleaning procedure. Note that you don't need to understand what is happening at each line of code to have a cleaned database and you can simply run the script (you can also use the already cleaned database). Nonetheless, it is important to read the text accompanying the script to understand how the pre-processing is impacting on the following analysis. The script should be included, together with the project, in a folder called DIANA.</p>
+<p>Here we describe step by step the cleaning procedure. Note that you don’t need to understand what is happening at each line of code to have a cleaned database and you can simply run the script (you can also use the already cleaned database). Nonetheless, it is important to read the text accompanying the script to understand how the pre-processing is impacting on the following analysis. The script should be included, together with the project, in a folder called DIANA.</p>
 <p>It is important to have access to an internet connection because the script downloads the needed tools and the FAERS quarterly data from the internet.</p>
 <section id="set-up-packages" class="level2">
 <h2 class="anchored" data-anchor-id="set-up-packages">1. Set up packages</h2>
@@ -158,12 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>xml2: package built to perform operations on XML.</p></li>
 <li><p>rvest: package built to scrape the internet and download files.</p></li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Diagram.drawio.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Step 1 – Set up packages</figcaption><p></p>
-</figure>
-</div>
+<p><img src="images/Diagram.drawio.svg" class="img-fluid"></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set up packages-------------------------------------------------------------</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tools_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>,<span class="st">"data.table"</span>,<span class="st">"janitor"</span>,<span class="st">"foreach"</span>,<span class="st">"xml2"</span>,<span class="st">"rvest"</span>)</span>
@@ -200,7 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="improve-storage" class="level2">
 <h2 class="anchored" data-anchor-id="improve-storage">3. Improve storage</h2>
 <p>In each TXT ASCII file, entries are separated by a $ sign. These datasets were imported and saved to the RDS format to reduce memory usage. Better storage allows to occupy less memory on the computer and makes it faster to read and write files.</p>
-<p>When importing for the first time, some # signs and single quotes or apostrophe signs (') conflicted with the import. Furthermore, the header lines and the data lines had an inconsistent number of fields, due to a missing $ sign at the end of the header line, which caused improper data reading. Finally, the following errors occurred and required manual integration of the files:</p>
+<p>When importing for the first time, some # signs and single quotes or apostrophe signs (’) conflicted with the import. Furthermore, the header lines and the data lines had an inconsistent number of fields, due to a missing $ sign at the end of the header line, which caused improper data reading. Finally, the following errors occurred and required manual integration of the files:</p>
 <ul>
 <li><p>In&nbsp;DRUG2011Q2 there was a missing&nbsp;newline at line 322966</p></li>
 <li><p>In&nbsp;DRUG2011Q3 there was a missing newline at line 247895</p></li>
@@ -254,11 +249,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="demo">DEMO</h3>
 <p>In particular, within the merging process for the dataset DEMO the following steps were performed to provide a cleaner database without conflict:</p>
 <ol type="1">
-<li><p>variable "quarter" was created</p></li>
-<li><p>variables "IMAGE", "CONFID" and "DEATH_DT" were excluded (not included in the FAERS for privacy reasons) to comply with privacy guidelines</p></li>
+<li><p>variable “quarter” was created</p></li>
+<li><p>variables “IMAGE”, “CONFID” and “DEATH_DT” were excluded (not included in the FAERS for privacy reasons) to comply with privacy guidelines</p></li>
 <li><p>variables were renamed to avoid conflicts between LAERS and FAERS</p></li>
-<li><p>FAERS'sex was obtained combining sex and gndr_cod variables</p></li>
-<li><p>FAERS'reporter date was obtained combining "rept_dt" and " rept_dt"</p></li>
+<li><p>FAERS’sex was obtained combining sex and gndr_cod variables</p></li>
+<li><p>FAERS’reporter date was obtained combining “rept_dt” and ” rept_dt”</p></li>
 <li><p>LAERS and FAERS were merged into a new dataset DEMO</p></li>
 <li><p>Empty DEMO cells were converted to NA (not available) to facilitate then duplicate removal</p></li>
 </ol>
@@ -312,6 +307,194 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="images/Untitled-9.png" class="img-fluid"></p>
 <p><img src="images/Untitled-10.png" class="img-fluid"></p>
 </section>
+<section id="drug" class="level3">
+<h3 class="anchored" data-anchor-id="drug">DRUG</h3>
+<p>In particular, within the merging process for the dataset DRUG the following steps were performed to provide a cleaner database without conflict:</p>
+<ol type="1">
+<li><p>variables were renamed to avoid conflicts between LAERS and FAERS</p></li>
+<li><p>“lot num” was completed with the information coming from “lot_nbr”</p></li>
+<li><p>LAERS and FAERS were merged into a new dataset DRUG (including only general information about which drugs and the suspect degree) and a new dataset DRUG_INFO (including details about doses, formulations, dechallenge, and routes). Both these datasets kept the primary (primaryid) and secondary key (drug_seq)</p></li>
+<li><p>Empty cells were converted to NA (not available) to facilitate then duplicate removal</p></li>
+</ol>
+<p><img src="images/Diagram.drawio-6.svg" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>faers_list <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv"</span>)<span class="sc">$</span>x</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Drug <span class="ot">&lt;-</span> faers_list[<span class="fu">str_detect</span>(faers_list,<span class="fu">regex</span>(<span class="st">"drug"</span>,<span class="at">ignore_case =</span> T))]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>unify_drug <span class="ot">&lt;-</span> <span class="cf">function</span>(files_list){</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  namekey <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">ISR=</span><span class="st">"primaryid"</span>,<span class="at">DRUG_SEQ=</span><span class="st">"drug_seq"</span>,<span class="at">ROLE_COD=</span><span class="st">"role_cod"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">DRUGNAME=</span><span class="st">"drugname"</span>,<span class="at">VAL_VBM=</span><span class="st">"val_vbm"</span>,<span class="at">ROUTE=</span><span class="st">"route"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">DOSE_VBM=</span><span class="st">"dose_vbm"</span>,<span class="at">DECHAL=</span><span class="st">"dechal"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">RECHAL=</span><span class="st">"rechal"</span>,<span class="at">LOT_NUM=</span><span class="st">"lot_num"</span>,<span class="at">NDA_NUM=</span><span class="st">"nda_num"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">EXP_DT=</span><span class="st">"exp_dt"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">foreach</span> (<span class="at">f=</span>files_list) <span class="sc">%do%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    {name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".TXT"</span>,<span class="st">".rds"</span>,f, <span class="at">ignore.case =</span> T)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(name)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(name)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">names</span>(x))]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">setDT</span>(x)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(x) <span class="ot">&lt;-</span> namekey[<span class="fu">names</span>(x)]</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)[<span class="fu">colnames</span>(x)<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">"primaryid"</span>,<span class="st">"drug_seq"</span>,<span class="st">"role_cod"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"drugname"</span>,<span class="st">"prod_ai"</span>)]</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[,..cols]</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">0</span>){y <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">list</span>(y,x),<span class="at">fill =</span> <span class="cn">TRUE</span>)}<span class="cf">else</span>{y <span class="ot">&lt;-</span> x}</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>DRUG <span class="ot">&lt;-</span> <span class="fu">unify_drug</span>(Drug) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>DRUG[DRUG<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>DRUG <span class="ot">&lt;-</span> DRUG <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(DRUG,<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Drug.rds"</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(DRUG)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>unify_drug_info <span class="ot">&lt;-</span> <span class="cf">function</span>(files_list){</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  namekey <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">ISR=</span><span class="st">"primaryid"</span>,<span class="at">DRUG_SEQ=</span><span class="st">"drug_seq"</span>,<span class="at">ROLE_COD=</span><span class="st">"role_cod"</span>,</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>               <span class="at">DRUGNAME=</span><span class="st">"drugname"</span>,</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>               <span class="at">VAL_VBM=</span><span class="st">"val_vbm"</span>,<span class="at">ROUTE=</span><span class="st">"route"</span>,<span class="at">DOSE_VBM=</span><span class="st">"dose_vbm"</span>,<span class="at">DECHAL=</span><span class="st">"dechal"</span>,</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>               <span class="at">RECHAL=</span><span class="st">"rechal"</span>,<span class="at">LOT_NUM=</span><span class="st">"lot_num"</span>,<span class="at">NDA_NUM=</span><span class="st">"nda_num"</span>,<span class="at">EXP_DT=</span><span class="st">"exp_dt"</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">foreach</span> (<span class="at">f=</span>files_list) <span class="sc">%do%</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    {name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".TXT"</span>,<span class="st">".rds"</span>,f, <span class="at">ignore.case =</span> T)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(name)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(name)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">names</span>(x))]</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">setDT</span>(x)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(x) <span class="ot">&lt;-</span> namekey[<span class="fu">names</span>(x)]</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)[<span class="fu">colnames</span>(x)<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">"primaryid"</span>,<span class="st">"drug_seq"</span>,</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"val_vbm"</span>,<span class="st">"route"</span>,<span class="st">"dose_vbm"</span>,</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"dechal"</span>,<span class="st">"rechal"</span>,<span class="st">"lot_nbr"</span>,</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"lot_num"</span>,<span class="st">"nda_num"</span>,</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"cum_dose_unit"</span>,<span class="st">"cum_dose_chr"</span>,</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"dose_amt"</span>,</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"dose_unit"</span>,<span class="st">"dose_form"</span>,<span class="st">"dose_freq"</span>,</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"exp_dt"</span>)]</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[,..cols]</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">0</span>){y <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">list</span>(y,x),<span class="at">fill =</span> <span class="cn">TRUE</span>)}<span class="cf">else</span>{y <span class="ot">&lt;-</span> x}</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>DRUG_INFO <span class="ot">&lt;-</span> <span class="fu">unify_drug_info</span>(Drug)</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>DRUG_INFO[DRUG_INFO<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>DRUG_INFO <span class="ot">&lt;-</span> DRUG_INFO <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>DRUG_INFO<span class="sc">$</span>lot_num <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(DRUG_INFO<span class="sc">$</span>lot_nbr)<span class="sc">&amp;</span>DRUG_INFO<span class="sc">$</span>lot_nbr<span class="sc">!=</span><span class="st">""</span>,</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>                            DRUG_INFO<span class="sc">$</span>lot_nbr,</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>                            DRUG_INFO<span class="sc">$</span>lot_num)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>DRUG_INFO <span class="ot">&lt;-</span> DRUG_INFO <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>lot_nbr)</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(DRUG_INFO,<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Drug_Info.rds"</span>)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(DRUG_INFO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The information included in the DRUG database was stored in two different data frames for storage convenience. One with general information (in white) and one with details doses, lot and expiration dates (in blue).</p>
+<p><img src="images/Untitled-11.png" class="img-fluid"></p>
+<p><img src="images/Untitled-12.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Untitled-13.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><img src="images/Untitled-14.png" class="img-fluid figure-img"></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="indi" class="level3">
+<h3 class="anchored" data-anchor-id="indi">INDI</h3>
+<p>In particular, within the merging process for the dataset INDI the following steps were performed to provide a cleaner database without conflict:</p>
+<ol type="1">
+<li><p>variables were renamed to avoid conflicts between LAERS and FAERS</p></li>
+<li><p>LAERS and FAERS were merged into a new dataset INDI</p></li>
+<li><p>Empty cells were converted to NA (not available) to facilitate then duplicate removal</p></li>
+<li><p>Rows with no reported indication were removed</p></li>
+</ol>
+<p><img src="images/Diagram.drawio-7.svg" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>faers_list <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv"</span>)<span class="sc">$</span>x</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Indi <span class="ot">&lt;-</span> faers_list[<span class="fu">str_detect</span>(faers_list,<span class="fu">regex</span>(<span class="st">"indi"</span>,<span class="at">ignore_case =</span> T))]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>unify_indi <span class="ot">&lt;-</span> <span class="cf">function</span>(files_list){</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  namekey <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">ISR=</span><span class="st">"primaryid"</span>,<span class="at">DRUG_SEQ=</span><span class="st">"drug_seq"</span>,<span class="at">INDI_PT=</span><span class="st">"indi_pt"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">indi_drug_seq=</span><span class="st">"drug_seq"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">foreach</span> (<span class="at">f=</span>files_list) <span class="sc">%do%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    {name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".TXT"</span>,<span class="st">".rds"</span>,f, <span class="at">ignore.case =</span> T)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(name)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(name)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">names</span>(x))]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    quart <span class="ot">&lt;-</span> <span class="fu">substr</span>(name, <span class="fu">nchar</span>(name)<span class="sc">-</span><span class="dv">7</span>, <span class="fu">nchar</span>(name)<span class="sc">-</span><span class="dv">4</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">setDT</span>(x)[,quarter<span class="sc">:</span><span class="er">=</span>quart]</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(x) <span class="ot">&lt;-</span> namekey[<span class="fu">names</span>(x)]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)[<span class="fu">colnames</span>(x)<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">"primaryid"</span>,<span class="st">"drug_seq"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"indi_pt"</span>)]</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[,..cols]</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">0</span>){y <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">list</span>(y,x),<span class="at">fill =</span> <span class="cn">TRUE</span>)}<span class="cf">else</span>{y <span class="ot">&lt;-</span> x}</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>INDI <span class="ot">&lt;-</span> <span class="fu">unify_indi</span>(Indi) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>INDI[INDI<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>INDI <span class="ot">&lt;-</span> INDI <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>INDI <span class="ot">&lt;-</span> INDI[<span class="sc">!</span><span class="fu">is.na</span>(indi_pt)]</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(INDI,<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Indi.rds"</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(INDI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/Untitled-15.png" class="img-fluid"></p>
+</section>
+<section id="outc" class="level3">
+<h3 class="anchored" data-anchor-id="outc">OUTC</h3>
+<p>In particular, within the merging process for the dataset OUTC the following steps were performed to provide a cleaner database without conflict:</p>
+<ol type="1">
+<li><p>variables were renamed to avoid conflicts between LAERS and FAERS</p></li>
+<li><p>LAERS and FAERS were merged into a new dataset OUTC</p></li>
+<li><p>Empty cells were converted to NA (not available) to facilitate then duplicate removal</p></li>
+<li><p>Rows with no reported outcome were removed</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Outc <span class="ot">&lt;-</span> faers_list[<span class="fu">str_detect</span>(faers_list,<span class="fu">regex</span>(<span class="st">"outc"</span>,<span class="at">ignore_case =</span> T))]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>unify_Outc <span class="ot">&lt;-</span> <span class="cf">function</span>(files_list){</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  namekey <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">ISR=</span><span class="st">"primaryid"</span>,<span class="at">OUTC_COD=</span><span class="st">"outc_cod"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">foreach</span> (<span class="at">f=</span>files_list) <span class="sc">%do%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    {name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".TXT"</span>,<span class="st">".rds"</span>,f, <span class="at">ignore.case =</span> T)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(name)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(name)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">names</span>(x))]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    quart <span class="ot">&lt;-</span> <span class="fu">substr</span>(name, <span class="fu">nchar</span>(name)<span class="sc">-</span><span class="dv">7</span>, <span class="fu">nchar</span>(name)<span class="sc">-</span><span class="dv">4</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">setDT</span>(x)[,quarter<span class="sc">:</span><span class="er">=</span>quart]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(x) <span class="ot">&lt;-</span> namekey[<span class="fu">names</span>(x)]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)[<span class="fu">colnames</span>(x)<span class="sc">%in%</span><span class="fu">c</span>(<span class="st">"primaryid"</span>,<span class="st">"outc_cod"</span>,<span class="st">"outc_code"</span>)]</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x[,..cols]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">0</span>){y <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">list</span>(y,x),<span class="at">fill =</span> <span class="cn">TRUE</span>)}<span class="cf">else</span>{y <span class="ot">&lt;-</span> x}</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>OUTC <span class="ot">&lt;-</span> <span class="fu">unify_Outc</span>(Outc) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>OUTC[OUTC<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>OUTC<span class="sc">$</span>outc_cod <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(OUTC<span class="sc">$</span>outc_cod),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                        OUTC<span class="sc">$</span>outc_code,</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>                        OUTC<span class="sc">$</span>outc_cod)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>OUTC <span class="ot">&lt;-</span> OUTC <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>outc_code)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>OUTC <span class="ot">&lt;-</span> OUTC[<span class="sc">!</span><span class="fu">is.na</span>(outc_cod)] <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>OUTC<span class="sc">$</span>outc_cod <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(OUTC<span class="sc">$</span>outc_cod)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(OUTC,<span class="st">"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Outc.rds"</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(OUTC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>REAC</p>
+<p>RPSR</p>
+<p>THER</p>
+</section>
+</section>
+<section id="remove-deleted-nullified-reports" class="level2">
+<h2 class="anchored" data-anchor-id="remove-deleted-nullified-reports">5. Remove deleted (nullified) reports</h2>
+</section>
+<section id="standardization" class="level2">
+<h2 class="anchored" data-anchor-id="standardization">6. Standardization</h2>
+</section>
+<section id="flattening-of-case-versions" class="level2">
+<h2 class="anchored" data-anchor-id="flattening-of-case-versions">7. Flattening of case versions</h2>
+</section>
+<section id="deduplication" class="level2">
+<h2 class="anchored" data-anchor-id="deduplication">8. Deduplication</h2>
 </section>
 </section>
 

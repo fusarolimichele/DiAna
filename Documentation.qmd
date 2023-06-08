@@ -1,12 +1,12 @@
 ---
-title: "Quarterly Data features"
+title: "Documentation"
 format: html
 editor: visual
 ---
 
 # **Quarterly Data Features**
 
-Quarterly data files of the Food and Drug Administration Adverse Event Reporting System can be downloaded from the address <https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html>, both in ASCII and XML format. We work on the ASCII files, which delimits different fields by the \"\$\" character. Neither of the two formats are intended to include all the possible data fields. All the information can be obtained through the Freedom of Information Act, referring to \"CASE\" field for LAERS ASCII files and \"CASEID\" for FAERS ASCII files.
+Quarterly data files of the Food and Drug Administration Adverse Event Reporting System can be downloaded from the address <https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html>, both in ASCII and XML format. We work on the ASCII files, which delimits different fields by the "\$" character. Neither of the two formats are intended to include all the possible data fields. All the information can be obtained through the Freedom of Information Act, referring to "CASE" field for LAERS ASCII files and "CASEID" for FAERS ASCII files.
 
 Each year data is divided into four quarters: January-March, April-June, July-September, October-December. The first quarter of the FAERS is January-March 2004, but it includes also older reports. Each quarter is fractioned into the following datasets:
 
@@ -38,7 +38,7 @@ This is the Entity Relationship Diagram of the new FAERS, with each primaryid id
 
 # **Cleaning pipeline**
 
-Here we describe step by step the cleaning procedure. Note that you don\'t need to understand what is happening at each line of code to have a cleaned database and you can simply run the script (you can also use the already cleaned database). Nonetheless, it is important to read the text accompanying the script to understand how the pre-processing is impacting on the following analysis. The script should be included, together with the project, in a folder called DIANA.
+Here we describe step by step the cleaning procedure. Note that you don't need to understand what is happening at each line of code to have a cleaned database and you can simply run the script (you can also use the already cleaned database). Nonetheless, it is important to read the text accompanying the script to understand how the pre-processing is impacting on the following analysis. The script should be included, together with the project, in a folder called DIANA.
 
 It is important to have access to an internet connection because the script downloads the needed tools and the FAERS quarterly data from the internet.
 
@@ -101,7 +101,7 @@ file.rename("Raw_FAERS_QD//faers_ascii_2018q1/ascii/DEMO18Q1_new.txt","Raw_FAERS
 
 In each TXT ASCII file, entries are separated by a \$ sign. These datasets were imported and saved to the RDS format to reduce memory usage. Better storage allows to occupy less memory on the computer and makes it faster to read and write files.
 
-When importing for the first time, some \# signs and single quotes or apostrophe signs (\') conflicted with the import. Furthermore, the header lines and the data lines had an inconsistent number of fields, due to a missing \$ sign at the end of the header line, which caused improper data reading. Finally, the following errors occurred and required manual integration of the files:
+When importing for the first time, some \# signs and single quotes or apostrophe signs (') conflicted with the import. Furthermore, the header lines and the data lines had an inconsistent number of fields, due to a missing \$ sign at the end of the header line, which caused improper data reading. Finally, the following errors occurred and required manual integration of the files:
 
 -   In DRUG2011Q2 there was a missing newline at line 322966
 
@@ -160,15 +160,15 @@ We started to merge the quarters within each of the dataframe within the relatio
 
 In particular, within the merging process for the dataset DEMO the following steps were performed to provide a cleaner database without conflict:
 
-1.  variable \"quarter\" was created
+1.  variable "quarter" was created
 
-2.  variables \"IMAGE\", \"CONFID\" and \"DEATH_DT\" were excluded (not included in the FAERS for privacy reasons) to comply with privacy guidelines
+2.  variables "IMAGE", "CONFID" and "DEATH_DT" were excluded (not included in the FAERS for privacy reasons) to comply with privacy guidelines
 
 3.  variables were renamed to avoid conflicts between LAERS and FAERS
 
-4.  FAERS\'sex was obtained combining sex and gndr_cod variables
+4.  FAERS'sex was obtained combining sex and gndr_cod variables
 
-5.  FAERS\'reporter date was obtained combining \"rept_dt\" and \" rept_dt\"
+5.  FAERS'reporter date was obtained combining "rept_dt" and " rept_dt"
 
 6.  LAERS and FAERS were merged into a new dataset DEMO
 
@@ -236,7 +236,7 @@ In particular, within the merging process for the dataset DRUG the following ste
 
 1.  variables were renamed to avoid conflicts between LAERS and FAERS
 
-2.  \"lot num\" was completed with the information coming from \"lot_nbr\"
+2.  "lot num" was completed with the information coming from "lot_nbr"
 
 3.  LAERS and FAERS were merged into a new dataset DRUG (including only general information about which drugs and the suspect degree) and a new dataset DRUG_INFO (including details about doses, formulations, dechallenge, and routes). Both these datasets kept the primary (primaryid) and secondary key (drug_seq)
 
@@ -382,7 +382,7 @@ In particular, within the merging process for the dataset OUTC the following ste
 
 4.  Rows with no reported outcome were removed
 
-```{r}
+```{r eval=FALSE}
 Outc <- faers_list[str_detect(faers_list,regex("outc",ignore_case = T))]
 unify_Outc <- function(files_list){
   i <- 0
