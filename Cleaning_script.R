@@ -59,6 +59,7 @@ store_to_rds <-  function(f){
 
 invisible(lapply(faers_list, store_to_rds))
 
+
 ## Merge quarters--------------------------------------------------------------
 
 faers_list <- read.csv2("Clean Data/faers_list.csv")$x
@@ -127,10 +128,10 @@ DRUG <- unify_data(faers_list[str_detect(faers_list,regex("drug",ignore_case = T
                    c("primaryid","drug_seq","role_cod","drugname","prod_ai"),
                    NA,
                    NA)
-saveRDS(DEMO,"Clean Data/DEMO.rds")
+saveRDS(DRUG,"Clean Data/DRUG.rds")
 rm(DRUG)
 
-DRUG_INFO <- unify_data(faers_list[str_detect(faers_list,regex("drug_info",ignore_case = T))],
+DRUG_INFO <- unify_data(faers_list[str_detect(faers_list,regex("drug",ignore_case = T))],
                         c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
                           DRUGNAME="drugname",VAL_VBM="val_vbm",ROUTE="route",
                           DOSE_VBM="dose_vbm",DECHAL="dechal",
@@ -149,11 +150,11 @@ INDΙ <- unify_data(faers_list[str_detect(faers_list,regex("indi",ignore_case = 
                    c(ISR="primaryid",DRUG_SEQ="drug_seq",
                      indi_drug_seq="drug_seq",INDI_PT="indi_pt"),
                    c("primaryid","drug_seq","indi_pt"),
-                   c("lot_num"),
-                   c("lot_nbr"))
-INDI <- INDI[!is.na(indi_pt)]
-saveRDS(INDI,"Clean Data/INDI.rds")
-rm(INDI)
+                   NA,
+                   NA)
+INDΙ <- INDΙ[!is.na(indi_pt)]
+saveRDS(INDΙ,"Clean Data/INDI.rds")
+rm(INDΙ)
 
 OUTC <- unify_data(faers_list[str_detect(faers_list,regex("outc",ignore_case = T))],
                    c(ISR="primaryid",OUTC_COD="outc_cod"),
@@ -192,3 +193,106 @@ THER <- unify_data(faers_list[str_detect(faers_list,regex("ther",ignore_case = T
 saveRDS(THER,"Clean Data/THER.rds")
 rm(THER)
 
+##MedDRA standardization-------------------------------------------------------
+# Importing MedDRA
+soc <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc.asc",
+                 sep = "$", header=F) %>% select(1:3)
+colnames(soc) <- c("soc_cod","soc","def")
+soc_hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc_hlgt.asc",
+                      sep = "$", header=F) %>% select(1:2)
+colnames(soc_hlgt) <- c("soc_cod","hlgt_cod")
+hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt.asc",
+                  sep = "$", header=F) %>% select(1:2)
+colnames(hlgt) <- c("hlgt_cod","hlgt")
+hlgt_hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt_hlt.asc",
+                      sep = "$", header=F) %>% select(1:2)
+colnames(hlgt_hlt) <- c("hlgt_cod","hlt_cod")
+hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt.asc",
+                 sep = "$", header=F) %>% select(1:2)
+colnames(hlt) <- c("hlt_cod","hlt")
+hlt_pt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt_pt.asc",
+                    sep = "$", header=F)  %>% select(1:2)
+colnames(hlt_pt) <- c("hlt_cod","pt_cod")
+pts <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/pt.asc",
+                 sep = "$", header=F) %>% select(1:2,4)
+colnames(pts) <- c("pt_cod","pt","primary_soc_cod")
+llt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/llt.asc",
+                 sep = "$", header=F) %>% select(1:3)
+colnames(llt) <- c("llt_cod","llt","pt_cod")
+# Merge the data
+meddra <- setDT(merge(merge(merge(merge(merge(merge(merge(
+  soc, soc_hlgt,all = TRUE),hlgt, all = TRUE),hlgt_hlt,all = TRUE),
+  hlt, all = TRUE), hlt_pt, all = TRUE), pts, all = TRUE), llt,all=TRUE))
+# Convert to lowercase
+meddra[,(colnames(meddra)):=lapply(.SD, tolower),]
+# Write the data to CSV files
+write.csv2(distinct(meddra[,.(def,soc, hlgt,hlt,pt,llt)]),
+           "External Sources/Dictionaries/MedDRA/meddra.csv")
+write.csv2(distinct(meddra[soc_cod==primary_soc_cod][,.(def,soc, hlgt,hlt,pt)]),
+           "External Sources/Dictionaries/MedDRA/meddra_primary.csv")
+
+
+##common function----------------------------------------
+# Read PT file and extract unique lowercase PT values
+pt_list <- unique(tolower(trimws(
+  setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))$pt)))
+manual_fix_file <- "External Sources/Manual_fix/pt_fixed.csv"
+standardize_PT <- function(data_file, pt_variable) {
+  # Read data file
+  data <- setDT(readRDS(data_file))
+  
+  # Extract PTs from data and calculate frequencies
+  pt_freq <- data[, .(pt = tolower(trimws(get(pt_variable))))][
+    !is.na(pt)][, .N, by = "pt"][order(-N)]
+  
+  # Check if PTs are standardized or not
+  pt_freq[, standard_pt := ifelse(pt %in% pt_list, pt, NA)]
+  pt_freq[, freq := round(N/sum(N) * 100, 2)]
+  
+  # Get unstandardized PTs
+  not_pts <- pt_freq[is.na(standard_pt)][, .(pt, N, freq)]
+  print(paste0("The portion of non standardized PTs at the beginning is ",
+               round(sum(not_pts$N)*100/nrow(data[!is.na(get(pt_variable))]),3)))
+  
+  # Try to translate unstandardized PTs through LLTs
+  llts <- left_join(not_pts, setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))[
+    , .(standard_pt = pt, pt = llt)])
+  not_llts <- llts[is.na(standard_pt)] %>% select(-standard_pt)
+  
+  # If still untraslated, use manual integration
+  pt_fixed <- setDT(read.csv2(manual_fix_file))[, .(pt, standard_pt)]
+  manual <- left_join(not_llts, pt_fixed)[is.na(standard_pt),][, .(pt, standard_pt)]
+  
+  # Combine PTs from LLTs, manual integration, and already standardized PTs
+  pt_fixed <- distinct(rbindlist(list(pt_fixed, manual, llts[!is.na(standard_pt), .(pt, standard_pt)])))
+  unstandardized_pts <- pt_fixed[is.na(standard_pt)]
+  # Write updated manual fix file
+  write.csv2(pt_fixed, manual_fix_file)
+  print(paste0(nrow(unstandardized_pts),
+               " pts are not standardized using LLTs or previously proposed manual fix: ",
+               paste0(unstandardized_pts$pt,collapse = "; "),
+               ". Consider updating the pt_fixed.csv file."))
+  pt_fixed <- setDT(read.csv2(manual_fix_file))[, .(pt_temp=pt, standard_pt)]
+  # Update PTs in the data file
+  data <- pt_fixed[data[, pt_temp := tolower(trimws(get(pt_variable)))], on = "pt_temp"][
+    ,pt_temp := ifelse(is.na(standard_pt), pt_temp, standard_pt)] %>% select(-standard_pt)
+  data <- data %>% select(-all_of(pt_variable))
+  # Calculate the portion of standardized PTs
+  standardized_percentage <- round(nrow(data[pt_temp %in% pt_list]) * 100 / nrow(data[!is.na(pt_temp)]), 3)
+  print(paste0("The portion of standardized PTs at the end is ",
+               standardized_percentage))
+  setnames(data,old="pt_temp",new=pt_variable)
+  
+  # Return the standardized data and standardized percentage
+  return(data)
+}
+
+Reac <- standardize_PT("Clean Data/Reac.rds","pt")
+#consider updating the pt_fixed file
+saveRDS(Reac,"Clean Data/Reac.rds")
+Reac <- standardize_PT("Clean Data/Reac.rds","drug_rec_act")
+#consider updating the pt_fixed file
+saveRDS(Reac,"Clean Data/Reac.rds")
+Indi <- standardize_PT("Clean Data/Indi.rds","indi_pt")
+#consider updating the pt_fixed file
+saveRDS(Indi,"Clean Data/Indi.rds")

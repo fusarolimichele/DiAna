@@ -479,9 +479,9 @@ rm(OUTC)
 
 ### THER
 
-## 5. Remove deleted (nullified) reports
+## 3. Standardization
 
-## 6. Standardization
+## 6. Remove deleted (nullified) reports
 
 ## 7. Flattening of case versions
 
