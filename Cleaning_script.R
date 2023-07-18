@@ -303,7 +303,7 @@ saveRDS(Indi,"Clean Data/Indi.rds")
 
 ##Drug standardization-------------------------------------------------------
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
-old_DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized-2.xlsx"))[
+old_DIANA_dictionary <- setDT(read.csv2("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.csv"))[
   ,.(drugname,Substance,Checked,OpenRefine)][Substance!="na"][!is.na(Substance)]
 
 Drug <-Drug[,drugname:=gsub("\\s+"," ",trimws(gsub("\\.$","",trimws(tolower(drugname)))))]

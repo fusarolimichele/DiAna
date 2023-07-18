@@ -535,7 +535,7 @@ The FDA Adverse Event Reporting System (FAERS) receives drug names in various fo
 
 ```{r eval = FALSE}
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
-old_DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized-2.xlsx"))[
+old_DIANA_dictionary <- setDT(read.csv2("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.csv"))[
   ,.(drugname,Substance,Checked,OpenRefine)][Substance!="na"][!is.na(Substance)]
 
 Drug <-Drug[,drugname:=gsub("\\s+"," ",trimws(gsub("\\.$","",trimws(tolower(drugname)))))]
@@ -741,6 +741,31 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 ### ![](images/Screenshot%202023-07-18%20at%2018.33.28.png)
 
 ### Country
+
+```{r eval = F}
+Countries <- setDT(read_delim("External Sources/countries.csv",";", escape_double = FALSE, trim_ws = TRUE))
+Countries[union(Demo$occr_country,Demo$reporter_country),on="country"][is.na(Country_Name)] #check if new not translated
+Countries[is.na(Countries)] <- "NA"
+Demo <- Countries[,.(occr_country=country,occr_country_st=Country_Name)][Demo,on="occr_country"] 
+Demo <- Countries[,.(reporter_country=country,rept_country_st=Country_Name)][Demo,on="reporter_country"] 
+Demo[rept_country_st!=occr_country_st][,.(rept_country_st,occr_country_st)][!is.na(occr_country_st)&!is.na(rept_country_st)]
+Demo[,country:=ifelse(is.na(occr_country_st),rept_country_st,occr_country_st)]
+Demo[rept_country_st==country]$rept_country_st <- NA
+Demo[,.N,by="country"][order(-N)]
+Demo <- Demo %>% select(-reporter_country,-occr_country,-occr_country_st) %>% droplevels()
+hist(Demo$age_in_years)
+saveRDS(Demo,"Clean Data/DEMO.rds")
+```
+
+### Occupation
+
+```{r eval = F}
+Demo[,.N,by="occp_cod"][order(-N)]
+Demo[!occp_cod%in%c("MD","CN","OT","PH","HP","LW")]$occp_cod <- NA
+Demo <- Demo %>% droplevels()
+saveRDS(Demo,"Clean Data/DEMO.rds")
+rm(list=ls())
+```
 
 ## 6. Remove deleted (nullified) reports
 
