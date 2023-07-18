@@ -190,7 +190,7 @@ To address these conflicts, we built a function and documented the details of me
 
 ![](images/Screenshot%202023-07-18%20at%2012.56.37.png)
 
-```{r}
+```{r eval=FALSE}
 faers_list <- read.csv2("Clean Data/faers_list.csv")$x
 
 unify_data <- function(files_list, namekey, column_subset,
@@ -280,7 +280,7 @@ rm(DEMO)
 
 ### DRUG
 
-To ensure a cleaner and conflict-free database, the following steps were taken during the merging process for the DEMO dataset:
+To ensure a cleaner and conflict-free database, the following steps were taken during the merging process:
 
 1.  The FAERS variable "lot num" was derived by combining the "lot num" and "lot_nbr" variables.
 
@@ -327,110 +327,86 @@ The information included in the DRUG database was stored in two different data f
 
 ### INDI
 
-To ensure a cleaner and conflict-free database, the following steps were taken during the merging process for the DEMO dataset:
-
-1.  The FAERS variable "lot num" was derived by combining the "lot num" and "lot_nbr" variables.
-
-2.  LAERS and FAERS were merged into a new dataset DRUG (including only general information about which drugs and the suspect degree) and a new dataset DRUG_INFO (including details about doses, formulations, dechallenge, and routes). Both these datasets kept the primary (primaryid) and secondary key (drug_seq)
-
-In particular we run the function unify_data with the parameters shown in the script below, and then saved the database as an RDS
-
-In particular, within the merging process for the dataset INDI the following steps were performed to provide a cleaner database without conflict:
-
-1.  variables were renamed to avoid conflicts between LAERS and FAERS
-
-2.  LAERS and FAERS were merged into a new dataset INDI
-
-3.  Empty cells were converted to NA (not available) to facilitate then duplicate removal
-
-4.  Rows with no reported indication were removed
-
-![](images/Diagram.drawio-7.svg)
+To ensure a cleaner and conflict-free database, we run the function unify_data with the parameters shown in the script below, and then removed rows with no indication specified and saved the database as an RDS
 
 ```{r eval=FALSE}
-faers_list <- read.csv2("D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv")$x
-Indi <- faers_list[str_detect(faers_list,regex("indi",ignore_case = T))]
-unify_indi <- function(files_list){
-  i <- 0
-  namekey <- c(ISR="primaryid",DRUG_SEQ="drug_seq",INDI_PT="indi_pt",
-               indi_drug_seq="drug_seq")
-  foreach (f=files_list) %do%
-    {name <- gsub(".TXT",".rds",f, ignore.case = T)
-    print(name)
-    x <- readRDS(name)
-    x <- x[!is.na(names(x))]
-    quart <- substr(name, nchar(name)-7, nchar(name)-4)
-    x <- setDT(x)[,quarter:=quart]
-    names(x) <- namekey[names(x)]
-    cols <- colnames(x)[colnames(x)%in%c("primaryid","drug_seq",
-                                         "indi_pt")]
-    x <- x[,..cols]
-    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
-    i <- i+1
-    }
-  return(y)
-}
-INDI <- unify_indi(Indi) %>% distinct()
-INDI[INDI==""] <- NA
-INDI <- INDI %>% distinct()
-INDI <- INDI[!is.na(indi_pt)]
-saveRDS(INDI,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Indi.rds")
-rm(INDI)
+INDΙ <- unify_data(faers_list[str_detect(faers_list,regex("indi",ignore_case = T))],
+                   c(ISR="primaryid",DRUG_SEQ="drug_seq",
+                     indi_drug_seq="drug_seq",INDI_PT="indi_pt"),
+                   c("primaryid","drug_seq","indi_pt"),
+                   NA,
+                   NA)
+INDΙ <- INDΙ[!is.na(indi_pt)]
+saveRDS(INDΙ,"Clean Data/INDI.rds")
+rm(INDΙ)
 ```
 
 ![](images/Untitled-15.png)
 
 ### OUTC
 
-In particular, within the merging process for the dataset OUTC the following steps were performed to provide a cleaner database without conflict:
-
-1.  variables were renamed to avoid conflicts between LAERS and FAERS
-
-2.  LAERS and FAERS were merged into a new dataset OUTC
-
-3.  Empty cells were converted to NA (not available) to facilitate then duplicate removal
-
-4.  Rows with no reported outcome were removed
+To ensure a cleaner and conflict-free database, we run the function unify_data with the parameters shown in the script below, and then removed rows with no outcome specified and saved the database as an RDS
 
 ```{r eval=FALSE}
-Outc <- faers_list[str_detect(faers_list,regex("outc",ignore_case = T))]
-unify_Outc <- function(files_list){
-  i <- 0
-  namekey <- c(ISR="primaryid",OUTC_COD="outc_cod")
-  foreach (f=files_list) %do%
-    {name <- gsub(".TXT",".rds",f, ignore.case = T)
-    print(name)
-    x <- readRDS(name)
-    x <- x[!is.na(names(x))]
-    quart <- substr(name, nchar(name)-7, nchar(name)-4)
-    x <- setDT(x)[,quarter:=quart]
-    names(x) <- namekey[names(x)]
-    cols <- colnames(x)[colnames(x)%in%c("primaryid","outc_cod","outc_code")]
-    x <- x[,..cols]
-    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
-    i <- i+1
-    }
-  return(y)
-}
-OUTC <- unify_Outc(Outc) %>% distinct()
-OUTC[OUTC==""] <- NA
-OUTC$outc_cod <- ifelse(is.na(OUTC$outc_cod),
-                        OUTC$outc_code,
-                        OUTC$outc_cod)
-OUTC <- OUTC %>% select(-outc_code)
-OUTC <- OUTC[!is.na(outc_cod)] %>% distinct()
-OUTC$outc_cod <- as.factor(OUTC$outc_cod)
-saveRDS(OUTC,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Outc.rds")
+OUTC <- unify_data(faers_list[str_detect(faers_list,regex("outc",ignore_case = T))],
+                   c(ISR="primaryid",OUTC_COD="outc_cod"),
+                   c("primaryid","outc_cod"),
+                   c("outc_cod"),
+                   c("outc_code"))
+OUTC <- OUTC[!is.na(outc_cod)]
+saveRDS(OUTC,"Clean Data/OUTC.rds")
 rm(OUTC)
 ```
 
 ### REAC
 
+To ensure a cleaner and conflict-free database, we run the function unify_data with the parameters shown in the script below, and then removed rows with no reaction specified and saved the database as an RDS.
+
+```{r eval=FALSE}
+REAC <- unify_data(faers_list[str_detect(faers_list,regex("reac",ignore_case = T))],
+                   c(ISR="primaryid", PT="pt"),
+                   c("primaryid","pt","drug_rec_act"),
+                   NA,
+                   NA)
+REAC <- REAC[!is.na(pt)]
+saveRDS(REAC,"Clean Data/REAC.rds")
+rm(REAC)
+```
+
 ### RPSR
+
+To ensure a cleaner and conflict-free database, we run the function unify_data with the parameters shown in the script below, and saved the database as an RDS.
+
+```{r eval=FALSE}
+RPSR <- unify_data(faers_list[str_detect(faers_list,regex("rpsr",ignore_case = T))],
+                   c(ISR="primaryid",RPSR_COD="rpsr_cod"),
+                   c("primaryid", "rpsr_cod"),
+                   NA,
+                   NA)
+saveRDS(RPSR,"Clean Data/RPSR.rds")
+rm(RPSR)
+```
 
 ### THER
 
+To ensure a cleaner and conflict-free database, we run the function unify_data with the parameters shown in the script below, and saved the database as an RDS.
+
+```{r eval = FALSE}
+THER <- unify_data(faers_list[str_detect(faers_list,regex("ther",ignore_case = T))],
+                   c(ISR="primaryid",dsg_drug_seq="drug_seq",
+                     DRUG_SEQ="drug_seq",START_DT="start_dt",END_DT="end_dt",
+                     DUR="dur",DUR_COD="dur_cod"),
+                   c("primaryid","drug_seq","start_dt",
+                     "end_dt","dur","dur_cod"),
+                   NA,
+                   NA)
+saveRDS(THER,"Clean Data/THER.rds")
+rm(THER)
+```
+
 ## 3. Standardization
+
+Standardizing the unstandardized FDA Adverse Event Reporting System (FAERS) holds paramount importance in ensuring data consistency and reliable analysis. The FAERS encompasses numerous fields, and while some are standardized based on established dictionaries, others lack such standardization. This inconsistency can impede data interpretation, hinder comparative studies, and hamper accurate identification of adverse events or drugs. Therefore, the pressing need for standardization arises to enhance data quality, facilitate meaningful insights, and enable robust pharmacovigilance efforts.
 
 ### MedDRA
 
