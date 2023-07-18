@@ -531,7 +531,9 @@ saveRDS(Indi,"Clean Data/Indi.rds")
 
 ### Drug
 
-The FDA Adverse Event Reporting System (FAERS) receives drug names in various forms, including brand names, active ingredients, abbreviations, and misspellings. This lack of consistency in nomenclature poses significant challenges. The absence of agreed-upon standardization strategies and transparency further exacerbates the problem, leading to issues with replicability and accuracy when conducting disproportionality analysis using FAERS data. To address this, we have developed DIANA_dictionary, a specialized drug standardization dictionary tailored specifically for the FAERS (https://doi.org/10.1101/2023.06.07.23291076). The script provided allows for the utilization of DIANA_dictionary and its integration into each preprocessing cycle, ensuring comprehensive drug standardization. By incorporating this solution, we aim to enhance the reliability and quality of FAERS data analysis, ultimately facilitating more accurate and reproducible results.
+The FDA Adverse Event Reporting System (FAERS) receives drug names in various forms, including brand names, active ingredients, abbreviations, and misspellings. This lack of consistency in nomenclature poses significant challenges. The absence of agreed-upon standardization strategies and transparency further exacerbates the problem, leading to issues with replicability and accuracy when conducting disproportionality analysis using FAERS data. To address this, we have developed DIANA_dictionary, a specialized drug standardization dictionary tailored specifically for the FAERS (https://doi.org/10.1101/2023.06.07.23291076). The script provided allows for the utilization of DIANA_dictionary and its integration into each preprocessing cycle, ensuring comprehensive drug standardization. By incorporating this solution, we aim to enhance the reliability and quality of FAERS data analysis, ultimately facilitating more accurate and reproducible results.![](images/Screenshot%202023-07-18%20at%2019.11.35.png)
+
+![](images/Screenshot%202023-07-18%20at%2019.12.14.png)
 
 ```{r eval = FALSE}
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
