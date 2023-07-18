@@ -315,6 +315,9 @@ Drug <- Drug[,drugname:=trimws(gsub("^[^([:^punct:]]+","",drugname,perl=TRUE))]
 Drug <- Drug[,drugname:=gsub("\\( ","\\(",drugname)]
 Drug <- Drug[,drugname:=gsub(" \\)","\\)",drugname)]
 
+temp <- Drug[,.N,by="drugname"][,freq:=100*N/sum(temp$N, na.rm = T)]
+temp <- DIANA_dictionary[temp,on="drugname"]
+
 Drug <- DIANA_dictionary[Drug,on="drugname"]
 Drug_multi <- Drug[grepl(";",Substance)] 
 cn <- c("primaryid","drug_seq","Substance","role_cod","drugname","prod_ai")
