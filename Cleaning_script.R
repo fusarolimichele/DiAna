@@ -323,6 +323,8 @@ write.csv2(temp, "External Sources/Dictionaries/DIANA_dictionary/drugnames_stand
 # Our scope is to at least grant a translation for terms occurring more than
 # 200 times. For drugs of interest, particularly, the newly marketed ones,
 # a more extended translation may be needed for the best case retrieval.
+
+
 DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.xlsx"))[
   ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
 
