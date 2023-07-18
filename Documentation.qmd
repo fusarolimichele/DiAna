@@ -410,6 +410,20 @@ Standardizing the unstandardized FDA Adverse Event Reporting System (FAERS) hold
 
 ### MedDRA
 
+Three fields within the dataset have been codified using the Medical Dictionary for Regulatory Activities (MedDRA) Preferred Terms (PTs). These fields are:
+
+1.  "pt" - Contains information about suspected reactions.
+
+2.  "indi_pt" - Provides information about the indication for using the drug.
+
+3.  "drug_rec_act" - Contains information about the event rechallenged.
+
+While these fields were expected to be standardized, we have identified certain issues. Not all terms were included in the latest MedDRA version due to various factors, such as the use of older MedDRA versions, the presence of non-UTF characters, the use of Low Level Terms, and occasional misspellings. To address these problems, we have incorporated standardization measures.
+
+Please note that we are unable to provide the MedDRA directly. To access it, you need to download it in English from the MedDRA website, which offers a free subscription for academics. After downloading, you will need to unzip the file using the password provided by the Self Service Application. In the external sources folder, we have shared a file named "pt_fixed" that can be used to standardize the unstandardized PTs. It is important to be aware that despite these efforts, some terms may still not have undergone any standardization.![](images/Screenshot%202023-07-18%20at%2015.17.22.png)
+
+![](images/Screenshot%202023-07-18%20at%2015.18.37.png)
+
 ```{r}
 ##MedDRA standardization-------------------------------------------------------
 # Importing MedDRA

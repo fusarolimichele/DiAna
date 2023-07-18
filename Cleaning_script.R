@@ -317,17 +317,14 @@ Drug <- Drug[,drugname:=gsub(" \\)","\\)",drugname)]
 
 Drug <- DIANA_dictionary[Drug,on="drugname"]
 Drug_multi <- Drug[grepl(";",Substance)] 
-#cn <- c("primaryid","drug_seq","Substance","role_cod","drugname","prod_ai")
-cn <- c("primaryid","Substance","drugname","prod_ai")
-#
+cn <- c("primaryid","drug_seq","Substance","role_cod","drugname","prod_ai")
+
 Drug_multi <- Drug_multi[, strsplit(Substance, ";", fixed=TRUE), by = cn]
-#Drug_multi <- Drug_multi[,.(primaryid,drug_seq,Substance=V1,role_cod,drugname,prod_ai)]
-Drug_multi <- Drug_multi[,.(primaryid,Substance=V1,drugname,prod_ai)]
-#
+Drug_multi <- Drug_multi[,.(primaryid,drug_seq,Substance=V1,role_cod,drugname,prod_ai)]
+
 Drug_one <- Drug[!grepl(";",Substance)] 
-#Drug_one <- Drug_one[,.(primaryid,drug_seq,Substance,role_cod,drugname,prod_ai)]
-Drug_one <- Drug_one[,.(primaryid,Substance,drugname,prod_ai)]
-#
+Drug_one <- Drug_one[,.(primaryid,drug_seq,Substance,role_cod,drugname,prod_ai)]
+
 Drug <- rbindlist(list(Drug_multi,Drug_one))
 Drug <- Drug[,trial:=grepl(", trial",Substance)]
 nrow(Drug[trial==TRUE])
