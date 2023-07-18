@@ -325,7 +325,7 @@ write.csv2(temp, "External Sources/Dictionaries/DIANA_dictionary/drugnames_stand
 # a more extended translation may be needed for the best case retrieval.
 
 
-DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.xlsx"))[
+DIANA_dictionary <- setDT(read.csv2("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.csv"))[
   ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
 
 Drug <- DIANA_dictionary[Drug,on="drugname"]
