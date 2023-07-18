@@ -1,7 +1,7 @@
 ## Set up packages-------------------------------------------------------------
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load("tidyverse","data.table","janitor","foreach","xml2","rvest")
+pacman::p_load("tidyverse","data.table","janitor","foreach","xml2","rvest","readxl")
 
 ## Download FAERS--------------------------------------------------------------
 options(timeout=500)#increase if it times out because of low wifi power
@@ -303,8 +303,8 @@ saveRDS(Indi,"Clean Data/Indi.rds")
 
 ##Drug standardization-------------------------------------------------------
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
-DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/DiAna_dictionary.xlsx"))[
-  ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
+old_DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized-2.xlsx"))[
+  ,.(drugname,Substance,Checked,OpenRefine)][Substance!="na"][!is.na(Substance)]
 
 Drug <-Drug[,drugname:=gsub("\\s+"," ",trimws(gsub("\\.$","",trimws(tolower(drugname)))))]
 Drug <- Drug[,drugname:=trimws(gsub("[^)[:^punct:]]+$","",drugname,perl=TRUE))]
@@ -314,8 +314,9 @@ Drug <- Drug[,drugname:=trimws(gsub("^[^([:^punct:]]+","",drugname,perl=TRUE))]
 Drug <- Drug[,drugname:=gsub("\\( ","\\(",drugname)]
 Drug <- Drug[,drugname:=gsub(" \\)","\\)",drugname)]
 
-temp <- Drug[,.N,by="drugname"][,freq:=100*N/sum(temp$N, na.rm = T)]
-temp <- DIANA_dictionary[temp,on="drugname"]
+temp <- Drug[,.N,by="drugname"]
+temp <- temp[,freq:=100*N/sum(temp$N, na.rm = T)][order(-N)]
+temp <- old_DIANA_dictionary[temp,on="drugname"]
 write.csv2(temp, "External Sources/Dictionaries/DIANA_dictionary/drugnames_standardized.csv")
 # consider extending the standardization, inside the drugnames_standardized,
 # before resetting the DIANA_dictionary.
@@ -346,3 +347,103 @@ Drug$prod_ai <- as.factor(Drug$prod_ai)
 Drug$Substance <- as.factor(Drug$Substance)
 saveRDS(Drug,"Clean Data/Drug.rds")
 
+## Sex standardization-----------------------------------------------------
+Demo <- setDT(readRDS("Clean Data/Demo.rds"))
+Demo[,.N,by="sex"][order(-N)]
+Demo[!sex %in% c("F","M")]$sex<- NA
+
+## Age standardization-----------------------------------------------------
+Demo[,.N,by="age_cod"][order(-N)]
+
+Demo[,age_corrector:=ifelse(age_cod=="DEC",3650,
+                            ifelse(age_cod=="YR"|is.na(age_cod),365,
+                                   ifelse(age_cod=="MON",30.41667,
+                                          ifelse(age_cod=="WK",7,
+                                                 ifelse(age_cod=="DY",1,
+                                                        ifelse(age_cod=="HR",0.04166667,
+                                                               ifelse(age_cod=="SEC",
+                                                                      1.157407e-05,NA)))))))]
+
+Demo <- Demo[,age_in_days:=round(abs(as.numeric(age))*age_corrector)]
+summary(Demo$age_in_days)
+Demo[,age_in_days:= ifelse(age_in_days<=122*365,age_in_days,
+                           ifelse (age_cod=="DEC",age_in_days/age_corrector,
+                                   NA))]#plausible compilation error
+Demo <- Demo[,age_in_years:=round(age_in_days/365)]
+hist(Demo$age_in_years, xlab = "Age (years old)")
+summary(Demo$age_in_years)
+Demo <- Demo %>% select(-age_corrector,-age,-age_cod)
+
+temp <- Demo[!is.na(age_grp) & !is.na(age_in_years),.N,by=c("age_in_years","age_grp")]
+temp[age_grp%in%c("N","I")]$age_grp <- "N&I"
+temp$age_grp <- factor(temp$age_grp,levels = c("N&I","C","T","A","E"))
+
+Age_thresholds <- tribble(
+  ~age_group , ~age_threshold,
+  #----------|----------------|
+  "C"        , 2,
+  "T"        , 12,
+  "A"        , 18,
+  "E"        , 65
+)
+
+ggplot(data=temp) +
+  geom_point(mapping=aes(x=age_in_years,y=N,group=age_grp,fill=age_grp,color=age_grp), show.legend = FALSE) +
+  geom_density(mapping=aes(x=age_in_years,y=N,group=age_grp,fill=age_grp,color=age_grp),stat="identity",alpha=0.5) +
+  geom_point(data = Age_thresholds,mapping=aes(x=age_threshold,y=0),show.legend = FALSE)+
+  geom_text(data = Age_thresholds,mapping=aes(x=age_threshold,y=0,label=age_threshold), nudge_y = -500,angle=45,size=3,show.legend = FALSE)+
+  xlab("Age (yr)") +
+  ylab("Freq") +
+  theme()+
+  guides(color="none")+
+  scale_fill_discrete(name = "Age Group", labels = c("Neonate&Infant",
+                                                     "Child","Teenager",
+                                                     "Adult","Elderly"))
+Demo$age_grp_st <- as.character(NA)
+Demo[!is.na(age_in_years)]$age_grp_st <- "E"
+Demo[age_in_years < 65]$age_grp_st <- "A"
+Demo[age_in_years < 18]$age_grp_st <- "T"
+Demo[age_in_years < 12]$age_grp_st <- "C"
+Demo[age_in_years < 2]$age_grp_st <- "I"
+Demo[age_in_days <28]$age_grp_st <- "N"
+Demo[,.N,by="age_grp_st"][order(-N)][,perc:=round(N/sum(N)*100),]
+Demo <- Demo %>% select(-age_grp)
+saveRDS(Demo,"Clean Data/DEMO.rds")
+
+## ----standardize weights---------------------------------------------------
+Demo[,.N,by="wt_cod"][order(-N)]
+Demo$wt_corrector  <-  as.numeric(NA)
+Demo[wt_cod=="LBS"]$wt_corrector   <-  0.453592
+Demo[wt_cod=="KG"]$wt_corrector  <-  1
+Demo[wt_cod=="GMS"]$wt_corrector  <-  0.001
+Demo[is.na(wt_cod)]$wt_corrector  <-  1
+
+Demo <- Demo[,wt_in_kgs:=round(abs(as.numeric(wt))*wt_corrector)]
+Demo[wt_in_kgs>635]$wt_in_kgs <- NA
+
+temp <- Demo[,.N,by="wt_in_kgs"][order(-N)]
+ggplot(data=temp) +
+  geom_col(aes(x=wt_in_kgs,y=N))
+Demo <- Demo %>% select(-wt_corrector,-wt,-wt_cod)
+saveRDS(Demo,"Clean Data/DEMO.rds")
+
+##Country standardization--------------------------------------------
+Countries <- setDT(read_delim("External Sources/countries.csv",";", escape_double = FALSE, trim_ws = TRUE))
+Countries[union(Demo$occr_country,Demo$reporter_country),on="country"][is.na(Country_Name)] #check if new not translated
+Countries[is.na(Countries)] <- "NA"
+Demo <- Countries[,.(occr_country=country,occr_country_st=Country_Name)][Demo,on="occr_country"] 
+Demo <- Countries[,.(reporter_country=country,rept_country_st=Country_Name)][Demo,on="reporter_country"] 
+Demo[rept_country_st!=occr_country_st][,.(rept_country_st,occr_country_st)][!is.na(occr_country_st)&!is.na(rept_country_st)]
+Demo[,country:=ifelse(is.na(occr_country_st),rept_country_st,occr_country_st)]
+Demo[rept_country_st==country]$rept_country_st <- NA
+Demo[,.N,by="country"][order(-N)]
+Demo <- Demo %>% select(-reporter_country,-occr_country,-occr_country_st) %>% droplevels()
+hist(Demo$age_in_years)
+saveRDS(Demo,"Clean Data/DEMO.rds")
+
+##occupation standardization------------------------------------------------
+Demo[,.N,by="occp_cod"][order(-N)]
+Demo[!occp_cod%in%c("MD","CN","OT","PH","HP","LW")]$occp_cod <- NA
+Demo <- Demo %>% droplevels()
+saveRDS(Demo,"Clean Data/DEMO.rds")
+rm(list=ls())

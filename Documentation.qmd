@@ -535,8 +535,8 @@ The FDA Adverse Event Reporting System (FAERS) receives drug names in various fo
 
 ```{r eval = FALSE}
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
-DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/DiAna_dictionary.xlsx"))[
-  ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
+old_DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized-2.xlsx"))[
+  ,.(drugname,Substance,Checked,OpenRefine)][Substance!="na"][!is.na(Substance)]
 
 Drug <-Drug[,drugname:=gsub("\\s+"," ",trimws(gsub("\\.$","",trimws(tolower(drugname)))))]
 Drug <- Drug[,drugname:=trimws(gsub("[^)[:^punct:]]+$","",drugname,perl=TRUE))]
@@ -546,14 +546,16 @@ Drug <- Drug[,drugname:=trimws(gsub("^[^([:^punct:]]+","",drugname,perl=TRUE))]
 Drug <- Drug[,drugname:=gsub("\\( ","\\(",drugname)]
 Drug <- Drug[,drugname:=gsub(" \\)","\\)",drugname)]
 
-temp <- Drug[,.N,by="drugname"][,freq:=100*N/sum(temp$N, na.rm = T)]
-temp <- DIANA_dictionary[temp,on="drugname"]
+temp <- Drug[,.N,by="drugname"]
+temp <- temp[,freq:=100*N/sum(temp$N, na.rm = T)][order(-N)]
+temp <- old_DIANA_dictionary[temp,on="drugname"]
 write.csv2(temp, "External Sources/Dictionaries/DIANA_dictionary/drugnames_standardized.csv")
 # consider extending the standardization, inside the drugnames_standardized,
 # before resetting the DIANA_dictionary.
 # Our scope is to at least grant a translation for terms occurring more than
 # 200 times. For drugs of interest, particularly, the newly marketed ones,
 # a more extended translation may be needed for the best case retrieval.
+
 
 DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.xlsx"))[
   ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
@@ -578,6 +580,167 @@ Drug$Substance <- as.factor(Drug$Substance)
 saveRDS(Drug,"Clean Data/Drug.rds")
 
 ```
+
+### Sex
+
+Within the ASCII Sex field, according to the ASC_NTS.pdf guidelines, entries should only consist of "F" (Female), "M" (Male), and "UNK" (Unknown). However, during our analysis, we discovered additional entries that deviated from these expected values. These included "NS" (possibly resembling NAs), "YR" (likely a compilation error), as well as "P," "I," and "T" reported consistently throughout the entire year of 2019 in the United States by the mfr_sndr FDA-CTU. To maintain data consistency, we made the decision to retain only the "F" and "M" entries, while converting all other values to "NA" to denote missing or invalid data. By implementing this approach, we ensure adherence to the intended standards and enhance the accuracy and reliability of the dataset, at the potential cost of losing some non-codified information.
+
+```{r eval = FALSE}
+Demo <- setDT(readRDS("Clean Data/Demo.rds"))
+Demo[,.N,by="sex"][order(-N)]
+Demo[!sex %in% c("F","M")]$sex<- NA
+```
+
+![](images/Screenshot%202023-07-18%20at%2016.25.24.png){width="110"}
+
+### Age
+
+Regarding age, we have three fields that can be compiled: "age" (numeric value), "age_cod" (age unit: YR for years, MON for months, WK for weeks, DY for days, HR for hours), and "age_group" (age category).
+
+To standardize the age data, we first divided it into two columns: one for age in days and another for age in years. This involved using the numeric age value and appropriately adjusting it according to the specified unit. During this process, we encountered a few reports with "age_cod" entries of "MIN" (interpreted as minutes) and "SEC" (interpreted as seconds), as well as one report with the value "85" (which was converted to NA). Instances marked as NA were considered as years.
+
+We applied specific transformations using the "abs(as.numeric)" function:
+
+-   Converted character values (such as "U," "FEW," "CUBIST PHARMACEUTICALS, INC.") to NA.
+
+-   Converted "-08" to "8."
+
+-   Removed spaces before or after numbers to convert them correctly.
+
+-   Converted negative numbers to positive values.
+
+If an age expressed in decimals exceeded the upper threshold of 122 (which is the oldest documented human age), it was converted to the same age but in years.
+
+Ages exceeding the threshold of 122 were converted to NA.
+
+```{r eval = FALSE}
+Demo[,.N,by="age_cod"][order(-N)]
+
+Demo[,age_corrector:=ifelse(age_cod=="DEC",3650,
+                            ifelse(age_cod=="YR"|is.na(age_cod),365,
+                                   ifelse(age_cod=="MON",30.41667,
+                                          ifelse(age_cod=="WK",7,
+                                                 ifelse(age_cod=="DY",1,
+                                                        ifelse(age_cod=="HR",0.04166667,
+                                                               ifelse(age_cod=="SEC",
+                                                                      1.157407e-05,NA)))))))]
+
+Demo <- Demo[,age_in_days:=round(abs(as.numeric(age))*age_corrector)]
+summary(Demo$age_in_days)
+Demo[,age_in_days:= ifelse(age_in_days<=122*365,age_in_days,
+                           ifelse (age_cod=="DEC",age_in_days/age_corrector,
+                                   NA))]#plausible compilation error
+Demo <- Demo[,age_in_years:=round(age_in_days/365)]
+hist(Demo$age_in_years, xlab = "Age (years old)")
+summary(Demo$age_in_years)
+Demo <- Demo %>% select(-age_corrector,-age,-age_cod)
+saveRDS(Demo,"Clean Data/DEMO.RDS")
+```
+
+![](images/Screenshot%202023-07-18%20at%2016.29.52.png){width="112"}
+
+![](images/Screenshot%202023-07-18%20at%2017.15.50.png)
+
+The age and age_grp were not always congruous.
+
+We reestimated the age groups considering the thresholds given by the NIH style guide (ref: <https://www.nih.gov/nih-style-guide/age>):
+
+-   neonates ≤28dd
+
+-   infants \< 1yy
+
+-   child \<13yy
+
+-   teenager \< 18yy
+
+-   adult \< 65yy
+
+-   elderly ≥65yy
+
+```{r eval = F}
+temp <- Demo[!is.na(age_grp) & !is.na(age_in_years),.N,by=c("age_in_years","age_grp")]
+temp[age_grp%in%c("N","I")]$age_grp <- "N&I"
+temp$age_grp <- factor(temp$age_grp,levels = c("N&I","C","T","A","E"))
+
+Age_thresholds <- tribble(
+  ~age_group , ~age_threshold,
+  #----------|----------------|
+  "C"        , 2,
+  "T"        , 12,
+  "A"        , 18,
+  "E"        , 65
+)
+
+ggplot(data=temp) +
+  geom_point(mapping=aes(x=age_in_years,y=N,group=age_grp,fill=age_grp,color=age_grp), show.legend = FALSE) +
+  geom_density(mapping=aes(x=age_in_years,y=N,group=age_grp,fill=age_grp,color=age_grp),stat="identity",alpha=0.5) +
+  geom_point(data = Age_thresholds,mapping=aes(x=age_threshold,y=0),show.legend = FALSE)+
+  geom_text(data = Age_thresholds,mapping=aes(x=age_threshold,y=0,label=age_threshold), nudge_y = -500,angle=45,size=3,show.legend = FALSE)+
+  xlab("Age (yr)") +
+  ylab("Freq") +
+  theme()+
+  guides(color="none")+
+  scale_fill_discrete(name = "Age Group", labels = c("Neonate&Infant",
+                                                     "Child","Teenager",
+                                                     "Adult","Elderly"))
+Demo$age_grp_st <- as.character(NA)
+Demo[!is.na(age_in_years)]$age_grp_st <- "E"
+Demo[age_in_years < 65]$age_grp_st <- "A"
+Demo[age_in_years < 18]$age_grp_st <- "T"
+Demo[age_in_years < 12]$age_grp_st <- "C"
+Demo[age_in_years < 2]$age_grp_st <- "I"
+Demo[age_in_days <28]$age_grp_st <- "N"
+Demo[,.N,by="age_grp_st"][order(-N)][,perc:=round(N/sum(N)*100),]
+Demo <- Demo %>% select(-age_grp)
+saveRDS(Demo,"Clean Data/DEMO.rds")
+
+```
+
+![](images/Screenshot%202023-07-18%20at%2017.28.00.png)
+
+### Weight
+
+Next, we proceeded to extract the weight units utilized in the database. However, we encountered some inconsistencies within this field. To address this, we decided to focus solely on the three units explicitly mentioned in the ASC.NTS.pdf guidelines:
+
+1.  KG - Kilograms
+
+2.  LBS - Pounds
+
+3.  GMS - Grams
+
+Additionally, we included "KGS" as an alternative representation for kilograms.
+
+Any missing values (NAs) were considered as kilograms (KG) for consistency.
+
+To ensure uniformity and accuracy, we made the following transformations:
+
+1.  We translated weight values into positive numbers. Certain characters, such as "U," "M," and "S," were lost during this process.
+
+2.  Examples like "82.3KG" were translated to "82.3" for improved clarity and standardization.
+
+Furthermore, weights exceeding the heaviest human weight ever documented (635 kg) were considered as NA, indicating missing or invalid data. This approach helps maintain data integrity and reliability during subsequent analyses.
+
+```{r eval = T}
+Demo[,.N,by="wt_cod"][order(-N)]
+Demo$wt_corrector  <-  as.numeric(NA)
+Demo[wt_cod=="LBS"]$wt_corrector   <-  0.453592
+Demo[wt_cod=="KG"]$wt_corrector  <-  1
+Demo[wt_cod=="GMS"]$wt_corrector  <-  0.001
+Demo[is.na(wt_cod)]$wt_corrector  <-  1
+
+Demo <- Demo[,wt_in_kgs:=round(abs(as.numeric(wt))*wt_corrector)]
+Demo[wt_in_kgs>635]$wt_in_kgs <- NA
+
+temp <- Demo[,.N,by="wt_in_kgs"][order(-N)]
+ggplot(data=temp) +
+  geom_col(aes(x=wt_in_kgs,y=N))
+Demo <- Demo %>% select(-wt_corrector,-wt,-wt_cod)
+saveRDS(Demo,"Clean Data/DEMO.rds")
+```
+
+### ![](images/Screenshot%202023-07-18%20at%2018.33.28.png)
+
+### Country
 
 ## 6. Remove deleted (nullified) reports
 
