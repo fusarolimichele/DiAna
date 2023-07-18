@@ -345,14 +345,5 @@ Drug <- Drug[,Substance:=gsub(", trial","",Substance)]
 Drug$drugname <- as.factor(Drug$drugname)
 Drug$prod_ai <- as.factor(Drug$prod_ai)
 Drug$Substance <- as.factor(Drug$Substance)
-saveRDS(Drug,"DRUG_translated.rds")
-#link to the csv
-temp <- readRDS("DRUG_translated.rds")
-temp[,.(primaryid,trial)][,.(trial=sum(trial)),by="primaryid"][trial>0]
-ATC <- setDT(read.csv2("ATC_binder_2023.csv"))
-temp <- temp[,.(primaryid,Substance)] %>% distinct()
-temp1 <- left_join(temp,ATC[code==primary_code|primary_code=="Z"][
-  ,.(Substance,Class1,Class2,Class3,Class4,code=primary_code)])
-temp1[code=="Z"]$Class1 <- "Herbals"
-saveRDS(temp1,"Drug_translated_TMs.rds")
-rm(list=ls())
+saveRDS(Drug,"Clean Data/Drug.rds")
+
