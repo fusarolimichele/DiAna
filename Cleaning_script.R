@@ -304,7 +304,7 @@ saveRDS(Indi,"Clean Data/Indi.rds")
 ### TO CHECK
 ##Drug standardization-------------------------------------------------------
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
-DIANA_dictionary <- setDT(read_excel("DiAna_dictionary/DiAna_dictionary.xlsx"))[
+DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/DiAna_dictionary.xlsx"))[
   ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
 
 Drug <-Drug[,drugname:=gsub("\\s+"," ",trimws(gsub("\\.$","",trimws(tolower(drugname)))))]
@@ -317,6 +317,14 @@ Drug <- Drug[,drugname:=gsub(" \\)","\\)",drugname)]
 
 temp <- Drug[,.N,by="drugname"][,freq:=100*N/sum(temp$N, na.rm = T)]
 temp <- DIANA_dictionary[temp,on="drugname"]
+write.csv2(temp, "External Sources/Dictionaries/DIANA_dictionary/drugnames_standardized.csv")
+# consider extending the standardization, inside the drugnames_standardized,
+# before resetting the DIANA_dictionary.
+# Our scope is to at least grant a translation for terms occurring more than
+# 200 times. For drugs of interest, particularly, the newly marketed ones,
+# a more extended translation may be needed for the best case retrieval.
+DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.xlsx"))[
+  ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
 
 Drug <- DIANA_dictionary[Drug,on="drugname"]
 Drug_multi <- Drug[grepl(";",Substance)] 
