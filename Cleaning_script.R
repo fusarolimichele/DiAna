@@ -98,51 +98,56 @@ unify_data <- function(files_list, namekey, column_subset,
   return(y)
 }
 
-DEMO <- unify_data(faers_list[str_detect(faers_list,regex("demo",ignore_case = T))],
-                   c(ISR="primaryid",CASE="caseid",FOLL_SEQ="caseversion",
-                     I_F_COD="i_f_cod",EVENT_DT="event_dt",
-                     MFR_DT="mfr_dt",FDA_DT="fda_dt",REPT_COD="rept_cod",
-                     MFR_NUM="mfr_num",MFR_SNDR="mfr_sndr",
-                     AGE="age",AGE_COD="age_cod",GNDR_COD="sex",E_SUB="e_sub",
-                     WT="wt",WT_COD="wt_cod",
-                     REPT_DT="rept_dt", OCCP_COD="occp_cod",TO_MFR="to_mfr",
-                     REPORTER_COUNTRY="reporter_country",quarter="quarter",
-                     i_f_code="i_f_cod"),
-                   c("primaryid","caseid","caseversion","i_f_cod",
-                     "sex","age","age_cod","age_grp","wt","wt_cod",
-                     "reporter_country","occr_country",
-                     "event_dt","rept_dt","mfr_dt","init_fda_dt","fda_dt",
-                     "rept_cod","occp_cod","mfr_num","mfr_sndr","to_mfr",
-                     "e_sub","quarter","auth_num","lit_ref"),
-                   c("rept_dt" , "sex"),
-                   c(" rept_dt", "gndr_cod"))
+DEMO <- unify_data(files_list = faers_list[str_detect(faers_list,
+                                                      regex("demo",
+                                                            ignore_case = T))],
+                   namekey = c(ISR="primaryid",CASE="caseid",
+                               FOLL_SEQ="caseversion",I_F_COD="i_f_cod",
+                               EVENT_DT="event_dt",MFR_DT="mfr_dt",
+                               FDA_DT="fda_dt",REPT_COD="rept_cod",
+                               MFR_NUM="mfr_num",MFR_SNDR="mfr_sndr",
+                               AGE="age",AGE_COD="age_cod",GNDR_COD="sex",
+                               E_SUB="e_sub",WT="wt",WT_COD="wt_cod",
+                               REPT_DT="rept_dt", OCCP_COD="occp_cod",
+                               TO_MFR="to_mfr",
+                               REPORTER_COUNTRY="reporter_country",
+                               quarter="quarter",i_f_code="i_f_cod"),
+                   column_subset = c("primaryid","caseid","caseversion",
+                                     "i_f_cod","sex","age","age_cod","age_grp",
+                                     "wt","wt_cod","reporter_country",
+                                     "occr_country","event_dt","rept_dt",
+                                     "mfr_dt","init_fda_dt","fda_dt","rept_cod",
+                                     "occp_cod","mfr_num","mfr_sndr","to_mfr",
+                                     "e_sub","quarter","auth_num","lit_ref"),
+                   duplicated_cols_x = c("rept_dt" , "sex"),
+                   duplicated_cols_y = c(" rept_dt", "gndr_cod"))
 saveRDS(DEMO,"Clean Data/DEMO.rds")
 rm(DEMO)
 
-DRUG <- unify_data(faers_list[str_detect(faers_list,regex("drug",ignore_case = T))],
-                   c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
+DRUG <- unify_data(files_list = faers_list[str_detect(faers_list,regex("drug",ignore_case = T))],
+                   namekey = c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
                      DRUGNAME="drugname",VAL_VBM="val_vbm",ROUTE="route",
                      DOSE_VBM="dose_vbm",DECHAL="dechal",
                      RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",
                      EXP_DT="exp_dt"),
-                   c("primaryid","drug_seq","role_cod","drugname","prod_ai"),
-                   NA,
-                   NA)
+                   column_subset = c("primaryid","drug_seq","role_cod","drugname","prod_ai"),
+                   duplicated_cols_x = NA,
+                   duplicated_cols_y = NA)
 saveRDS(DRUG,"Clean Data/DRUG.rds")
 rm(DRUG)
 
-DRUG_INFO <- unify_data(faers_list[str_detect(faers_list,regex("drug",ignore_case = T))],
-                        c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
+DRUG_INFO <- unify_data(files_list = faers_list[str_detect(faers_list,regex("drug",ignore_case = T))],
+                        namekey = c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
                           DRUGNAME="drugname",VAL_VBM="val_vbm",ROUTE="route",
                           DOSE_VBM="dose_vbm",DECHAL="dechal",
                           RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",
                           EXP_DT="exp_dt"),
-                        c("primaryid","drug_seq","val_vbm","nda_num","lot_num",
+                        column_subset = c("primaryid","drug_seq","val_vbm","nda_num","lot_num",
                           "route","dose_form","dose_freq","exp_dt",
                           "dose_vbm","cum_dose_unit","cum_dose_chr","dose_amt",
                           "dose_unit","dechal","rechal"),
-                        c("lot_num"),
-                        c("lot_nbr"))
+                        duplicated_cols_x = c("lot_num"),
+                        duplicated_cols_y = c("lot_nbr"))
 saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
 rm(DRUG_INFO)
 
@@ -232,7 +237,6 @@ write.csv2(distinct(meddra[soc_cod==primary_soc_cod][,.(def,soc, hlgt,hlt,pt)]),
            "External Sources/Dictionaries/MedDRA/meddra_primary.csv")
 
 
-##common function----------------------------------------
 # Read PT file and extract unique lowercase PT values
 pt_list <- unique(tolower(trimws(
   setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))$pt)))
@@ -296,3 +300,49 @@ saveRDS(Reac,"Clean Data/Reac.rds")
 Indi <- standardize_PT("Clean Data/Indi.rds","indi_pt")
 #consider updating the pt_fixed file
 saveRDS(Indi,"Clean Data/Indi.rds")
+
+### TO CHECK
+##Drug standardization-------------------------------------------------------
+Drug <- setDT(readRDS("Clean Data/Drug.rds"))
+DIANA_dictionary <- setDT(read_excel("DiAna_dictionary/DiAna_dictionary.xlsx"))[
+  ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
+
+Drug <-Drug[,drugname:=gsub("\\s+"," ",trimws(gsub("\\.$","",trimws(tolower(drugname)))))]
+Drug <- Drug[,drugname:=trimws(gsub("[^)[:^punct:]]+$","",drugname,perl=TRUE))]
+Drug <- Drug[,drugname:=trimws(gsub("^[^([:^punct:]]+","",drugname,perl=TRUE))]
+Drug <- Drug[,drugname:=trimws(gsub("[^)[:^punct:]]+$","",drugname,perl=TRUE))]
+Drug <- Drug[,drugname:=trimws(gsub("^[^([:^punct:]]+","",drugname,perl=TRUE))]
+Drug <- Drug[,drugname:=gsub("\\( ","\\(",drugname)]
+Drug <- Drug[,drugname:=gsub(" \\)","\\)",drugname)]
+
+Drug <- DIANA_dictionary[Drug,on="drugname"]
+Drug_multi <- Drug[grepl(";",Substance)] 
+#cn <- c("primaryid","drug_seq","Substance","role_cod","drugname","prod_ai")
+cn <- c("primaryid","Substance","drugname","prod_ai")
+#
+Drug_multi <- Drug_multi[, strsplit(Substance, ";", fixed=TRUE), by = cn]
+#Drug_multi <- Drug_multi[,.(primaryid,drug_seq,Substance=V1,role_cod,drugname,prod_ai)]
+Drug_multi <- Drug_multi[,.(primaryid,Substance=V1,drugname,prod_ai)]
+#
+Drug_one <- Drug[!grepl(";",Substance)] 
+#Drug_one <- Drug_one[,.(primaryid,drug_seq,Substance,role_cod,drugname,prod_ai)]
+Drug_one <- Drug_one[,.(primaryid,Substance,drugname,prod_ai)]
+#
+Drug <- rbindlist(list(Drug_multi,Drug_one))
+Drug <- Drug[,trial:=grepl(", trial",Substance)]
+nrow(Drug[trial==TRUE])
+Drug <- Drug[,Substance:=gsub(", trial","",Substance)]
+Drug$drugname <- as.factor(Drug$drugname)
+Drug$prod_ai <- as.factor(Drug$prod_ai)
+Drug$Substance <- as.factor(Drug$Substance)
+saveRDS(Drug,"DRUG_translated.rds")
+#link to the csv
+temp <- readRDS("DRUG_translated.rds")
+temp[,.(primaryid,trial)][,.(trial=sum(trial)),by="primaryid"][trial>0]
+ATC <- setDT(read.csv2("ATC_binder_2023.csv"))
+temp <- temp[,.(primaryid,Substance)] %>% distinct()
+temp1 <- left_join(temp,ATC[code==primary_code|primary_code=="Z"][
+  ,.(Substance,Class1,Class2,Class3,Class4,code=primary_code)])
+temp1[code=="Z"]$Class1 <- "Herbals"
+saveRDS(temp1,"Drug_translated_TMs.rds")
+rm(list=ls())

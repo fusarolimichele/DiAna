@@ -176,7 +176,19 @@ invisible(lapply(faers_list, store_to_rds))
 
 ## 2. Merge quarters
 
-We initiated the process of merging quarters within each dataframe in the relational database, beginning with the DEMO dataset. We first merged the quarters for the LAERS data and then proceeded with the FAERS data. During this process, we encountered several conflicts due to varying variable names, not only between LAERS and FAERS but also among different quarters within FAERS. To address these conflicts, we documented the details of merged and excluded variables, providing a step-by-step explanation of the script.
+We initiated the process of merging quarters within each dataframe in the relational database, beginning with the DEMO dataset. We first merged the quarters for the LAERS data and then proceeded with the FAERS data. During this process, we encountered and solved several conflicts:
+
+1.  names of the variables were not constant, not only between LAERS and FAERS but also among different quarters within FAERS. We standardized them.
+
+2.  not all the columns were compiled. We removed columns for which values were not provided, mainly because of privacy.
+
+3.  some columns were duplicated in some quarters, for example due to a misspelling in the column name. We collapsed their values into a unique column.
+
+4.  the missing of a data could be recorded as either "" or NA. We converted everything to NA.
+
+To address these conflicts, we built a function and documented the details of merged and excluded variables, providing a step-by-step explanation of the script. Furthermore, we defined a variable with information about the quarter of year in which the drug was received by the FDA.
+
+![](images/Screenshot%202023-07-18%20at%2012.56.37.png)
 
 ```{r}
 faers_list <- read.csv2("Clean Data/faers_list.csv")$x
@@ -220,63 +232,40 @@ unify_data <- function(files_list, namekey, column_subset,
 
 To ensure a cleaner and conflict-free database, the following steps were taken during the merging process for the DEMO dataset:
 
-1\. A new variable called "quarter" was created.
+1.  Variables "IMAGE," "CONFID," and "DEATH_DT" were excluded from the dataset. This was done to adhere to privacy guidelines. In fact, these variables were not even included in the FAERS data.
 
-2\. Variables "IMAGE," "CONFID," and "DEATH_DT" were excluded from the dataset. This was done to adhere to privacy guidelines. In fact, these variables were not even included in the FAERS data.
+2.  The FAERS variable "sex" was derived by combining the "sex" and "gndr_cod" variables.
 
-3\. Variables were renamed to avoid conflicts between LAERS and FAERS datasets.
+3.  The FAERS variable "reporter date" was obtained by combining the "rept_dt" and " rept_dt" variables.
 
-4\. The FAERS variable "sex" was derived by combining the "sex" and "gndr_cod" variables.
-
-5\. The FAERS variable "reporter date" was obtained by combining the "rept_dt" and " rept_dt" variables.
-
-6\. The LAERS and FAERS datasets were merged to create a new dataset called DEMO.
-
-7\. Empty cells in the DEMO dataset were converted to NA (not available) to facilitate the removal of duplicates.
-
-![](images/Diagram.drawio-5.svg)
+In particular we run the function unify_data with the parameters shown in the script below, and then saved the database as an RDS
 
 ```{r eval = FALSE}
-faers_list <- read.csv2("Clean Data/faers_list.csv")$x
-Demo <- faers_list[str_detect(faers_list,regex("demo",ignore_case = T))]
-unify_demo <- function(files_list){
-  i <- 0
-  # fixing inconsistencies in column names between LAERS and FAERS
-  namekey <- c(ISR="primaryid",CASE="caseid",FOLL_SEQ="caseversion",
-               I_F_COD="i_f_cod",EVENT_DT="event_dt",
-               MFR_DT="mfr_dt",FDA_DT="fda_dt",REPT_COD="rept_cod",
-               MFR_NUM="mfr_num",MFR_SNDR="mfr_sndr",
-               AGE="age",AGE_COD="age_cod",GNDR_COD="sex",E_SUB="e_sub",
-               WT="wt",WT_COD="wt_cod",
-               REPT_DT="rept_dt", OCCP_COD="occp_cod",TO_MFR="to_mfr",
-               REPORTER_COUNTRY="reporter_country",quarter="quarter",
-               i_f_code="i_f_cod")
-  foreach (f=files_list) %do%
-    {name <- gsub(".TXT",".rds",f, ignore.case = T)
-    print(name)
-    x <- readRDS(name)
-    x <- x[!is.na(names(x))]
-    quart <- substr(name, nchar(name)-7, nchar(name)-4)
-    x <- setDT(x)[,quarter:=quart]
-    names(x) <- namekey[names(x)]
-    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
-    i <- i+1
-    }
-  return(y)
-}
-DEMO <- unify_demo(Demo)
-DEMO$rept_dt <- ifelse(is.na(DEMO$rept_dt),
-                       DEMO$` rept_dt`,
-                       DEMO$rept_dt)
-DEMO$sex <- ifelse(test=is.na(DEMO$sex),
-                   as.character(DEMO$gndr_cod),
-                   as.character(DEMO$sex))
-
-DEMO <- DEMO[, !names(DEMO) %in% c("IMAGE", "DEATH_DT", "CONFID",
-                                   "gndr_cod", " rept_dt")]
-
-DEMO[DEMO==""] <- NA
+DEMO <- unify_data(files_list = faers_list[str_detect(faers_list,
+                                                      regex("demo",
+                                                            ignore_case = T))],
+                   namekey = c(ISR="primaryid",CASE="caseid",
+                               FOLL_SEQ="caseversion",I_F_COD="i_f_cod",
+                               EVENT_DT="event_dt",MFR_DT="mfr_dt",
+                               FDA_DT="fda_dt",REPT_COD="rept_cod",
+                               MFR_NUM="mfr_num",MFR_SNDR="mfr_sndr",
+                               AGE="age",AGE_COD="age_cod",GNDR_COD="sex",
+                               E_SUB="e_sub",WT="wt",WT_COD="wt_cod",
+                               REPT_DT="rept_dt", OCCP_COD="occp_cod",
+                               TO_MFR="to_mfr",
+                               REPORTER_COUNTRY="reporter_country",
+                               quarter="quarter",i_f_code="i_f_cod"),
+                   column_subset = c("primaryid","caseid","caseversion",
+                                     "i_f_cod","sex","age","age_cod","age_grp",
+                                     "wt","wt_cod","reporter_country",
+                                     "occr_country","event_dt","rept_dt",
+                                     "mfr_dt","init_fda_dt","fda_dt","rept_cod",
+                                     "occp_cod","mfr_num","mfr_sndr","to_mfr",
+                                     "e_sub","quarter","auth_num","lit_ref"),
+                   duplicated_cols_x = c("rept_dt" , "sex"),
+                   duplicated_cols_y = c(" rept_dt", "gndr_cod"))
 saveRDS(DEMO,"Clean Data/DEMO.rds")
+rm(DEMO)
 ```
 
 ![](images/Diagram.drawio-4.svg)
@@ -291,86 +280,40 @@ saveRDS(DEMO,"Clean Data/DEMO.rds")
 
 ### DRUG
 
-In particular, within the merging process for the dataset DRUG the following steps were performed to provide a cleaner database without conflict:
+To ensure a cleaner and conflict-free database, the following steps were taken during the merging process for the DEMO dataset:
 
-1.  variables were renamed to avoid conflicts between LAERS and FAERS
+1.  The FAERS variable "lot num" was derived by combining the "lot num" and "lot_nbr" variables.
 
-2.  "lot num" was completed with the information coming from "lot_nbr"
+2.  LAERS and FAERS were merged into a new dataset DRUG (including only general information about which drugs and the suspect degree) and a new dataset DRUG_INFO (including details about doses, formulations, dechallenge, and routes). Both these datasets kept the primary (primaryid) and secondary key (drug_seq)
 
-3.  LAERS and FAERS were merged into a new dataset DRUG (including only general information about which drugs and the suspect degree) and a new dataset DRUG_INFO (including details about doses, formulations, dechallenge, and routes). Both these datasets kept the primary (primaryid) and secondary key (drug_seq)
-
-4.  Empty cells were converted to NA (not available) to facilitate then duplicate removal
-
-![](images/Diagram.drawio-6.svg)
+In particular we run the function unify_data with the parameters shown in the script below, and then saved the database as an RDS
 
 ```{r eval=FALSE}
-faers_list <- read.csv2("D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/faers_list.csv")$x
-Drug <- faers_list[str_detect(faers_list,regex("drug",ignore_case = T))]
-
-unify_drug <- function(files_list){
-  i <- 0
-  namekey <- c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
-               DRUGNAME="drugname",VAL_VBM="val_vbm",ROUTE="route",
-               DOSE_VBM="dose_vbm",DECHAL="dechal",
-               RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",
-               EXP_DT="exp_dt")
-  foreach (f=files_list) %do%
-    {name <- gsub(".TXT",".rds",f, ignore.case = T)
-    print(name)
-    x <- readRDS(name)
-    x <- x[!is.na(names(x))]
-    x <- setDT(x)
-    names(x) <- namekey[names(x)]
-    cols <- colnames(x)[colnames(x)%in%c("primaryid","drug_seq","role_cod",
-                                         "drugname","prod_ai")]
-    x <- x[,..cols]
-    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
-    i <- i+1
-    }
-  return(y)
-}
-
-DRUG <- unify_drug(Drug) %>% distinct()
-DRUG[DRUG==""] <- NA
-DRUG <- DRUG %>% distinct()
-saveRDS(DRUG,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Drug.rds")
+DRUG <- unify_data(files_list = faers_list[str_detect(faers_list,regex("drug",ignore_case = T))],
+                   namekey = c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
+                     DRUGNAME="drugname",VAL_VBM="val_vbm",ROUTE="route",
+                     DOSE_VBM="dose_vbm",DECHAL="dechal",
+                     RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",
+                     EXP_DT="exp_dt"),
+                   column_subset = c("primaryid","drug_seq","role_cod","drugname","prod_ai"),
+                   duplicated_cols_x = NA,
+                   duplicated_cols_y = NA)
+saveRDS(DRUG,"Clean Data/DRUG.rds")
 rm(DRUG)
 
-unify_drug_info <- function(files_list){
-  i <- 0
-  namekey <- c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
-               DRUGNAME="drugname",
-               VAL_VBM="val_vbm",ROUTE="route",DOSE_VBM="dose_vbm",DECHAL="dechal",
-               RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",EXP_DT="exp_dt")
-  foreach (f=files_list) %do%
-    {name <- gsub(".TXT",".rds",f, ignore.case = T)
-    print(name)
-    x <- readRDS(name)
-    x <- x[!is.na(names(x))]
-    x <- setDT(x)
-    names(x) <- namekey[names(x)]
-    cols <- colnames(x)[colnames(x)%in%c("primaryid","drug_seq",
-                                         "val_vbm","route","dose_vbm",
-                                         "dechal","rechal","lot_nbr",
-                                         "lot_num","nda_num",
-                                         "cum_dose_unit","cum_dose_chr",
-                                         "dose_amt",
-                                         "dose_unit","dose_form","dose_freq",
-                                         "exp_dt")]
-    x <- x[,..cols]
-    if(i>0){y <- rbindlist(list(y,x),fill = TRUE)}else{y <- x}
-    i <- i+1
-    }
-  return(y)
-}
-DRUG_INFO <- unify_drug_info(Drug)
-DRUG_INFO[DRUG_INFO==""] <- NA
-DRUG_INFO <- DRUG_INFO %>% distinct()
-DRUG_INFO$lot_num <- ifelse(!is.na(DRUG_INFO$lot_nbr)&DRUG_INFO$lot_nbr!="",
-                            DRUG_INFO$lot_nbr,
-                            DRUG_INFO$lot_num)
-DRUG_INFO <- DRUG_INFO %>% select(-lot_nbr)
-saveRDS(DRUG_INFO,"D:/Utenti/Vale/Desktop/DIANA-on-FAERS/DIANA/Clean Data/Drug_Info.rds")
+DRUG_INFO <- unify_data(files_list = faers_list[str_detect(faers_list,regex("drug",ignore_case = T))],
+                        namekey = c(ISR="primaryid",DRUG_SEQ="drug_seq",ROLE_COD="role_cod",
+                          DRUGNAME="drugname",VAL_VBM="val_vbm",ROUTE="route",
+                          DOSE_VBM="dose_vbm",DECHAL="dechal",
+                          RECHAL="rechal",LOT_NUM="lot_num",NDA_NUM="nda_num",
+                          EXP_DT="exp_dt"),
+                        column_subset = c("primaryid","drug_seq","val_vbm","nda_num","lot_num",
+                          "route","dose_form","dose_freq","exp_dt",
+                          "dose_vbm","cum_dose_unit","cum_dose_chr","dose_amt",
+                          "dose_unit","dechal","rechal"),
+                        duplicated_cols_x = c("lot_num"),
+                        duplicated_cols_y = c("lot_nbr"))
+saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
 rm(DRUG_INFO)
 ```
 
@@ -383,6 +326,14 @@ The information included in the DRUG database was stored in two different data f
 ![![](images/Untitled-14.png)](images/Untitled-13.png)
 
 ### INDI
+
+To ensure a cleaner and conflict-free database, the following steps were taken during the merging process for the DEMO dataset:
+
+1.  The FAERS variable "lot num" was derived by combining the "lot num" and "lot_nbr" variables.
+
+2.  LAERS and FAERS were merged into a new dataset DRUG (including only general information about which drugs and the suspect degree) and a new dataset DRUG_INFO (including details about doses, formulations, dechallenge, and routes). Both these datasets kept the primary (primaryid) and secondary key (drug_seq)
+
+In particular we run the function unify_data with the parameters shown in the script below, and then saved the database as an RDS
 
 In particular, within the merging process for the dataset INDI the following steps were performed to provide a cleaner database without conflict:
 
@@ -480,6 +431,115 @@ rm(OUTC)
 ### THER
 
 ## 3. Standardization
+
+### MedDRA
+
+```{r}
+##MedDRA standardization-------------------------------------------------------
+# Importing MedDRA
+soc <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc.asc",
+                 sep = "$", header=F) %>% select(1:3)
+colnames(soc) <- c("soc_cod","soc","def")
+soc_hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc_hlgt.asc",
+                      sep = "$", header=F) %>% select(1:2)
+colnames(soc_hlgt) <- c("soc_cod","hlgt_cod")
+hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt.asc",
+                  sep = "$", header=F) %>% select(1:2)
+colnames(hlgt) <- c("hlgt_cod","hlgt")
+hlgt_hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt_hlt.asc",
+                      sep = "$", header=F) %>% select(1:2)
+colnames(hlgt_hlt) <- c("hlgt_cod","hlt_cod")
+hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt.asc",
+                 sep = "$", header=F) %>% select(1:2)
+colnames(hlt) <- c("hlt_cod","hlt")
+hlt_pt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt_pt.asc",
+                    sep = "$", header=F)  %>% select(1:2)
+colnames(hlt_pt) <- c("hlt_cod","pt_cod")
+pts <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/pt.asc",
+                 sep = "$", header=F) %>% select(1:2,4)
+colnames(pts) <- c("pt_cod","pt","primary_soc_cod")
+llt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/llt.asc",
+                 sep = "$", header=F) %>% select(1:3)
+colnames(llt) <- c("llt_cod","llt","pt_cod")
+# Merge the data
+meddra <- setDT(merge(merge(merge(merge(merge(merge(merge(
+  soc, soc_hlgt,all = TRUE),hlgt, all = TRUE),hlgt_hlt,all = TRUE),
+  hlt, all = TRUE), hlt_pt, all = TRUE), pts, all = TRUE), llt,all=TRUE))
+# Convert to lowercase
+meddra[,(colnames(meddra)):=lapply(.SD, tolower),]
+# Write the data to CSV files
+write.csv2(distinct(meddra[,.(def,soc, hlgt,hlt,pt,llt)]),
+           "External Sources/Dictionaries/MedDRA/meddra.csv")
+write.csv2(distinct(meddra[soc_cod==primary_soc_cod][,.(def,soc, hlgt,hlt,pt)]),
+           "External Sources/Dictionaries/MedDRA/meddra_primary.csv")
+
+
+# Read PT file and extract unique lowercase PT values
+pt_list <- unique(tolower(trimws(
+  setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))$pt)))
+manual_fix_file <- "External Sources/Manual_fix/pt_fixed.csv"
+standardize_PT <- function(data_file, pt_variable) {
+  # Read data file
+  data <- setDT(readRDS(data_file))
+  
+  # Extract PTs from data and calculate frequencies
+  pt_freq <- data[, .(pt = tolower(trimws(get(pt_variable))))][
+    !is.na(pt)][, .N, by = "pt"][order(-N)]
+  
+  # Check if PTs are standardized or not
+  pt_freq[, standard_pt := ifelse(pt %in% pt_list, pt, NA)]
+  pt_freq[, freq := round(N/sum(N) * 100, 2)]
+  
+  # Get unstandardized PTs
+  not_pts <- pt_freq[is.na(standard_pt)][, .(pt, N, freq)]
+  print(paste0("The portion of non standardized PTs at the beginning is ",
+               round(sum(not_pts$N)*100/nrow(data[!is.na(get(pt_variable))]),3)))
+  
+  # Try to translate unstandardized PTs through LLTs
+  llts <- left_join(not_pts, setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))[
+    , .(standard_pt = pt, pt = llt)])
+  not_llts <- llts[is.na(standard_pt)] %>% select(-standard_pt)
+  
+  # If still untraslated, use manual integration
+  pt_fixed <- setDT(read.csv2(manual_fix_file))[, .(pt, standard_pt)]
+  manual <- left_join(not_llts, pt_fixed)[is.na(standard_pt),][, .(pt, standard_pt)]
+  
+  # Combine PTs from LLTs, manual integration, and already standardized PTs
+  pt_fixed <- distinct(rbindlist(list(pt_fixed, manual, llts[!is.na(standard_pt), .(pt, standard_pt)])))
+  unstandardized_pts <- pt_fixed[is.na(standard_pt)]
+  # Write updated manual fix file
+  write.csv2(pt_fixed, manual_fix_file)
+  print(paste0(nrow(unstandardized_pts),
+               " pts are not standardized using LLTs or previously proposed manual fix: ",
+               paste0(unstandardized_pts$pt,collapse = "; "),
+               ". Consider updating the pt_fixed.csv file."))
+  pt_fixed <- setDT(read.csv2(manual_fix_file))[, .(pt_temp=pt, standard_pt)]
+  # Update PTs in the data file
+  data <- pt_fixed[data[, pt_temp := tolower(trimws(get(pt_variable)))], on = "pt_temp"][
+    ,pt_temp := ifelse(is.na(standard_pt), pt_temp, standard_pt)] %>% select(-standard_pt)
+  data <- data %>% select(-all_of(pt_variable))
+  # Calculate the portion of standardized PTs
+  standardized_percentage <- round(nrow(data[pt_temp %in% pt_list]) * 100 / nrow(data[!is.na(pt_temp)]), 3)
+  print(paste0("The portion of standardized PTs at the end is ",
+               standardized_percentage))
+  setnames(data,old="pt_temp",new=pt_variable)
+  
+  # Return the standardized data and standardized percentage
+  return(data)
+}
+
+Reac <- standardize_PT("Clean Data/Reac.rds","pt")
+#consider updating the pt_fixed file
+saveRDS(Reac,"Clean Data/Reac.rds")
+Reac <- standardize_PT("Clean Data/Reac.rds","drug_rec_act")
+#consider updating the pt_fixed file
+saveRDS(Reac,"Clean Data/Reac.rds")
+Indi <- standardize_PT("Clean Data/Indi.rds","indi_pt")
+#consider updating the pt_fixed file
+saveRDS(Indi,"Clean Data/Indi.rds")
+```
+
+### Drug
 
 ## 6. Remove deleted (nullified) reports
 
