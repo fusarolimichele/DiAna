@@ -531,6 +531,8 @@ saveRDS(Indi,"Clean Data/Indi.rds")
 
 ### Drug
 
+The FDA Adverse Event Reporting System (FAERS) receives drug names in various forms, including brand names, active ingredients, abbreviations, and misspellings. This lack of consistency in nomenclature poses significant challenges. The absence of agreed-upon standardization strategies and transparency further exacerbates the problem, leading to issues with replicability and accuracy when conducting disproportionality analysis using FAERS data. To address this, we have developed DIANA_dictionary, a specialized drug standardization dictionary tailored specifically for the FAERS (https://doi.org/10.1101/2023.06.07.23291076). The script provided allows for the utilization of DIANA_dictionary and its integration into each preprocessing cycle, ensuring comprehensive drug standardization. By incorporating this solution, we aim to enhance the reliability and quality of FAERS data analysis, ultimately facilitating more accurate and reproducible results.
+
 ```{r eval = FALSE}
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
 DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/DiAna_dictionary.xlsx"))[
@@ -552,6 +554,28 @@ write.csv2(temp, "External Sources/Dictionaries/DIANA_dictionary/drugnames_stand
 # Our scope is to at least grant a translation for terms occurring more than
 # 200 times. For drugs of interest, particularly, the newly marketed ones,
 # a more extended translation may be needed for the best case retrieval.
+
+DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.xlsx"))[
+  ,.(drugname,Substance)][Substance!="na"][!is.na(Substance)]
+
+Drug <- DIANA_dictionary[Drug,on="drugname"]
+Drug_multi <- Drug[grepl(";",Substance)] 
+cn <- c("primaryid","drug_seq","Substance","role_cod","drugname","prod_ai")
+
+Drug_multi <- Drug_multi[, strsplit(Substance, ";", fixed=TRUE), by = cn]
+Drug_multi <- Drug_multi[,.(primaryid,drug_seq,Substance=V1,role_cod,drugname,prod_ai)]
+
+Drug_one <- Drug[!grepl(";",Substance)] 
+Drug_one <- Drug_one[,.(primaryid,drug_seq,Substance,role_cod,drugname,prod_ai)]
+
+Drug <- rbindlist(list(Drug_multi,Drug_one))
+Drug <- Drug[,trial:=grepl(", trial",Substance)]
+nrow(Drug[trial==TRUE])
+Drug <- Drug[,Substance:=gsub(", trial","",Substance)]
+Drug$drugname <- as.factor(Drug$drugname)
+Drug$prod_ai <- as.factor(Drug$prod_ai)
+Drug$Substance <- as.factor(Drug$Substance)
+saveRDS(Drug,"Clean Data/Drug.rds")
 
 ```
 

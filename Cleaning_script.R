@@ -301,7 +301,6 @@ Indi <- standardize_PT("Clean Data/Indi.rds","indi_pt")
 #consider updating the pt_fixed file
 saveRDS(Indi,"Clean Data/Indi.rds")
 
-### TO CHECK
 ##Drug standardization-------------------------------------------------------
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
 DIANA_dictionary <- setDT(read_excel("External Sources/Dictionaries/DiAna_dictionary/DiAna_dictionary.xlsx"))[
