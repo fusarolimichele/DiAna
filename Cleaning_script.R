@@ -407,10 +407,10 @@ Demo[age_in_years < 12]$age_grp_st <- "C"
 Demo[age_in_years < 2]$age_grp_st <- "I"
 Demo[age_in_days <28]$age_grp_st <- "N"
 Demo[,.N,by="age_grp_st"][order(-N)][,perc:=round(N/sum(N)*100),]
-Demo <- Demo %>% select(-age_grp)
+Demo <- Demo %>% select(-age_grp) %>% rename (age_grp=age_grp_st)
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
-## ----standardize weights---------------------------------------------------
+## Weight standardization---------------------------------------------------
 Demo[,.N,by="wt_cod"][order(-N)]
 Demo$wt_corrector  <-  as.numeric(NA)
 Demo[wt_cod=="LBS"]$wt_corrector   <-  0.453592
@@ -427,23 +427,19 @@ ggplot(data=temp) +
 Demo <- Demo %>% select(-wt_corrector,-wt,-wt_cod)
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
-##Country standardization--------------------------------------------
-Countries <- setDT(read_delim("External Sources/countries.csv",";", escape_double = FALSE, trim_ws = TRUE))
+## Country standardization--------------------------------------------
+Countries <- setDT(read_delim("External Sources/Manual_fix/countries.csv",";", escape_double = FALSE, trim_ws = TRUE))
+Countries[is.na(Countries$country)]$country <- "NA" #to avoid losing Namibia
 Countries[union(Demo$occr_country,Demo$reporter_country),on="country"][is.na(Country_Name)] #check if new not translated
-Countries[is.na(Countries)] <- "NA"
-Demo <- Countries[,.(occr_country=country,occr_country_st=Country_Name)][Demo,on="occr_country"] 
-Demo <- Countries[,.(reporter_country=country,rept_country_st=Country_Name)][Demo,on="reporter_country"] 
-Demo[rept_country_st!=occr_country_st][,.(rept_country_st,occr_country_st)][!is.na(occr_country_st)&!is.na(rept_country_st)]
-Demo[,country:=ifelse(is.na(occr_country_st),rept_country_st,occr_country_st)]
-Demo[rept_country_st==country]$rept_country_st <- NA
+Demo <- Countries[,.(country,occr_country=Country_Name)][Demo[,country:=occr_country],on="country"] 
+Demo <- Countries[,.(country,reporter_country=Country_Name)][Demo[,country:=reporter_country],on="country"] 
 Demo[,.N,by="country"][order(-N)]
-Demo <- Demo %>% select(-reporter_country,-occr_country,-occr_country_st) %>% droplevels()
-hist(Demo$age_in_years)
+Demo <- Demo %>% select(-country) %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
-##occupation standardization------------------------------------------------
+## Occupation standardization------------------------------------------------
 Demo[,.N,by="occp_cod"][order(-N)]
-Demo[!occp_cod%in%c("MD","CN","OT","PH","HP","LW")]$occp_cod <- NA
+Demo[!occp_cod%in%c("MD","CN","OT","PH","HP","LW","RN")]$occp_cod <- NA
 Demo <- Demo %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 rm(list=ls())
