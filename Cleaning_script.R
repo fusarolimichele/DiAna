@@ -540,7 +540,7 @@ dose_form_st <- DRUG_INFO[,.N,by=c("dose_form","dose_form_st")][order(-N)]
 write.csv2(dose_form_st,
            "External Sources/Manual_fix/dose_form_st.csv")
 print(paste0("The following terms are translated to NA: ",paste0(dose_form_st[
-  is.na(dose_form_st)]$dose_form_st,collapse="; "), ". Integrate NAs and repeat."))
+  is.na(dose_form_st)]$dose_form,collapse="; "), ". Integrate NAs and repeat."))
 
 
 dose_freq <- setDT(read_delim("External Sources/Manual_fix/dose_freq_st.csv",
@@ -552,7 +552,7 @@ DRUG_INFO <- dose_freq[DRUG_INFO,on="dose_freq"]
 DRUG_INFO$dose_freq_st <- as.factor(DRUG_INFO$dose_freq_st)
 dose_freq_st <- DRUG_INFO[,.N,by=c("dose_freq","dose_freq_st")][order(-N)]
 write.csv2(dose_freq_st,
-           "External Sources/Manual_fix/dose_freq_st.csv")#integrate NAs & repeat
+           "External Sources/Manual_fix/dose_freq_st.csv")
 print(paste0("The following terms are translated to NA: ",paste0(dose_freq_st[
   is.na(dose_freq_st)]$dose_freq_st,collapse="; "), ". Integrate NAs and repeat."))
 

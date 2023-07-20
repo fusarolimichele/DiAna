@@ -875,10 +875,78 @@ rm(list = ls())
 
 ### Therapy regimen standardization
 
-Information about
+Information about therapy regimen, even if often neglected, requires a thorough standardization. Since most of this information is entered as free text, we have implemented our dictionaries (updated at each quarter) to standardize these fields.
+
+This way we standardize the route of administration, information about dechallenge and rechallenge, information about formulation and frequency of administration.
+
+Information about doses needs a drug-specific standardization, since information about it is stored in multiple fields, and the unit is often dose-formulation. Information about lot number and nda number is also kept as it is, together with the exp_dt.
 
 ```{r eval = FALSE}
+DRUG_INFO <- setDT(readRDS("Clean Data/DRUG_INFO.rds"))
+DRUG_INFO <- DRUG_INFO[,route:=tolower(trimws(route)),]
+route_st <- setDT(read_delim("External Sources/Manual_fix/route_st.csv",";",
+                             escape_double = FALSE, trim_ws = TRUE))[
+                               ,.(route,route_st)] %>% distinct()
+DRUG_INFO <- route_st[DRUG_INFO,on="route"]
+route_st <- DRUG_INFO[,.N,by=c("route","route_st")][order(-N)]
+write.csv2(route_st,
+           "External Sources/Manual_fix/route_st.csv")
+print(paste0("The following terms are translated to NA: ",paste0(route_st[
+  is.na(route_st)]$route,collapse="; "), ". Integrate NAs and repeat."))
 
+
+DRUG_INFO$dechal[!DRUG_INFO$dechal %in% c("Y","N","D")] <- NA
+DRUG_INFO$dechal <- as.factor(DRUG_INFO$dechal)
+DRUG_INFO$rechal[!DRUG_INFO$rechal %in% c("Y","N","D")] <- NA
+DRUG_INFO$rechal <- as.factor(DRUG_INFO$rechal)
+
+DRUG_INFO$dose_form <- tolower(trimws(DRUG_INFO$dose_form))
+dose_form_st <- setDT(read_delim("External Sources/Manual_fix/dose_form_st.csv",
+                                 ";", escape_double = FALSE, trim_ws = TRUE))[
+                                   ,.(dose_form,dose_form_st)]
+DRUG_INFO <- dose_form_st[DRUG_INFO,on="dose_form"]
+DRUG_INFO$dose_form_st <- as.factor(DRUG_INFO$dose_form_st)
+dose_form_st <- DRUG_INFO[,.N,by=c("dose_form","dose_form_st")][order(-N)]
+write.csv2(dose_form_st,
+           "External Sources/Manual_fix/dose_form_st.csv")
+print(paste0("The following terms are translated to NA: ",paste0(dose_form_st[
+  is.na(dose_form_st)]$dose_form,collapse="; "), ". Integrate NAs and repeat."))
+
+
+dose_freq <- setDT(read_delim("External Sources/Manual_fix/dose_freq_st.csv",
+                              ";", escape_double = FALSE, trim_ws = TRUE))[
+                                ,.(dose_freq,dose_freq_st)][!is.na(dose_freq_st)] %>%
+  distinct()
+DRUG_INFO <-  DRUG_INFO %>% select(-route,-dose_form)
+DRUG_INFO <- dose_freq[DRUG_INFO,on="dose_freq"]
+DRUG_INFO$dose_freq_st <- as.factor(DRUG_INFO$dose_freq_st)
+dose_freq_st <- DRUG_INFO[,.N,by=c("dose_freq","dose_freq_st")][order(-N)]
+write.csv2(dose_freq_st,
+           "External Sources/Manual_fix/dose_freq_st.csv")
+print(paste0("The following terms are translated to NA: ",paste0(dose_freq_st[
+  is.na(dose_freq_st)]$dose_freq_st,collapse="; "), ". Integrate NAs and repeat."))
+
+
+route_form_st <- setDT(read_delim("External Sources/Manual_fix/route_form_st.csv",";",
+                               escape_double = FALSE, trim_ws = TRUE))[
+                                 ,.(dose_form_st,route_plus)] %>% distinct()
+DRUG_INFO <- route_form_st[DRUG_INFO,on="dose_form_st"]
+route_form_st <- DRUG_INFO[,.N,by=c("dose_form_st","route_st","route_plus")][order(-N)]
+write.csv2(route_form_st,
+           "External Sources/Manual_fix/route_form_st.csv")
+print(paste0("The following terms are translated to NA: ",paste0(route_form_st[
+  is.na(dose_freq_st)]$route_form_st,collapse="; "), ". Integrate NAs and repeat."))
+
+
+DRUG_INFO$route_st <- ifelse(is.na(DRUG_INFO$route_st)|DRUG_INFO$route_st=="unknown",
+                             DRUG_INFO$route_plus,DRUG_INFO$route_st)
+DRUG_INFO$route_st <- as.factor(DRUG_INFO$route_st)
+
+
+DRUG_INFO <- DRUG_INFO[,.(primaryid,drug_seq,val_vbm,route=route_st,dose_vbm,cum_dose_unit,cum_dose_chr, dose_amt,dose_unit,dose_form=dose_form_st,dose_freq=dose_freq_st,dechal,rechal,lot_num,nda_num,exp_dt)]
+
+saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
+rm(list=ls())
 ```
 
 ## 6. Remove deleted (nullified) reports
