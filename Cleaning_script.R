@@ -518,8 +518,12 @@ route_st <- setDT(read_delim("External Sources/Manual_fix/route_st.csv",";",
                              escape_double = FALSE, trim_ws = TRUE))[
                                ,.(route,route_st)] %>% distinct()
 DRUG_INFO <- route_st[DRUG_INFO,on="route"]
-write.csv2(DRUG_INFO[,.N,by=c("route","route_st")][order(-N)],
-           "External Sources/Manual_fix/route_st.csv") #integrate NAs & repeat
+route_st <- DRUG_INFO[,.N,by=c("route","route_st")][order(-N)]
+write.csv2(route_st,
+           "External Sources/Manual_fix/route_st.csv")
+print(paste0("The following terms are translated to NA: ",paste0(route_st[
+  is.na(route_st)],collapse="; "), ". Integrate NAs and repeat."))
+
 
 DRUG_INFO$dechal[!DRUG_INFO$dechal %in% c("Y","N","D")] <- NA
 DRUG_INFO$dechal <- as.factor(DRUG_INFO$dechal)
@@ -532,8 +536,12 @@ dose_form_st <- setDT(read_delim("External Sources/Manual_fix/dose_form_st.csv",
                                    ,.(dose_form,dose_form_st)]
 DRUG_INFO <- dose_form_st[DRUG_INFO,on="dose_form"]
 DRUG_INFO$dose_form_st <- as.factor(DRUG_INFO$dose_form_st)
-write.csv2(DRUG_INFO[,.N,by=c("dose_form","dose_form_st")][order(-N)],
-           "External Sources/Manual_fix/dose_form_st.csv")#integrate NAs & repeat
+dose_form_st <- DRUG_INFO[,.N,by=c("dose_form","dose_form_st")][order(-N)]
+write.csv2(dose_form_st,
+           "External Sources/Manual_fix/dose_form_st.csv")
+print(paste0("The following terms are translated to NA: ",paste0(dose_form_st[
+  is.na(dose_form_st)],collapse="; "), ". Integrate NAs and repeat."))
+
 
 dose_freq <- setDT(read_delim("External Sources/Manual_fix/dose_freq_st.csv",
                               ";", escape_double = FALSE, trim_ws = TRUE))[
@@ -549,8 +557,12 @@ route_form <- setDT(read_delim("External Sources/Manual_fix/route_form_st.csv","
                                escape_double = FALSE, trim_ws = TRUE))[
                                  ,.(dose_form_st,route_plus)] %>% distinct()
 DRUG_INFO <- route_form[DRUG_INFO,on="dose_form_st"]
-write.csv2(DRUG_INFO[,.N,by=c("dose_form_st","route_st","route_plus")][order(-N)],
-           "External Sources/Manual_fix/route_form_st.csv")#integrate NAs & repeat
+dose_freq_st <- DRUG_INFO[,.N,by=c("dose_form_st","route_st","route_plus")][order(-N)]
+write.csv2(dose_freq_st,
+           "External Sources/Manual_fix/route_form_st.csv")
+print(paste0("The following terms are translated to NA: ",paste0(dose_freq_st[
+  is.na(dose_freq_st)],collapse="; "), ". Integrate NAs and repeat."))
+
 
 DRUG_INFO$route_st <- ifelse(is.na(DRUG_INFO$route_st)|DRUG_INFO$route_st=="unknown",
                              DRUG_INFO$route_plus,DRUG_INFO$route_st)

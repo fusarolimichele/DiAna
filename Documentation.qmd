@@ -789,7 +789,7 @@ Ther dataset includes two variables related to the duration of pharmacological t
 
 In handling these differences, the script prioritizes the calculated duration when available, and if not, it fills the duration using the FDA-provided value.
 
-Finally, the duration is used to impute missing start_dt or end_dt values when possible, completing the process of standardizing dates and durations in the datasets.
+Finally, the duration is used to impute missing start_dt or end_dt values when possible, completing the process of standardizing dates and durations in the datasets.![](images/Diagram.drawio%20(6).svg)
 
 ```{r eval = FALSE}
 #please change according to the last quarter
@@ -855,7 +855,7 @@ saveRDS(Ther, "Clean Data/THER.rds")
 
 ### Time to onset calculation
 
-In addition to standardizing dates and durations, the script computes the time to onset for each row in the Ther dataset. This calculation represents the time delay between the first drug administration (start_dt from Ther) and the occurrence of the corresponding event (event_dt from Demo).
+In addition to standardizing dates and durations, the script computes the time to onset for each row in the Ther dataset (see flowchart above). This calculation represents the time delay between the first drug administration (start_dt from Ther) and the occurrence of the corresponding event (event_dt from Demo).
 
 It's worth noting that while each drug taken by a patient has a specific start_dt, there is only one event_dt recorded per report, even if multiple events are documented. The time to onset is calculated starting from a value of 1, representing the first day of drug administration until the event's manifestation.
 
@@ -874,6 +874,12 @@ rm(list = ls())
 ```
 
 ### Therapy regimen standardization
+
+Information about
+
+```{r eval = FALSE}
+
+```
 
 ## 6. Remove deleted (nullified) reports
 
