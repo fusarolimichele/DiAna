@@ -777,6 +777,18 @@ rm(list=ls())
 
 ### Dates and duration standardization
 
+The script deals with date information in two datasets, Demo and Ther, each containing 5 and 2 date-related columns, respectively. Its primary objective is to standardize the date formats and handle incomplete or inaccurate date entries.
+
+In the process, the script replaces invalid dates with NA values. Dates prior to 1985 and dates beyond the last day of the last quarter (max_date) are considered invalid and converted to NA. Additionally, the script retains only dates with 4, 6, and 8 characters, corresponding to the formats "yyyy," "yyyymm," and "yyyymmdd," respectively.
+
+To preserve information about years when only the year is available, the dates are kept as integers. This approach prevents the auto-completion of incomplete dates to January 1st or the first day of the specified month, ensuring data integrity.
+
+However, it's essential to be cautious when analyzing time trends. Dates before 2012 were automatically completed by the FDA during storage, potentially leading to inaccuracies in time trend analysis and time-to-onset calculations.
+
+Together with dates, Ther has also two variables concerning the duration of the pharmacological therapy (one with the unit, and one with the number). We decided to convert everything to days (if the unit was NA we lost the information, since in this case we cannot exclude that other measure units were used). We made so that a therapy started and ended the same day has a duration in days of 1, and one ended the day after the start has a duration of 2, and so on. In parallel with standardizing the duration provided by the FDA, we also calculated it as the difference between the end date and the start date + 1. This way we found that for only the 8% of the rows of Ther a duration was provided by the FDA, while we managed to calculate it for ≈32% of the rows. In 1.7% of the total rows there were some differences in the duration calculated and the duration provided (0.7% because the duration provided by the FDA started from 0 days instead of 1). Most of the other differences were due to the fact that we rounded to the day. We decided to keep the calculated duration when available, and when not to get the duration provided by the FDA (filling +1.5%).
+
+Finally, we used the duration to impute start_dt or end_dt when possible.
+
 ### Therapy regimen standardization
 
 ## 6. Remove deleted (nullified) reports

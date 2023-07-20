@@ -488,10 +488,10 @@ Ther[dur_cod == "SEC", dur_corrector := 1.157407e-05]
 Ther <- Ther[, dur_in_days := abs(dur) * dur_corrector][, dur_in_days := ifelse(dur_in_days > 50*365, NA, dur_in_days)]
 
 Ther <- Ther[, dur_std := ifelse(nchar(end_dt) == 8, ymd(end_dt), NA) - ifelse(nchar(start_dt) == 8, ymd(start_dt), NA) + 1]
-Ther[dur_std!=dur_in_days][,.N,by=c(dur_std,dur_in_days)][order(-N)]#check
+Ther[dur_std!=dur_in_days][,.N,by=c("dur_std","dur_in_days")][order(-N)]#check
 Ther <- Ther[, dur_std := ifelse(dur_std < 0, NA, dur_std)][, dur_std := ifelse(is.na(dur_std), dur_in_days, dur_std)]
-
-## calcolare end_dt e start_dt quando disponibile dur.
+Ther <- Ther[,start_dt:=ifelse(!is.na(start_dt),start_dt,ifelse(!is.na(end_dt)&!is.na(dur_std), as.numeric(gsub("-","",as.character(ymd(end_dt)-dur_std+1),NA))))]
+Ther <- Ther[,end_dt:=ifelse(!is.na(end_dt),end_dt,ifelse(!is.na(start_dt)&!is.na(dur_std), as.numeric(gsub("-","",as.character(ymd(start_dt)+dur_std-1),NA))))]
 
 saveRDS(Ther, "Clean Data/THER.rds")
 
