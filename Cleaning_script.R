@@ -554,7 +554,7 @@ dose_freq_st <- DRUG_INFO[,.N,by=c("dose_freq","dose_freq_st")][order(-N)]
 write.csv2(dose_freq_st,
            "External Sources/Manual_fix/dose_freq_st.csv")
 print(paste0("The following terms are translated to NA: ",paste0(dose_freq_st[
-  is.na(dose_freq_st)]$dose_freq_st,collapse="; "), ". Integrate NAs and repeat."))
+  is.na(dose_freq_st)]$dose_freq,collapse="; "), ". Integrate NAs and repeat."))
 
 
 route_form_st <- setDT(read_delim("External Sources/Manual_fix/route_form_st.csv",";",
@@ -564,8 +564,6 @@ DRUG_INFO <- route_form_st[DRUG_INFO,on="dose_form_st"]
 route_form_st <- DRUG_INFO[,.N,by=c("dose_form_st","route_st","route_plus")][order(-N)]
 write.csv2(route_form_st,
            "External Sources/Manual_fix/route_form_st.csv")
-print(paste0("The following terms are translated to NA: ",paste0(route_form_st[
-  is.na(dose_freq_st)]$route_form_st,collapse="; "), ". Integrate NAs and repeat."))
 
 
 DRUG_INFO$route_st <- ifelse(is.na(DRUG_INFO$route_st)|DRUG_INFO$route_st=="unknown",
@@ -574,6 +572,12 @@ DRUG_INFO$route_st <- as.factor(DRUG_INFO$route_st)
 
 
 DRUG_INFO <- DRUG_INFO[,.(primaryid,drug_seq,val_vbm,route=route_st,dose_vbm,cum_dose_unit,cum_dose_chr, dose_amt,dose_unit,dose_form=dose_form_st,dose_freq=dose_freq_st,dechal,rechal,lot_num,nda_num,exp_dt)]
+
+max_date <- 20500101
+for (col in c("exp_dt")) {
+  DRUG_INFO[, n := nchar(.SD[[col]])]
+  DRUG_INFO[, (col) := check_date(.SD[[col]])]
+}
 
 saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
 rm(list=ls())
