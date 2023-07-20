@@ -464,6 +464,7 @@ for (col in date_columns) {
   Demo[, n := nchar(.SD[[col]])]
   Demo[, (col) := check_date(.SD[[col]])]
 }
+Demo <- Demo %>% select(-n)
 saveRDS(Demo, "Clean Data/DEMO.rds")
 
 Ther <- setDT(readRDS("Clean Data/Ther.rds"))
@@ -493,6 +494,7 @@ Ther <- Ther[, dur_std := ifelse(dur_std < 0, NA, dur_std)][, dur_std := ifelse(
 Ther <- Ther[,start_dt:=ifelse(!is.na(start_dt),start_dt,ifelse(!is.na(end_dt)&!is.na(dur_std), as.numeric(gsub("-","",as.character(ymd(end_dt)-dur_std+1),NA))))]
 Ther <- Ther[,end_dt:=ifelse(!is.na(end_dt),end_dt,ifelse(!is.na(start_dt)&!is.na(dur_std), as.numeric(gsub("-","",as.character(ymd(start_dt)+dur_std-1),NA))))]
 
+Ther <- Ther %>% select(-n)
 saveRDS(Ther, "Clean Data/THER.rds")
 
 Ther <- Demo[, .(primaryid, event_dt)][!is.na(event_dt)][Ther, on = "primaryid"]

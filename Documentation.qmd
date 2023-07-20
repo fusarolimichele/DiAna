@@ -785,9 +785,23 @@ To preserve information about years when only the year is available, the dates a
 
 However, it's essential to be cautious when analyzing time trends. Dates before 2012 were automatically completed by the FDA during storage, potentially leading to inaccuracies in time trend analysis and time-to-onset calculations.
 
-Together with dates, Ther has also two variables concerning the duration of the pharmacological therapy (one with the unit, and one with the number). We decided to convert everything to days (if the unit was NA we lost the information, since in this case we cannot exclude that other measure units were used). We made so that a therapy started and ended the same day has a duration in days of 1, and one ended the day after the start has a duration of 2, and so on. In parallel with standardizing the duration provided by the FDA, we also calculated it as the difference between the end date and the start date + 1. This way we found that for only the 8% of the rows of Ther a duration was provided by the FDA, while we managed to calculate it for ≈32% of the rows. In 1.7% of the total rows there were some differences in the duration calculated and the duration provided (0.7% because the duration provided by the FDA started from 0 days instead of 1). Most of the other differences were due to the fact that we rounded to the day. We decided to keep the calculated duration when available, and when not to get the duration provided by the FDA (filling +1.5%).
+Ther dataset includes two variables related to the duration of pharmacological therapy, one indicating the unit and the other the number. The script converts all duration values to days. In cases where the unit is not provided (NA), some information might be lost, as different measurement units could have been used. The script performs two parallel approaches for standardizing duration. First, it uses the FDA-provided duration when available, but interestingly, this was found to be provided in only about 8% of the rows. Second, for approximately 32% of the rows, the script calculates the duration as the difference between the end date and the start date, adding 1 to the result. In around 1.7% of the total rows, some differences were found between the calculated duration and the FDA-provided duration. These differences were primarily due to rounding to the day, with the FDA sometimes providing a duration starting from 0 days instead of 1.
 
-Finally, we used the duration to impute start_dt or end_dt when possible.
+In handling these differences, the script prioritizes the calculated duration when available, and if not, it fills the duration using the FDA-provided value.
+
+Finally, the duration is used to impute missing start_dt or end_dt values when possible, completing the process of standardizing dates and durations in the datasets.
+
+```{r eval = FALSE}
+
+```
+
+### Time to onset calculation
+
+For each row of Ther we a
+
+```{r eval = FALSE}
+
+```
 
 ### Therapy regimen standardization
 
