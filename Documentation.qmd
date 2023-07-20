@@ -792,15 +792,85 @@ In handling these differences, the script prioritizes the calculated duration wh
 Finally, the duration is used to impute missing start_dt or end_dt values when possible, completing the process of standardizing dates and durations in the datasets.
 
 ```{r eval = FALSE}
+#please change according to the last quarter
+max_date <- 20230331
 
+Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
+
+check_date <- function(dt) {
+  n <- nchar(dt)
+  invalid_dates <- (n == 4 & (dt <1985|dt > as.numeric(substr(max_date, 0,4)))) |
+    (n == 6 & (dt <198500|dt > as.numeric(substr(max_date, 0,6)))) |
+    (n == 8 & (dt <19850000|dt > as.numeric(substr(max_date, 0,8)))) |
+    (!n %in% c(4, 6, 8))
+  dt[invalid_dates] <- NA
+  return(dt)
+}
+
+date_columns <- c("fda_dt", "rept_dt", "mfr_dt", "init_fda_dt", "event_dt")
+for (col in date_columns) {
+  Demo[, n := nchar(.SD[[col]])]
+  Demo[, (col) := check_date(.SD[[col]])]
+}
+Demo <- Demo %>% select(-n)
+saveRDS(Demo, "Clean Data/DEMO.rds")
+
+Ther <- setDT(readRDS("Clean Data/Ther.rds"))
+
+for (col in c("start_dt", "end_dt")) {
+  Ther[, n := nchar(.SD[[col]])]
+  Ther[, (col) := check_date(.SD[[col]])]
+}
+
+
+Ther$dur <- as.numeric(Ther$dur)
+Ther$dur_corrector <- as.numeric(NA)
+Ther[dur_cod == "YR", dur_corrector := 365]
+Ther[is.na(dur_cod), dur_corrector := NA]
+Ther[dur_cod == "MON", dur_corrector := 30.41667]
+Ther[dur_cod == "WK", dur_corrector := 7]
+Ther[dur_cod == "DAY", dur_corrector := 1]
+Ther[dur_cod == "HR", dur_corrector := 0.04166667]
+Ther[dur_cod == "MIN", dur_corrector := 0.0006944444]
+Ther[dur_cod == "SEC", dur_corrector := 1.157407e-05]
+
+Ther <- Ther[, dur_in_days := abs(dur) * dur_corrector][, dur_in_days := ifelse(dur_in_days > 50*365, NA, dur_in_days)]
+
+Ther <- Ther[, dur_std := ifelse(nchar(end_dt) == 8, ymd(end_dt), NA) - ifelse(nchar(start_dt) == 8, ymd(start_dt), NA) + 1]
+Ther <- Ther[, dur_std := ifelse(dur_std < 0, NA, dur_std)][, dur_std := ifelse(is.na(dur_std), dur_in_days, dur_std)]
+Ther <- Ther[,start_dt:=ifelse(!is.na(start_dt),
+                               start_dt,
+                               ifelse(!is.na(end_dt)&!is.na(dur_std),
+                                      as.numeric(gsub("-","",as.character(ymd(end_dt)-dur_std+1))),
+                                      NA))]
+Ther <- Ther[,end_dt:=ifelse(!is.na(end_dt),
+                             end_dt,
+                             ifelse(!is.na(start_dt)&!is.na(dur_std),
+                                    as.numeric(gsub("-","",as.character(ymd(start_dt)+dur_std-1))),
+                                    NA))]
+
+Ther <- Ther[,dur_in_days:=dur_std] %>% select(-n,-dur_std, -dur_corrector, -dur, -dur_cod)
+saveRDS(Ther, "Clean Data/THER.rds")
 ```
 
 ### Time to onset calculation
 
-For each row of Ther we a
+In addition to standardizing dates and durations, the script computes the time to onset for each row in the Ther dataset. This calculation represents the time delay between the first drug administration (start_dt from Ther) and the occurrence of the corresponding event (event_dt from Demo).
+
+It's worth noting that while each drug taken by a patient has a specific start_dt, there is only one event_dt recorded per report, even if multiple events are documented. The time to onset is calculated starting from a value of 1, representing the first day of drug administration until the event's manifestation.
+
+This process allows for further analysis of the time it takes for events to occur after the administration of a particular drug, providing valuable insights into potential correlations or patterns.
+
+In fact, 21% of the time to onset thus calculated are negative which, if true, would exclude causality. 39% of these were submitted before 2013, when dates where autocompleted and are therefore less accurate (45% ended with 01; role_cod 20% PS, 41% SS, 39% C). To take into account the problem of autocompletion we replaced all the dates ending with 01 before 2013 with NA.
+
+For those after 2013, according to the FAERS README, autocompletion was not a problem anymore (19% ended with 01; role_cod 6% PS, 54% SS, and 40% C). In most of these cases the SS was the same active ingredient recorded in the PS, but started some days later the event, only sometimes at a different dose. It should therefore not be a problem for report-based disproportionality analyses, but only for the drug-event pair-based disproportionality analyses (which is anyway obsolete because of other problems as well). We suggest, in any case, to perform at least one analysis excluding, along with concomitants, all the drugs with a negative or null time to onset.
 
 ```{r eval = FALSE}
-
+Ther <- Demo[, .(primaryid, event_dt)][!is.na(event_dt)][Ther, on = "primaryid"]
+Ther <- Ther[, time_to_onset := ifelse(nchar(event_dt) == 8, ymd(event_dt), NA) - ifelse(nchar(start_dt) ==8, ymd(start_dt), NA) + 1]
+Ther <- Ther[, time_to_onset := ifelse(is.na(time_to_onset) | ( time_to_onset<=0 & event_dt<=20121231), NA, time_to_onset)]
+saveRDS(Ther, "Clean Data/THER.rds")
+rm(list = ls())
 ```
 
 ### Therapy regimen standardization

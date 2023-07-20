@@ -489,20 +489,25 @@ Ther[dur_cod == "SEC", dur_corrector := 1.157407e-05]
 Ther <- Ther[, dur_in_days := abs(dur) * dur_corrector][, dur_in_days := ifelse(dur_in_days > 50*365, NA, dur_in_days)]
 
 Ther <- Ther[, dur_std := ifelse(nchar(end_dt) == 8, ymd(end_dt), NA) - ifelse(nchar(start_dt) == 8, ymd(start_dt), NA) + 1]
-Ther[dur_std!=dur_in_days][,.N,by=c("dur_std","dur_in_days")][order(-N)]#check
 Ther <- Ther[, dur_std := ifelse(dur_std < 0, NA, dur_std)][, dur_std := ifelse(is.na(dur_std), dur_in_days, dur_std)]
-Ther <- Ther[,start_dt:=ifelse(!is.na(start_dt),start_dt,ifelse(!is.na(end_dt)&!is.na(dur_std), as.numeric(gsub("-","",as.character(ymd(end_dt)-dur_std+1),NA))))]
-Ther <- Ther[,end_dt:=ifelse(!is.na(end_dt),end_dt,ifelse(!is.na(start_dt)&!is.na(dur_std), as.numeric(gsub("-","",as.character(ymd(start_dt)+dur_std-1),NA))))]
+Ther <- Ther[,start_dt:=ifelse(!is.na(start_dt),
+                               start_dt,
+                               ifelse(!is.na(end_dt)&!is.na(dur_std),
+                                      as.numeric(gsub("-","",as.character(ymd(end_dt)-dur_std+1))),
+                                      NA))]
+Ther <- Ther[,end_dt:=ifelse(!is.na(end_dt),
+                             end_dt,
+                             ifelse(!is.na(start_dt)&!is.na(dur_std),
+                                    as.numeric(gsub("-","",as.character(ymd(start_dt)+dur_std-1))),
+                                    NA))]
 
-Ther <- Ther %>% select(-n)
+Ther <- Ther[,dur_in_days:=dur_std] %>% select(-n,-dur_std, -dur_corrector, -dur, -dur_cod)
 saveRDS(Ther, "Clean Data/THER.rds")
 
+## time to onset calculation ------------------------------------------------
 Ther <- Demo[, .(primaryid, event_dt)][!is.na(event_dt)][Ther, on = "primaryid"]
-Ther <- Ther[, time_to_onset := event_dt - start_dt + 1]
-hist(as.numeric(Ther$time_to_onset), breaks = 1000)
-Ther <- Ther %>% select(-dur, -dur_cod, -n, -dur_corrector, -dur_in_days, -n)
-hist(as.numeric(Ther$time_to_onset), breaks = 1000, xlim = c(0, 30))
+Ther <- Ther[, time_to_onset := ifelse(nchar(event_dt) == 8, ymd(event_dt), NA) - ifelse(nchar(start_dt) ==8, ymd(start_dt), NA) + 1]
+Ther <- Ther[, time_to_onset := ifelse(is.na(time_to_onset) | ( time_to_onset<=0 & event_dt<=20121231), NA, time_to_onset)]
 saveRDS(Ther, "Clean Data/THER.rds")
-
 rm(list = ls())
 
