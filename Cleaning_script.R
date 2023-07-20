@@ -433,7 +433,6 @@ Countries[is.na(Countries$country)]$country <- "NA" #to avoid losing Namibia
 Countries[union(Demo$occr_country,Demo$reporter_country),on="country"][is.na(Country_Name)] #check if new not translated
 Demo <- Countries[,.(country,occr_country=Country_Name)][Demo[,country:=occr_country],on="country"] 
 Demo <- Countries[,.(country,reporter_country=Country_Name)][Demo[,country:=reporter_country],on="country"] 
-Demo[,.N,by="country"][order(-N)]
 Demo <- Demo %>% select(-country) %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
@@ -443,3 +442,65 @@ Demo[!occp_cod%in%c("MD","CN","OT","PH","HP","LW","RN")]$occp_cod <- NA
 Demo <- Demo %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 rm(list=ls())
+
+## Dates and duration standardization ---------------------------------------
+#please change according to the last quarter
+max_date <- 20230331
+
+Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
+
+check_date <- function(dt) {
+  n <- nchar(dt)
+  invalid_dates <- (n == 4 & (dt <1985|dt > as.numeric(substr(max_date, 0,4)))) |
+    (n == 6 & (dt <198500|dt > as.numeric(substr(max_date, 0,6)))) |
+    (n == 8 & (dt <19850000|dt > as.numeric(substr(max_date, 0,8)))) |
+    (!n %in% c(4, 6, 8))
+  dt[invalid_dates] <- NA
+  return(dt)
+}
+
+date_columns <- c("fda_dt", "rept_dt", "mfr_dt", "init_fda_dt", "event_dt")
+for (col in date_columns) {
+  Demo[, n := nchar(.SD[[col]])]
+  Demo[, (col) := check_date(.SD[[col]])]
+}
+saveRDS(Demo, "Clean Data/DEMO.rds")
+
+Ther <- setDT(readRDS("Clean Data/Ther.rds"))
+
+for (col in c("start_dt", "end_dt")) {
+  Ther[, n := nchar(.SD[[col]])]
+  Ther[, (col) := check_date(.SD[[col]])]
+}
+
+
+Ther$dur <- as.numeric(Ther$dur)
+Ther$dur_corrector <- as.numeric(NA)
+Ther[dur_cod == "YR", dur_corrector := 365]
+Ther[is.na(dur_cod), dur_corrector := NA]
+Ther[dur_cod == "MON", dur_corrector := 30.41667]
+Ther[dur_cod == "WK", dur_corrector := 7]
+Ther[dur_cod == "DAY", dur_corrector := 1]
+Ther[dur_cod == "HR", dur_corrector := 0.04166667]
+Ther[dur_cod == "MIN", dur_corrector := 0.0006944444]
+Ther[dur_cod == "SEC", dur_corrector := 1.157407e-05]
+
+Ther <- Ther[, dur_in_days := abs(dur) * dur_corrector][, dur_in_days := ifelse(dur_in_days > 50*365, NA, dur_in_days)]
+
+Ther <- Ther[, dur_std := ifelse(nchar(end_dt) == 8, ymd(end_dt), NA) - ifelse(nchar(start_dt) == 8, ymd(start_dt), NA) + 1]
+Ther[dur_std!=dur_in_days][,.N,by=c(dur_std,dur_in_days)][order(-N)]#check
+Ther <- Ther[, dur_std := ifelse(dur_std < 0, NA, dur_std)][, dur_std := ifelse(is.na(dur_std), dur_in_days, dur_std)]
+
+## calcolare end_dt e start_dt quando disponibile dur.
+
+saveRDS(Ther, "Clean Data/THER.rds")
+
+Ther <- Demo[, .(primaryid, event_dt)][!is.na(event_dt)][Ther, on = "primaryid"]
+Ther <- Ther[, time_to_onset := event_dt - start_dt + 1]
+hist(as.numeric(Ther$time_to_onset), breaks = 1000)
+Ther <- Ther %>% select(-dur, -dur_cod, -n, -dur_corrector, -dur_in_days, -n)
+hist(as.numeric(Ther$time_to_onset), breaks = 1000, xlim = c(0, 30))
+saveRDS(Ther, "Clean Data/THER.rds")
+
+rm(list = ls())
+

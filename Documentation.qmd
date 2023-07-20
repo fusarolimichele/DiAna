@@ -615,7 +615,7 @@ If an age expressed in decimals exceeded the upper threshold of 122 (which is th
 
 Ages exceeding the threshold of 122 were converted to NA.
 
-![](images/Screenshot%202023-07-19%20at%2014.53.11.png)
+![](images/Screenshot%202023-07-19%20at%2016.18.58.png)
 
 ```{r eval = FALSE}
 Demo[,.N,by="age_cod"][order(-N)]
@@ -747,9 +747,7 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 
 ### Country
 
-There are two variables with information about the country: "occur-country" with information about where the event occurred, and "rept-country" with information about from where the report was submitted. The ISO country names were manually integrated to translate "occur-country" and "rept-country" using country ISO codes. Instances where the codes were not specified or were labeled as "COUNTRY NOT SPECIFIED" and "A1" were translated as NA. Additionally, certain codes were translated to the corresponding continent name (e.g., Europe XE, Oceania QU).
-
-![](images/Screenshot%202023-07-19%20at%2014.56.16.png)
+There are two variables with information about the country: "occur-country" with information about where the event occurred, and "rept-country" with information about from where the report was submitted. The ISO country names were manually integrated to translate "occur-country" and "rept-country" using country ISO codes. Instances where the codes were not specified or were labeled as "COUNTRY NOT SPECIFIED" and "A1" were translated as NA. Additionally, certain codes were translated to the corresponding continent name (e.g., Europe XE, Oceania QU).![](images/Screenshot%202023-07-20%20at%2011.56.04.png)
 
 ```{r eval = F}
 Countries <- setDT(read_delim("External Sources/Manual_fix/countries.csv",";", escape_double = FALSE, trim_ws = TRUE))
@@ -757,7 +755,6 @@ Countries[is.na(Countries$country)]$country <- "NA" #to avoid losing Namibia
 Countries[union(Demo$occr_country,Demo$reporter_country),on="country"][is.na(Country_Name)] #check if new not translated
 Demo <- Countries[,.(country,occr_country=Country_Name)][Demo[,country:=occr_country],on="country"] 
 Demo <- Countries[,.(country,reporter_country=Country_Name)][Demo[,country:=reporter_country],on="country"] 
-Demo[,.N,by="country"][order(-N)]
 Demo <- Demo %>% select(-country) %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 ```
