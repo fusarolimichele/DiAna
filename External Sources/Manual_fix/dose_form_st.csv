@@ -1,0 +1,603 @@
+"";"dose_form";"dose_form_st";"N"
+"1";NA;NA;32289970
+"2";"tablet";"tablet";4719740
+"3";"unknown";"unk";1636613
+"4";"capsule";"capsule";1385057
+"5";"solution for injection";"solution for injection";1157068
+"6";"injection";"solution for injection";1101524
+"7";"capsules";"capsule";638375
+"8";"unspecified";"unk";615182
+"9";"film-coated tablet";"coated tablet";614904
+"10";"tablets";"tablet";492556
+"11";"cutaneous solution";"cutaneous solution";429458
+"12";"solution for injection in pre-filled syringe";"solution for injection";427396
+"13";"solution for injection in pre-filled pen";"solution for injection";397304
+"14";"gel";"gel";267257
+"15";"prolonged-release tablet";"tablet-XR";261929
+"16";"solution for infusion";"solution for infusion";254958
+"17";"solution for peritoneal dialysis";"solution for peritoneal dialysis";224997
+"18";"unknown formulation";"unk";210185
+"19";"oral solution";"oral solution";194874
+"20";"powder for injection";"powder for injection";191984
+"21";"capsule, hard";"capsule";184939
+"22";"formulation unknown";"unk";177100
+"23";"concentrate for solution for infusion";"solution for infusion";172726
+"24";"inhalation powder";"inhalation powder";141483
+"25";"transdermal patch";"transdermal patch";131625
+"26";"prolonged-release capsule";"capsule-XR";99073
+"27";"cutaneous liquid";"cutaneous liquid";98740
+"28";"intravenous infusion";"solution for infusion";92426
+"29";"intrauterine delivery system";"intrauterine delivery system";84641
+"30";"lyophilized powder";"lyophilized powder";84627
+"31";"unk";"unk";81335
+"32";"coated tablet";"coated tablet";81308
+"33";"powder for solution for injection";"solution for injection";75363
+"34";"powder for solution for infusion";"solution for infusion";74733
+"35";"infusion";"solution for infusion";74189
+"36";"powder and solvent for solution for injection";"solution for injection";59158
+"37";"cream";"cream";57084
+"38";"implant";"implant";56649
+"39";"powder for oral solution";"oral solution";55524
+"40";"modified-release tablet";"tablet-MR";51683
+"41";"inhalation powder, hard capsule";"inhalation powder";45523
+"42";"eye drops, solution";"eye drops";41915
+"43";"solution";"solution";41408
+"44";"ointment";"ointment";39709
+"45";"eye drops";"eye drops";39404
+"46";"suspension for injection";"suspension for injection";35284
+"47";"nasal spray";"nasal spray";35085
+"48";"chewable tablet";"chewable";31871
+"49";"extended release tablet";"tablet-XR";28559
+"50";"foam";"foam";26372
+"51";"inhalation gas";"inhalation gas";26156
+"52";"powder";"powder";25339
+"53";"suspension";"suspension";25281
+"54";"liquid";"liquid";24110
+"55";"oral suspension";"oral suspension";24043
+"56";"orodispersible tablet";"orodispersible tablet";21441
+"57";"injection for infusion";"solution for infusion";20653
+"58";"modified-release capsule, hard";"capsule-MR";20640
+"59";"capsule, soft";"capsule";19976
+"60";"syrup";"syrup";18253
+"61";"subcutaneous injection";"subcutaneous injection";17821
+"62";"patch";"patch";17296
+"63";"inhaler";"inhaler";17147
+"64";"pressurised inhalation";"inhalation gas";17037
+"65";"solution for injection/infusion";"solution for infusion";16241
+"66";"gastro-resistant tablet";"tablet-gastroresistant";15590
+"67";"vaginal ring";"vaginal ring";15491
+"68";"dispersible tablet";"orodispersible tablet";15410
+"69";"inhalation vapour, liquid";"inhalation vapour";15137
+"70";"caplet";"caplet";14779
+"71";"oros (oral osmotic) therapeutic system tablet";"oros";14502
+"72";"powder and solvent for solution for infusion";"solution for infusion";13398
+"73";"film coated tablet";"coated tablet";13085
+"74";"intrauterine device";"intrauterine device";12970
+"75";"cutaneous paste";"cutaneous paste";12741
+"76";"oral liquid";"oral solution";11802
+"77";"inhalation solution";"inhalation solution";11718
+"78";"powder for infusion";"powder for infusion";11621
+"79";"trans-therapeutic-system";"transdermal system";11356
+"80";"per oral nos";"per os";10208
+"81";"microspheres";"microspheres";10084
+"82";"transdermal system";"transdermal system";9945
+"83";"matrix patch";"transdermal patch";9760
+"84";"suppository";"suppository";9696
+"85";"powder for oral suspension";"oral suspension";9586
+"86";"vaginal cream";"vaginal cream";9271
+"87";"slow release capsules";"capsule-SR";8933
+"88";"sublingual tablet";"sublingual tablet";8770
+"89";"pressurised inhalation, suspension";"inhalation suspension";8524
+"90";"granules";"granules";7915
+"91";"liposome injection";"liposome injection";7805
+"92";"vial";"vial";7708
+"93";"drops";"drops";7573
+"94";"inhalation vapour, solution";"inhalation vapour";7117
+"95";"nasal spray, suspension";"nasal spray";7059
+"96";"nebuliser solution";"nebuliser";6963
+"97";"spray";"spray";6798
+"98";"cutaneous foam";"cutaneous foam";6734
+"99";"cutaneous patch";"patch";6708
+"100";"gastro-resistant coated tablet";"tablet-gastroresistant";6628
+"101";"lozenge";"lozenge";6428
+"102";"powder for concentrate for solution for infusion";"solution for infusion";6333
+"103";"sustained release tablets";"tablet-SR";6135
+"104";"powder and solvent for suspension for injection";"suspension for injection";5933
+"105";"multi dose powder inhaler";"inhaler";5688
+"106";"shampoo";"shampoo";5463
+"107";"inhalant";"inhalant";5240
+"108";"oral drops";"oral drops";5043
+"109";"medicated chewing-gum";"chewable";4906
+"110";"soln for inject in pre-filled syringe";"solution for injection";4794
+"111";"nebuliser liquid";"nebuliser";4753
+"112";"gastroenteral suspension";"gastroenteral suspension";4732
+"113";"oral drops, solution";"oral drops";4490
+"114";"er tablets";"tablet-XR";4465
+"115";"oral drug unspecified form";"per os";4397
+"116";"lotion";"lotion";4260
+"117";"oral powder";"oral powder";3638
+"118";"effervescent tablet";"orodispersible tablet";3637
+"119";"gastro-resistant capsule";"capsule-gastroresistant";3592
+"120";"hfa-cfc free inhaler";"inhaler";3521
+"121";"investigational dosage form";"unk";3408
+"122";"powder for sol for inj";"solution for injection";3408
+"123";"cutaneous stick";"cutaneous stick";3376
+"124";"vaginal delivery system";"vaginal delivery system";3332
+"125";"poultice or patch";"patch";3228
+"126";"pill";"pills";3126
+"127";"aerosol";"aerosol";3103
+"128";"impregnated pad";"impregnated pad";2988
+"129";"inhalation vapour, powder";"inhalation vapour";2987
+"130";"powder (except [dpo])";"powder";2961
+"131";"inhalation";"inhalant";2926
+"132";"unassigned";"unk";2884
+"133";"enteric-coated tablet";"tablet-gastroresistant";2866
+"134";"suspension for injection in pre-filled syringe";"suspension for injection";2836
+"135";"eye drops, suspension";"eye drops";2783
+"136";"inhalation vapour";"inhalation vapour";2687
+"137";"extended release capsules";"capsule-XR";2604
+"138";"pillules";"pills";2498
+"139";"cutaneous spray";"cutaneous spray";2386
+"140";"slow release tablet";"tablet-SR";2300
+"141";"modified-release capsule, soft";"capsule-MR";2230
+"142";"ampoule";"ampoule";2199
+"143";"powder for solution for injection or infusion";"solution for infusion";2147
+"144";"pen";"pen";2048
+"145";"prolonged-release capsule, hard";"capsule-XR";1994
+"146";"powder for instillation fluid";"powder";1853
+"147";"nasal spray, solution";"nasal spray";1824
+"148";"gastro-resistant capsule, hard";"capsule-gastroresistant";1817
+"149";"dry powder inhaler";"inhalation powder";1789
+"150";"eye drops nos";"eye drops";1780
+"151";"spray  (not inhalation)";"spray";1755
+"152";"tablets unflavoured";"tablet";1717
+"153";"emulsion for injection";"emulsion for injection";1716
+"154";"drop";"drops";1693
+"155";"eye ointment";"eye ointment";1688
+"156";"sachet";"sachet";1679
+"157";"topical solution";"cutaneous solution";1659
+"158";"nebuliser suspension";"nebuliser";1639
+"159";"solution (except syrup)";"solution";1638
+"160";"urethral stick";"urethral stick";1562
+"161";"rapidly-disintegrating tablets";"orodispersible tablet";1559
+"162";"powder for solution";"solution";1539
+"163";"aerosol for inhalation";"aerosol";1530
+"164";"powder for suspension for injection";"suspension for injection";1525
+"165";"sustained-release tablet";"tablet-SR";1496
+"166";"scored tablet";"tablet";1491
+"167";"ophthalmic insert";"ophthalmic insert";1489
+"168";"concentrate for solution for injection";"solution for injection";1415
+"169";"gelcaps";"gel capsule";1405
+"170";"oral lyophilisate";"oral lyophilisate";1378
+"171";"sol. aerosol metered dose inh.";"inhalant";1376
+"172";"extended-release tablet";"tablet-XR";1340
+"173";"ear drops";"ear drops";1335
+"174";"enema";"enema";1320
+"175";"preparation for oral use(nos)";"per os";1311
+"176";"modified-release film-coated tablet";"tablet-MR";1279
+"177";"granule";"granules";1255
+"178";"emulsion for infusion";"emulsion for infusion";1243
+"179";"modified release tablet";"tablet-MR";1240
+"180";"vaginal tablet";"vaginal tablet";1238
+"181";"dry powder";"powder";1220
+"182";"intravenous injection";"solution for injection";1213
+"183";"aerosol (spray and inhalation)";"aerosol";1194
+"184";"toothpaste";"oral paste";1149
+"185";"eye gel";"eye gel";1129
+"186";"suspension for injection in pre-filled pen";"suspension for injection";1123
+"187";"hard-gelatin capsule";"gel capsule";1082
+"188";"emulsion";"emulsion";1080
+"189";"enteric coated tablet";"tablet-gastroresistant";1073
+"190";"enteric tablet";"tablet-gastroresistant";1037
+"191";"mouth wash";"mouth wash";1005
+"192";"other";"unk";979
+"193";"tablet (extended release)";"tablet-XR";971
+"194";"kit for radiopharmaceutical preparation";"kit for radiopharmaceutical preparation";932
+"195";"tape (including poultice)";"patch";915
+"196";"gum";"chewable";851
+"197";"cutaneous powder";"cutaneous powder";845
+"198";"unspecified inhaler device";"inhaler";827
+"199";"injection, powder, lyophilized, for solution";"solution for injection";787
+"200";"buccal tablet";"tablet";768
+"201";"ointment, cream";"ointment";753
+"202";"solvent for parenteral use";"solution for infusion";750
+"203";"ampoules";"ampoule";748
+"204";"lotion (except lotion for eye)";"lotion";743
+"205";"sustained-release capsule";"capsule-SR";726
+"206";"sustained release tablet";"tablet-SR";724
+"207";"ophthalmic";"ophtalmic";679
+"208";"pill (except tablets)";"pills";674
+"209";"pressurised inhalation, solution";"inhalation solution";673
+"210";"concentrate for solution for injection/infusion";"solution for infusion";643
+"211";"extended release";"XR";638
+"212";"soft capsule";"capsule";635
+"213";"sublingual spray";"sublingual spray";630
+"214";"standard solution";"solution";625
+"215";"compressed lozenge";"lozenge";622
+"216";"mouthwash";"mouth wash";606
+"217";"powder for sol for inf";"solution for infusion";595
+"218";"liquid gel capsules";"gel capsule";576
+"219";"aqueous spray";"spray";574
+"220";"oral emulsion";"oral emulsion";569
+"221";"dry syrup";"syrup";547
+"222";"spray (except inhalation)";"spray";542
+"223";"sterile powder";"powder";534
+"224";"nasal drops";"nasal drops";534
+"225";"concentrate for cutaneous solution";"cutaneous solution";531
+"226";"oromucosal spray";"oral spray";519
+"227";"suspension and solution for spray";"spray";515
+"228";"tablet-controlled release";"tablet-CR";509
+"229";"suspension for infusion";"suspension for infusion";503
+"230";"medicated plaster";"medicated plaster";496
+"231";"granules for oral suspension";"granules";490
+"232";"soft gelatin capsule";"gel capsule";481
+"233";"tablet-extended release";"tablet-XR";475
+"234";"sealant";"sealant";463
+"235";"poultice";"patch";462
+"236";"granules for oral solution";"granules";452
+"237";"rectal foam";"rectal foam";447
+"238";"breakable tablet";"tablet";445
+"239";"tape";"patch";444
+"240";"nasal drops, solution";"nasal drops";442
+"241";"unspecified tablet";"tablet";435
+"242";"enteric-film-coated tablet";"tablet-gastroresistant";427
+"243";"granulate";"granules";422
+"244";"gargle";"mouth wash";419
+"245";"powder and solvent for oral solution";"oral solution";419
+"246";"device";"device";367
+"247";"orally disintegrating tablets";"orodispersible tablet";365
+"248";"tablets flavoured";"tablet";362
+"249";"cutaneous spray, powder";"cutaneous spray";358
+"250";"vaginal gel";"vaginal gel";357
+"251";"implantation";"implant";351
+"252";"eye gel nos";"eye gel";350
+"253";"orally disintegrating tablet";"orodispersible tablet";343
+"254";"chewable gum";"chewable";343
+"255";"ear drops, solution";"ear drops";333
+"256";"rectal suspension";"rectal suspension";329
+"257";"ear/eye drops, solution";"drops";328
+"258";"cutaneous emulsion";"cutaneous emulsion";327
+"259";"nasal drop (nasal spray too)";"nasal drops";326
+"260";"sprinkle capsules";"sprinkle capsule";326
+"261";"jelly";"gel";325
+"262";"implantation tablet";"tablet";323
+"263";"prolonged-release granules";"granules";320
+"264";"aerosols";"aerosol";314
+"265";"modified-release granules";"granules";312
+"266";"irrigation solution";"solution";310
+"267";"gastro-resistant capsules";"capsule-gastroresistant";303
+"268";"chewing gum";"chewable";301
+"269";"injectable suspension";"suspension for injection";297
+"270";"radionuclide generator";"kit for radiopharmaceutical preparation";296
+"271";"rectal gel";"rectal gel";295
+"272";"soluble tablet";"orodispersible tablet";293
+"273";"oil";"ointment";287
+"274";"cachet";"cachet";281
+"275";"softgel";"gel";279
+"276";"fine granule";"granules";279
+"277";"emulgel";"gel";274
+"278";"drops(for oral use)";"drops";253
+"279";"elixir";"elixir";251
+"280";"nasal powder";"nasal powder";241
+"281";"prolonged release capsule";"capsule-XR";230
+"282";"inhalation vapour, ointment";"inhalation vapour";203
+"283";"pessary";"pessary";198
+"284";"wafer";"wafer";198
+"285";"effervescent granules";"granules";196
+"286";"grain";"granules";194
+"287";"oral gel";"oral gel";190
+"288";"aerosol inhalant";"aerosol";188
+"289";"intramuscular injection";"solution for injection";188
+"290";"capsule extended release";"capsule-XR";186
+"291";"capsule sr";"capsule-SR";183
+"292";"rapdisc";"unk";171
+"293";"chewable/dispersible tablet";"chewable";168
+"294";"troche";"lozenge";165
+"295";"solution for haemodialysis";"solution for haemodialysis";157
+"296";"muco-adhesive buccal tablet";"tablet";157
+"297";"fine granules";"granules";152
+"298";"emulsion for injection/infusion";"emulsion for infusion";148
+"299";"scored film-coated tablet";"coated tablet";146
+"300";"orodispersible cr tablet";"orodispersible tablet";141
+"301";"vaginal capsule, soft";"vaginal capsule";138
+"302";"sugar-coated tablet";"coated tablet";135
+"303";"ear drops, suspension";"ear drops";130
+"304";"powder and solvent for oral suspension";"oral suspension";129
+"305";"herbal tea";"herbal tea";129
+"306";"medicated sponge";"medicated sponge";125
+"307";"oral gum";"chewable";122
+"308";"nasal drops, suspension";"nasal drops";122
+"309";"solution for haemodiafiltration";"solution for haemodialysis";122
+"310";"powder and solvent for sealant";"solution";119
+"311";"vaginal capsule";"vaginal capsule";117
+"312";"er";"XR";116
+"313";"sustained release capsule";"capsule-SR";114
+"314";"paste";"paste";112
+"315";"accuhaler (diskus)";"accuhaler";111
+"316";"rectal ointment";"rectal ointment";110
+"317";"controlled release tablets";"tablet-CR";109
+"318";"inhalation powder, pre-dispensed";"inhalation powder";108
+"319";"effervescent tablets";"orodispersible tablet";106
+"320";"repetabs";"tablet";104
+"321";"dental liquid";"dental liquid";102
+"322";"inhalation vapour, capsule";"inhalation vapour";100
+"323";"oral drops, suspension";"oral drops";100
+"324";"immediate release capsule";"capsule";100
+"325";"gastro-resistant granules";"granules";99
+"326";"ear spray, solution";"ear spray";96
+"327";"rectal solution";"rectal solution";93
+"328";"tablet delayed release";"tablet-DR";90
+"329";"nasal gel";"nasal gel";90
+"330";"amp iv";"ampoule";90
+"331";"tablet-dispersible";"orodispersible tablet";89
+"332";"lyophilisate";"lyophilized powder";86
+"333";"gel capsules";"gel capsule";83
+"334";"microtablets";"tablet";82
+"335";"dental gel";"dental gel";81
+"336";"topical spray";"cutaneous spray";79
+"337";"tablet and powder for oral solution";"oral solution";78
+"338";"fast dissolving tablet";"orodispersible tablet";77
+"339";"subling tablet";"sublingual tablet";76
+"340";"matrix trans therapeutic syst.";"transdermal system";75
+"341";"nasal ointment";"nasal ointment";74
+"342";"tablet-epivir-hbv";"tablet";72
+"343";"eye drop";"eye drops";72
+"344";"cutaneous spray, solution";"cutaneous spray";72
+"345";"nasal spray and oromucosal solution";"nasal spray";69
+"346";"dispersion";"dispersion";69
+"347";"rectal cream";"rectal cream";69
+"348";"medicated nail lacquer";"medicated nail lacquer";69
+"349";"prolonged-release capsule, soft";"capsule-XR";69
+"350";"urethral gel";"urethral gel";69
+"351";"solution for intravesical use";"solution for intravesical use";68
+"352";"vaginal device";"vaginal delivery system";65
+"353";"controlled release tablet";"tablet-CR";64
+"354";"topical gel";"gel";62
+"355";"plaster";"plaster";60
+"356";"oral paste";"oral paste";60
+"357";"ophthalmic drops";"eye drops";58
+"358";"modified release capsule";"capsule-MR";57
+"359";"solution for haemofiltration";NA;56
+"360";"nasal cream";"nasal ointment";52
+"361";"ear spray";NA;52
+"362";"pads";"pad";50
+"363";"powder for nebuliser solution";"nebuliser";50
+"364";"ampule";NA;50
+"365";"lyophilisate for suspension";"suspension";50
+"366";"suspension aerosol";"aerosol";50
+"367";"granulate for oral suspension";"oral suspension";49
+"368";"drop(s)";"drops";48
+"369";"inhalational powder";"inhalation powder";48
+"370";"injectable";"solution for injection";46
+"371";"bath additive";NA;45
+"372";"packet";NA;43
+"373";"preparation for external use(nos)";NA;43
+"374";"auto-injector";NA;43
+"375";"dragees";NA;43
+"376";"powder for syrup";NA;39
+"377";"tablet-zyban";NA;39
+"378";"for injection";NA;38
+"379";"nasal wash";NA;38
+"380";"granules for syrup";NA;37
+"381";"injection-premixed";NA;36
+"382";"geltabs";NA;35
+"383";"unspecified injectable";NA;35
+"384";"cutaneous suspension";NA;35
+"385";"eye cream";NA;35
+"386";"immediate release tablet";NA;34
+"387";"inhalation powder, tablet";NA;34
+"388";"oromucosal solution";NA;34
+"389";"ear cream";NA;34
+"390";"endotracheopulmonary instillation, suspension";NA;33
+"391";"eye drops, prolonged-release";NA;32
+"392";"concentrate";NA;31
+"393";"controlled-release tablet ( extended)";NA;31
+"394";"injection, solution";NA;31
+"395";"chewable capsule, soft";NA;30
+"396";"gastroenteral solution";NA;30
+"397";"effervescent powder";NA;29
+"398";"filmstrip";NA;29
+"399";"tablet for rectal solution";NA;29
+"400";"dental solution";NA;29
+"401";"tincture";NA;27
+"402";"nebuliser emulsion";NA;27
+"403";"enteric coated capsule";NA;24
+"404";"nasal spray, emulsion";NA;24
+"405";"nasal drops (including nasal spray";NA;23
+"406";"inhalation vapour, tablet";NA;23
+"407";"puffs";NA;23
+"408";"solution (oral use)";NA;21
+"409";"drops (for oral use)";NA;21
+"410";"encapsulated tablet";NA;20
+"411";"rinse mouth";NA;20
+"412";"concentrate for gargle";NA;20
+"413";"inhaler plus spacer";NA;19
+"414";"sterile concentrate";NA;19
+"415";"living tissue equivalent";NA;18
+"416";"rectal capsule";NA;17
+"417";"cream emollient";NA;17
+"418";"medicated vaginal tampon";NA;17
+"419";"powder for nebuliser suspension";NA;17
+"420";"bladder irrigation";NA;17
+"421";"dental emulsion";NA;17
+"422";"enteric-coated capsules";NA;16
+"423";"tablet for vaginal solution";NA;16
+"424";"stick";NA;16
+"425";"intravenous or intramuscular injection";NA;16
+"426";"slow release granule";NA;15
+"427";"solution (cutaneous)";NA;15
+"428";"capsules modified release";NA;15
+"429";"retard tablet";NA;15
+"430";"oral drops, emulsion";NA;15
+"431";"soap";NA;15
+"432";"oromucosal suspension";NA;14
+"433";"oromucosal gel";NA;14
+"434";"dry powder aerosol";NA;13
+"435";"tablet-chewable";NA;13
+"436";"sr";NA;13
+"437";"tablet-modified release";NA;13
+"438";"slow release";NA;13
+"439";"solution aerosol";NA;13
+"440";"solution in ampoule";NA;13
+"441";"enteric form";NA;12
+"442";"endocervical gel";NA;12
+"443";"soution for injection";NA;11
+"444";"tablet dispersible";NA;11
+"445";"membrane cont. trans therapeut";NA;11
+"446";"effervescent vaginal tablet";NA;11
+"447";"rotadisk";NA;10
+"448";"tablet-effervescent";NA;10
+"449";"unspecified topical formulation";NA;10
+"450";"dry-coated tablet";NA;10
+"451";"suspension for injection in cartridge";NA;10
+"452";"powder for injection or infusion";NA;10
+"453";"ear drops, emulsion";NA;10
+"454";"instant herbal tea";NA;10
+"455";"oromucosal liquid";NA;10
+"456";"unspecified spray";NA;9
+"457";"lyophilized";NA;9
+"458";"tablet for rectal suspension";NA;9
+"459";"powder  for rectal solution";NA;9
+"460";"ear ointment";NA;9
+"461";"gastroenteral liquid";NA;9
+"462";"intramuscular/intravenous injection";NA;8
+"463";"intestinal gel";NA;8
+"464";"concentrate for rectal solution";NA;8
+"465";"liniment";NA;8
+"466";"concentrate and diluent for solution for injection";NA;8
+"467";"injection for solution";NA;7
+"468";"meltaways";NA;7
+"469";"lyposome";NA;7
+"470";"gel capsule";NA;7
+"471";"liposome";NA;7
+"472";"aerosol with liquid content";NA;7
+"473";"vaginal solution";NA;7
+"474";"rectal emulsion";NA;7
+"475";"concentrate for oral solution";NA;7
+"476";"collodion";NA;7
+"477";"powder for bladder irrigation";NA;7
+"478";"sliding scale";NA;6
+"479";"douche";NA;6
+"480";"gastroenteral emulsion";NA;6
+"481";"oromucosal drops";NA;6
+"482";"aqueous solution";NA;6
+"483";"cutaneous sponge";NA;6
+"484";"eye lotion";NA;6
+"485";"powder and solvent for prolong-rel susp, injection";NA;6
+"486";"solution inhalation";NA;6
+"487";"otc tablet";NA;5
+"488";"solvent for solution for intraocular irrigation";NA;5
+"489";"ear spray, suspension";NA;5
+"490";"vaginal ointment";NA;5
+"491";"concentrate for haemodialysis solution";NA;5
+"492";"powder for rectal suspension";NA;5
+"493";"gingival gel";NA;5
+"494";"impregnated dressing";NA;5
+"495";"eye drops, powder and solvent for solution";NA;5
+"496";"mouth wash, tablet for solution";NA;5
+"497";"endotracheopulmonary instillation";NA;4
+"498";"flush";NA;4
+"499";"solution for organ preservation";NA;4
+"500";"oromucosal capsule";NA;4
+"501";"divitab";NA;4
+"502";"er capsules";NA;4
+"503";"dispersable tablet";NA;4
+"504";"ear spray, emulsion";NA;4
+"505";"dental stick";NA;4
+"506";"radiopharmaceutical precursor";NA;4
+"507";"wound stick";NA;4
+"508";"nasal stick";NA;4
+"509";"anticoagulant and preservative solution for blood";NA;4
+"510";"gargle, powder for solution";NA;4
+"511";"tablet, coated";NA;4
+"512";"ear powder";NA;3
+"513";"vaginal ovule";NA;3
+"514";"capsule research 1st formulation";NA;3
+"515";"liquid (external use)";NA;3
+"516";"ir";NA;3
+"517";"dr capsule";NA;3
+"518";"concentrate for solution for  injection";NA;3
+"519";"gel for injection";NA;3
+"520";"gingival paste";NA;3
+"521";"nasal drops (including nasal spray)";NA;3
+"522";"solution for infusion and oral solution";NA;3
+"523";"vaginal capsule, hard";NA;3
+"524";"oral solution/concentrate for nebuliser solution";NA;3
+"525";"cutaneous  stick";NA;3
+"526";"cutaneous spray, suspension";NA;3
+"527";"gargle, tablet for solution";NA;3
+"528";"ear wash";NA;3
+"529";"dry powder multiple dose inh";NA;2
+"530";"pediatric tablet";NA;2
+"531";"foame (emollient foam)";NA;2
+"532";"vitreous injection";NA;2
+"533";"respirator solution";NA;2
+"534";"pediatric suspension";NA;2
+"535";"ear drop";NA;2
+"536";"modified release capsules";NA;2
+"537";"dental powder";NA;2
+"538";"spot-on";NA;2
+"539";"powder for solution intravenous";NA;2
+"540";"eye drops sdu unpreserved";NA;2
+"541";"oromucosal paste";NA;2
+"542";"suspension and effervescent granules for oral susp";NA;2
+"543";"pressurised inhalation, emulsion";NA;2
+"544";"ear gel";NA;2
+"545";"rectal tampon";NA;2
+"546";"ear wash, emulsion";NA;2
+"547";"ear wash, solution";NA;2
+"548";"eye drops, solvent for reconstitution";NA;2
+"549";"endotracheopulmonary instillation, solution";NA;2
+"550";"eye drops, powder and solvent for suspension";NA;2
+"551";"gingival solution";NA;2
+"552";"implantation  chain";NA;2
+"553";"solution for skin-scratch test";NA;2
+"554";"vaginal emulsion";NA;2
+"555";"tablet, chewable";NA;2
+"556";"tablet, film coated";NA;2
+"557";"dispersible tablet (thin strip)";NA;1
+"558";"cutaneous emulsions";NA;1
+"559";"pudding";NA;1
+"560";"thermagel";NA;1
+"561";"inlay tablet";NA;1
+"562";"wafers";NA;1
+"563";"drug implant";NA;1
+"564";"commercial tablet";NA;1
+"565";"penile band";NA;1
+"566";"toner";NA;1
+"567";"panty liner";NA;1
+"568";"dissolved solids";NA;1
+"569";"taablet";NA;1
+"570";"pour-on";NA;1
+"571";"solution for iontophoresis";NA;1
+"572";"periodontal insert";NA;1
+"573";"lotion (not for ophthalmic use)";NA;1
+"574";"sol. for intraocular injection";NA;1
+"575";"extended release tablets";NA;1
+"576";"sublingual film";NA;1
+"577";"dental suspension";NA;1
+"578";"eye drops md preserved";NA;1
+"579";"solution for blood fraction modification";NA;1
+"580";"powder and solvent for concentrate for solution fo";NA;1
+"581";"sustained release (slow)";NA;1
+"582";"controlled-release tablet ( medium)";NA;1
+"583";"dental paste";NA;1
+"584";"stomach irrigation";NA;1
+"585";"oromucosal/laryngopharyngeal solution/spray";NA;1
+"586";"inhalation vapour, effervescent tablet";NA;1
+"587";"ear/eye/nose drops, solution";NA;1
+"588";"eye drops, solution in single-dose container";NA;1
+"589";"powder and solvent for endocervical gel";NA;1
+"590";"dental insert";NA;1
+"591";"intrauterine liquid";NA;1
+"592";"pastille";NA;1
+"593";"tablet for oral suspension";NA;1
+"594";"powder and solvent for cutaneous solution";NA;1
+"595";"solution for injection in cartridge";NA;1
+"596";"capsule, gelatin coated";NA;1
+"597";"syrup pediatric";NA;1
+"598";"vaginal foam";NA;1
+"599";"salve";NA;1
+"600";"ear tampon";NA;1
+"601";"endotracheopulmonary instillation, combined";NA;1
+"602";"periodontal gel";NA;1

@@ -1,0 +1,2112 @@
+"";"dose_form_st";"route_st";"route_plus";"N"
+"1";NA;NA;NA;22484250
+"2";NA;"oral";NA;6101434
+"3";"tablet";"oral";"oral";3078968
+"4";"unk";NA;NA;2191286
+"5";"tablet";NA;"oral";2096218
+"6";NA;"intravenous";NA;1533658
+"7";"capsule";"oral";"oral";1416924
+"8";"solution for injection";NA;"parenteral";1355702
+"9";"solution for injection";"subcutaneous";"parenteral";1217151
+"10";NA;"subcutaneous";NA;885085
+"11";"capsule";NA;"oral";803632
+"12";"solution for infusion";"intravenous";"parenteral";552685
+"13";"cutaneous solution";"topical";"cutaneous";427307
+"14";"solution for injection";"intravenous";"parenteral";424774
+"15";"coated tablet";"oral";"oral";402271
+"16";"unk";"oral";NA;365848
+"17";"coated tablet";NA;"oral";303445
+"18";NA;"intramuscular";NA;237863
+"19";NA;"inhalation";NA;234524
+"20";"solution for peritoneal dialysis";"intraperitoneal";"intraperitoneal";224036
+"21";"oral solution";"oral";"oral";221268
+"22";"tablet-XR";"oral";"oral";219057
+"23";"gel";"topical";"topical";218667
+"24";NA;"transplacental";NA;197134
+"25";"solution for infusion";NA;"parenteral";145463
+"26";"solution for injection";"intramuscular";"parenteral";143834
+"27";"transdermal patch";"transdermal";"transdermal";106591
+"28";"cutaneous liquid";"topical";"cutaneous";98317
+"29";NA;"transdermal";NA;97164
+"30";"inhalation powder";"inhalation";"inhalation";95992
+"31";NA;"topical";NA;89025
+"32";"powder for injection";"intravenous";"parenteral";85694
+"33";NA;"ophthalmic";NA;83771
+"34";"lyophilized powder";"intravenous";NA;82695
+"35";"inhalation powder";NA;"inhalation";78029
+"36";"capsule-XR";"oral";"oral";76330
+"37";"intrauterine delivery system";"intrauterine";"intrauterine";76037
+"38";"unk";"intravenous";NA;75230
+"39";"tablet-XR";NA;"oral";70251
+"40";NA;"intrauterine";NA;59310
+"41";"eye drops";"ophthalmic";"ophtalmic";56543
+"42";"powder for injection";NA;"parenteral";56521
+"43";NA;"intraperitoneal";NA;51815
+"44";NA;"intrathecal";NA;49993
+"45";"implant";"subcutaneous";NA;49545
+"46";"gel";NA;"topical";44227
+"47";"unk";"subcutaneous";NA;43793
+"48";"tablet-MR";"oral";"oral";42281
+"49";NA;"nasal";NA;38815
+"50";"oral solution";NA;"oral";37686
+"51";"powder for injection";"intramuscular";"parenteral";34169
+"52";"cream";NA;"topical";29786
+"53";"inhalation gas";NA;"inhalation";28584
+"54";NA;"sublingual";NA;28400
+"55";"eye drops";NA;"ophtalmic";28151
+"56";"transdermal patch";NA;"transdermal";27936
+"57";"nasal spray";NA;"nasal";27307
+"58";"capsule-XR";NA;"oral";27192
+"59";"orodispersible tablet";"oral";"oral";26944
+"60";"tablet";"transplacental";"oral";25881
+"61";"foam";"topical";"topical";22965
+"62";"cream";"topical";"topical";22812
+"63";"ointment";NA;"topical";22550
+"64";"solution for injection";"ophthalmic";"parenteral";21809
+"65";"oral suspension";"oral";"oral";20500
+"66";NA;"parenteral";NA;20237
+"67";"solution for infusion";"subcutaneous";"parenteral";19262
+"68";"chewable";NA;"buccal";18555
+"69";"chewable";"oral";"buccal";18235
+"70";"transdermal system";"transdermal";"transdermal";17869
+"71";"inhalation vapour";"inhalation";"inhalation";17391
+"72";"solution for injection";"intrathecal";"parenteral";17132
+"73";"suspension for injection";"intramuscular";"parenteral";16849
+"74";"inhaler";NA;"inhalation";16626
+"75";"tablet-gastroresistant";"oral";"oral";16531
+"76";"solution for injection";"parenteral";"parenteral";16436
+"77";NA;"vaginal";NA;16426
+"78";"powder";NA;NA;16130
+"79";"capsule-MR";"oral";"oral";15980
+"80";"suspension for injection";NA;"parenteral";15815
+"81";"orodispersible tablet";NA;"oral";15575
+"82";"nasal spray";"nasal";"nasal";15333
+"83";"per os";"oral";"oral";15220
+"84";"solution";NA;NA;14617
+"85";"inhalation powder";"oral";"inhalation";14435
+"86";"oros";"oral";"oral";14344
+"87";"inhalation gas";"inhalation";"inhalation";13920
+"88";"powder for injection";"subcutaneous";"parenteral";13907
+"89";"ointment";"topical";"topical";13407
+"90";"vaginal ring";"vaginal";"vaginal";13294
+"91";"oral suspension";NA;"oral";13036
+"92";"unk";"topical";NA;12996
+"93";"cutaneous paste";"topical";"cutaneous";12715
+"94";"caplet";"oral";"oral";12455
+"95";"subcutaneous injection";"subcutaneous";"subcutaneous";12248
+"96";NA;"buccal";NA;12167
+"97";"patch";NA;"cutaneous";12161
+"98";"syrup";NA;"oral";12007
+"99";"intrauterine device";"intrauterine";"intrauterine";11927
+"100";"tablet-MR";NA;"oral";11690
+"101";NA;"oropharingeal";NA;10875
+"102";"tablet-gastroresistant";NA;"oral";10793
+"103";"suspension for injection";"subcutaneous";"parenteral";10790
+"104";"patch";"transdermal";"cutaneous";10336
+"105";NA;"rectal";NA;10331
+"106";"liquid";"subcutaneous";NA;10330
+"107";"inhalation vapour";NA;"inhalation";10129
+"108";"inhaler";"inhalation";"inhalation";10074
+"109";"nebuliser";"inhalation";"inhalation";9881
+"110";"solution for injection";"transplacental";"parenteral";9743
+"111";"microspheres";"intramuscular";"oral";8943
+"112";"granules";"oral";"oral";8938
+"113";"suspension";NA;NA;8865
+"114";"tablet-SR";"oral";"oral";8822
+"115";"unk";"intramuscular";NA;8768
+"116";"unk";"transplacental";NA;8448
+"117";"solution";"oral";NA;8256
+"118";"capsule-SR";"oral";"oral";8212
+"119";"intrauterine delivery system";NA;"intrauterine";7876
+"120";"inhalation solution";"inhalation";"inhalation";7755
+"121";"tablet-XR";"transplacental";"oral";7658
+"122";"powder";"oral";NA;7315
+"123";"solution";"subcutaneous";NA;7020
+"124";"capsule-MR";NA;"oral";6851
+"125";"oral drops";"oral";"oral";6702
+"126";"spray";NA;NA;6695
+"127";"syrup";"oral";"oral";6584
+"128";"implant";NA;NA;6542
+"129";"tablet";"sublingual";"oral";6263
+"130";"powder for infusion";"intravenous";"parenteral";6168
+"131";"solution for infusion";"parenteral";"parenteral";6116
+"132";"unk";"transdermal";NA;5901
+"133";NA;"intraarterial";NA;5833
+"134";"liposome injection";"intravenous";"parenteral";5733
+"135";NA;"cutaneous";NA;5713
+"136";"suspension";"intravenous";NA;5673
+"137";"solution";"topical";NA;5631
+"138";NA;"epidural";NA;5573
+"139";"solution";"intravenous";NA;5557
+"140";"subcutaneous injection";NA;"subcutaneous";5316
+"141";"cutaneous foam";"topical";"cutaneous";5267
+"142";"suspension";"oral";NA;5230
+"143";"powder for infusion";NA;"parenteral";5170
+"144";"drops";NA;NA;5023
+"145";"inhalation suspension";"inhalation";"inhalation";4945
+"146";"vial";"subcutaneous";"parenteral";4921
+"147";"gastroenteral suspension";NA;"oral";4717
+"148";"vaginal cream";NA;"vaginal";4647
+"149";"solution for injection";"oral";"parenteral";4488
+"150";"inhalant";NA;"inhalation";4407
+"151";"vaginal cream";"vaginal";"vaginal";4378
+"152";"inhalation solution";NA;"inhalation";4357
+"153";NA;"transmammary";NA;4302
+"154";"suppository";NA;"rectal";4300
+"155";"liquid";"topical";NA;4244
+"156";"inhalant";"inhalation";"inhalation";4139
+"157";"sublingual tablet";"sublingual";"sublingual";4059
+"158";"unk";"inhalation";NA;4002
+"159";"liquid";"oral";NA;3941
+"160";"transdermal patch";"topical";"transdermal";3798
+"161";"suspension";"intramuscular";NA;3793
+"162";"suppository";"rectal";"rectal";3640
+"163";"lotion";"topical";"topical";3617
+"164";"lozenge";NA;"oral";3523
+"165";"liquid";NA;NA;3451
+"166";NA;"intravesical";NA;3442
+"167";"shampoo";"topical";"topical";3423
+"168";"foam";NA;"topical";3313
+"169";"transdermal system";NA;"transdermal";3301
+"170";"pills";"oral";"oral";3278
+"171";"capsule-gastroresistant";"oral";"oral";3256
+"172";"capsule";"transplacental";"oral";3240
+"173";"solution for injection";"irrigation";"parenteral";3236
+"174";"cutaneous solution";NA;"cutaneous";3231
+"175";NA;"intraarticular";NA;3218
+"176";"nebuliser";NA;"inhalation";3195
+"177";"cutaneous stick";"topical";"cutaneous";3175
+"178";"inhalation suspension";NA;"inhalation";3149
+"179";"patch";"topical";"cutaneous";3146
+"180";"patch";"cutaneous";"cutaneous";3123
+"181";"capsule";"inhalation";"oral";3109
+"182";"granules";NA;"oral";3035
+"183";"aerosol";"inhalation";"inhalation";2988
+"184";NA;"intradermal";NA;2975
+"185";"pills";NA;"oral";2968
+"186";"aerosol";NA;"inhalation";2943
+"187";NA;"intracervical";NA;2859
+"188";"gel";"transdermal";"topical";2769
+"189";"oral drops";NA;"oral";2678
+"190";"coated tablet";"transplacental";"oral";2626
+"191";"tablet";"intravenous";"oral";2621
+"192";"oral powder";"oral";"oral";2573
+"193";"gel capsule";"oral";"oral";2494
+"194";"capsule-gastroresistant";NA;"oral";2407
+"195";"sublingual tablet";NA;"sublingual";2343
+"196";"cutaneous spray";"topical";"cutaneous";2338
+"197";"drops";"oral";NA;2327
+"198";"powder";"intravenous";NA;2273
+"199";"drops";"ophthalmic";NA;2260
+"200";"caplet";NA;"oral";2258
+"201";"powder";"irrigation";NA;2255
+"202";NA;"intracardiac";NA;2241
+"203";"unk";"intrathecal";NA;2218
+"204";NA;"intratracheal";NA;2206
+"205";"spray";"nasal";NA;2180
+"206";"vaginal ring";NA;"vaginal";2136
+"207";"lozenge";"buccal";"oral";2012
+"208";"solution for injection";"intradermal";"parenteral";1982
+"209";"solution for injection";"dental";"parenteral";1976
+"210";"solution for injection";"intraarterial";"parenteral";1942
+"211";"shampoo";NA;"topical";1904
+"212";"cream";"vaginal";"topical";1903
+"213";"liposome injection";NA;"parenteral";1902
+"214";"unk";"ophthalmic";NA;1900
+"215";"vaginal delivery system";NA;"vaginal";1883
+"216";"solution";"ophthalmic";NA;1824
+"217";"impregnated pad";"topical";"topical";1789
+"218";"tablet-SR";NA;"oral";1764
+"219";"capsule-SR";NA;"oral";1727
+"220";"solution for injection";"epidural";"parenteral";1661
+"221";"liquid";"intravenous";NA;1648
+"222";"chewable";"buccal";"buccal";1646
+"223";"tablet";"buccal";"oral";1642
+"224";"solution for infusion";"transplacental";"parenteral";1640
+"225";"tablet";"subcutaneous";"oral";1608
+"226";"powder";"inhalation";NA;1563
+"227";"pen";"subcutaneous";"parenteral";1523
+"228";"lozenge";"oral";"oral";1441
+"229";"suspension for injection";"intravenous";"parenteral";1428
+"230";"urethral stick";"urethral";"urethral";1421
+"231";"vaginal delivery system";"vaginal";"vaginal";1418
+"232";"cutaneous foam";NA;"cutaneous";1393
+"233";"vial";"intramuscular";"parenteral";1335
+"234";"gel";"oral";"topical";1326
+"235";NA;"hemodialysis";NA;1314
+"236";"unk";"nasal";NA;1278
+"237";"suppository";"vaginal";"rectal";1276
+"238";"ophthalmic insert";"ophthalmic";"ophtalmic";1270
+"239";"transdermal patch";"transplacental";"transdermal";1225
+"240";"solution for injection";"hemodialysis";"parenteral";1189
+"241";"solution for infusion";"intramuscular";"parenteral";1170
+"242";"lotion";NA;"topical";1154
+"243";"ointment";"oral";"topical";1150
+"244";"oral solution";"topical";"oral";1145
+"245";"unk";"parenteral";NA;1128
+"246";"eye gel";"ophthalmic";"ophtalmic";1107
+"247";NA;"otic";NA;1102
+"248";"gel capsule";NA;"oral";1102
+"249";"mouth wash";NA;"buccal";1089
+"250";"solution for injection";"intraarticular";"parenteral";1069
+"251";"ampoule";"intrathecal";NA;1066
+"252";NA;"subconjunctival";NA;1060
+"253";"nasal spray";"inhalation";"nasal";1049
+"254";"transdermal patch";"oral";"transdermal";1043
+"255";"sachet";"oral";"oral";1039
+"256";"powder";"intravesical";NA;1030
+"257";"oral powder";NA;"oral";1028
+"258";"intrauterine device";NA;"intrauterine";1025
+"259";"sublingual tablet";"transplacental";"sublingual";991
+"260";NA;"dental";NA;978
+"261";"sublingual tablet";"oral";"sublingual";975
+"262";"emulsion for infusion";"intravenous";"parenteral";975
+"263";"vial";NA;"parenteral";974
+"264";"eye ointment";"ophthalmic";"ophtalmic";959
+"265";"impregnated pad";NA;"topical";943
+"266";"emulsion for injection";NA;"parenteral";911
+"267";"ointment";"vaginal";"topical";910
+"268";"ear drops";NA;"otic";893
+"269";"eye drops";"topical";"ophtalmic";877
+"270";"nasal drops";"nasal";"nasal";858
+"271";"solution for peritoneal dialysis";NA;"intraperitoneal";856
+"272";"capsule";"intravenous";"oral";856
+"273";"microspheres";NA;"oral";848
+"274";"cream";"cutaneous";"topical";846
+"275";"solution";"intramuscular";NA;829
+"276";"ampoule";NA;NA;816
+"277";"lyophilized powder";NA;NA;801
+"278";"enema";NA;"rectal";795
+"279";"solution";"inhalation";NA;785
+"280";"solution for infusion";"oral";"parenteral";782
+"281";"vaginal tablet";"vaginal";"vaginal";772
+"282";"unk";"sublingual";NA;770
+"283";"oral solution";"transplacental";"oral";768
+"284";"ointment";"transdermal";"topical";762
+"285";"emulsion for injection";"intravenous";"parenteral";759
+"286";"oral paste";"oral";"oral";736
+"287";"kit for radiopharmaceutical preparation";NA;NA;724
+"288";"unk";"rectal";NA;706
+"289";NA;"intracavernous";NA;703
+"290";"oral lyophilisate";NA;"oral";701
+"291";"unk";"intraarterial";NA;695
+"292";NA;"perineural";NA;692
+"293";"suspension for injection";"intraarticular";"parenteral";688
+"294";"orodispersible tablet";"transplacental";"oral";676
+"295";"tablet";"transmammary";"oral";670
+"296";"emulsion";"ophthalmic";NA;666
+"297";"suspension";"inhalation";NA;660
+"298";"oral solution";"inhalation";"oral";631
+"299";"sachet";NA;"oral";627
+"300";NA;"intradiscal";NA;614
+"301";"per os";NA;"oral";612
+"302";"ointment";"ophthalmic";"topical";600
+"303";"eye ointment";NA;"ophtalmic";567
+"304";"solution for injection";"transmammary";"parenteral";567
+"305";"inhalant";"oral";"inhalation";562
+"306";"cream";"oral";"topical";562
+"307";"powder";"topical";NA;547
+"308";"lyophilized powder";"transplacental";NA;540
+"309";"lyophilized powder";"subcutaneous";NA;534
+"310";"capsule-XR";"transplacental";"oral";531
+"311";NA;"urethral";NA;522
+"312";"pen";NA;"parenteral";517
+"313";NA;"intracoronary";NA;508
+"314";NA;"occlusive dressing";NA;505
+"315";"oral emulsion";"intravenous";"oral";505
+"316";"solution for infusion";"intrathecal";"parenteral";503
+"317";"nasal drops";NA;"nasal";500
+"318";"XR";NA;"oral";496
+"319";"spray";"topical";NA;492
+"320";"tablet";"inhalation";"oral";480
+"321";"enema";"rectal";"rectal";478
+"322";NA;"intracavity";NA;473
+"323";"ointment";"nasal";"topical";470
+"324";"powder for injection";"intravesical";"parenteral";467
+"325";"mouth wash";"oral";"buccal";466
+"326";"cutaneous spray";NA;"cutaneous";458
+"327";"ampoule";"intravenous";NA;455
+"328";"ointment";"cutaneous";"topical";454
+"329";"oral solution";"intravenous";"oral";447
+"330";"tablet";"vaginal";"oral";446
+"331";"gel";"cutaneous";"topical";440
+"332";"ear drops";"otic";"otic";440
+"333";"kit for radiopharmaceutical preparation";"intravenous";NA;438
+"334";"transdermal patch";"cutaneous";"transdermal";436
+"335";"solution for injection";"cutaneous";"parenteral";429
+"336";"solution for injection";"intradiscal";"parenteral";428
+"337";NA;"intralesional";NA;421
+"338";"oral paste";NA;"oral";421
+"339";"vaginal tablet";NA;"vaginal";418
+"340";"ophtalmic";NA;"ophtalmic";415
+"341";NA;"irrigation";NA;407
+"342";"solution for injection";"topical";"parenteral";405
+"343";"tablet";"nasal";"oral";403
+"344";"vial";"intravenous";"parenteral";399
+"345";"tablet-CR";"oral";"oral";397
+"346";"solution for injection";"inhalation";"parenteral";394
+"347";"tablet";"topical";"oral";390
+"348";"solution for infusion";"intraarterial";"parenteral";389
+"349";"solution";"nasal";NA;384
+"350";"intrauterine delivery system";"cutaneous";"intrauterine";383
+"351";"inhalation suspension";"oral";"inhalation";382
+"352";"emulsion for infusion";NA;"parenteral";377
+"353";"solution for injection";"intraperitoneal";"parenteral";372
+"354";"ear drops";"ophthalmic";"otic";367
+"355";"cream";"transdermal";"topical";364
+"356";"oral lyophilisate";"sublingual";"oral";360
+"357";"sublingual spray";"sublingual";"sublingual";355
+"358";"unk";"cutaneous";NA;346
+"359";NA;"intrathoracic";NA;345
+"360";"oral spray";NA;"oral";345
+"361";"tablet";"parenteral";"oral";337
+"362";"ampoule";"intramuscular";NA;336
+"363";"inhalant";"nasal";"inhalation";334
+"364";"cutaneous solution";"intravenous";"cutaneous";333
+"365";"suspension";"ophthalmic";NA;330
+"366";"coated tablet";"sublingual";"oral";330
+"367";"solution for infusion";"ophthalmic";"parenteral";325
+"368";"powder";"subcutaneous";NA;325
+"369";"tablet";"intramuscular";"oral";322
+"370";"inhalation gas";"oral";"inhalation";318
+"371";"solution for injection";"subconjunctival";"parenteral";314
+"372";"emulsion";NA;NA;313
+"373";"tablet";"intracervical";"oral";313
+"374";"solution for injection";"intracoronary";"parenteral";312
+"375";"unk";"transmammary";NA;312
+"376";"sprinkle capsule";"oral";NA;312
+"377";"solution for injection";"intracavity";"parenteral";308
+"378";"cutaneous powder";"oral";"cutaneous";307
+"379";"suppository";"oral";"rectal";307
+"380";"oral lyophilisate";"oral";"oral";302
+"381";"eye gel";NA;"ophtalmic";300
+"382";"suspension for infusion";"intravenous";"parenteral";300
+"383";"inhalation gas";"nasal";"inhalation";298
+"384";"rectal foam";"rectal";"rectal";291
+"385";"sealant";NA;NA;289
+"386";"unk";"vaginal";NA;287
+"387";"coated tablet";"intravenous";"oral";281
+"388";"device";"subcutaneous";NA;275
+"389";"inhaler";"oral";"inhalation";272
+"390";"suspension for injection";"ophthalmic";"parenteral";272
+"391";"solution for injection";"intracervical";"parenteral";271
+"392";"tablet-XR";"intravenous";"oral";263
+"393";"cream";"subcutaneous";"topical";258
+"394";NA;"intrapleural";NA;257
+"395";"XR";"oral";"oral";257
+"396";"unk";"buccal";NA;254
+"397";"tablet";"ophthalmic";"oral";250
+"398";"unk";"epidural";NA;249
+"399";"spray";"oral";NA;247
+"400";"powder for injection";"intradermal";"parenteral";243
+"401";"tablet-CR";NA;"oral";242
+"402";"ophtalmic";"ophthalmic";"ophtalmic";240
+"403";"suspension";"nasal";NA;237
+"404";"sublingual spray";NA;"sublingual";234
+"405";"solution for infusion";"hemodialysis";"parenteral";234
+"406";"cutaneous solution";"ophthalmic";"cutaneous";234
+"407";NA;"intrahepatic";NA;233
+"408";"powder for injection";"oral";"parenteral";232
+"409";NA;"intratumor";NA;231
+"410";"solution for injection";"perineural";"parenteral";231
+"411";"solution for infusion";"epidural";"parenteral";231
+"412";"spray";"inhalation";NA;229
+"413";"inhalation powder";"nasal";"inhalation";228
+"414";"spray";"sublingual";NA;226
+"415";"medicated plaster";NA;"topical";223
+"416";"cutaneous liquid";NA;"cutaneous";223
+"417";"gel";"ophthalmic";"topical";221
+"418";"cutaneous solution";"cutaneous";"cutaneous";220
+"419";NA;"intrasinal";NA;219
+"420";"inhalation vapour";"oral";"inhalation";216
+"421";"suspension for injection";"transplacental";"parenteral";216
+"422";"suspension for injection";"oral";"parenteral";215
+"423";"powder";"intramuscular";NA;215
+"424";"solution for haemodialysis";"hemodialysis";"parenteral";214
+"425";"subcutaneous injection";"intramuscular";"subcutaneous";214
+"426";"tablet";"transdermal";"oral";213
+"427";"cutaneous solution";"subcutaneous";"cutaneous";213
+"428";"ophthalmic insert";NA;"ophtalmic";209
+"429";"aerosol";"oral";"inhalation";208
+"430";"suspension for injection";"epidural";"parenteral";207
+"431";NA;"periarticular";NA;205
+"432";"cream";"rectal";"topical";205
+"433";"impregnated pad";"inhalation";"topical";204
+"434";"tablet";"intrathecal";"oral";203
+"435";"implant";"intradermal";NA;203
+"436";"cutaneous powder";NA;"cutaneous";202
+"437";"inhalation vapour";"intravenous";"inhalation";200
+"438";NA;"intramedullar";NA;198
+"439";"tablet";"rectal";"oral";198
+"440";"suspension";"subcutaneous";NA;197
+"441";NA;"intrameningeal";NA;196
+"442";"cutaneous stick";NA;"cutaneous";195
+"443";"powder for injection";"parenteral";"parenteral";193
+"444";"vaginal cream";"topical";"vaginal";191
+"445";"suspension for injection";"parenteral";"parenteral";190
+"446";"rectal gel";NA;"rectal";189
+"447";"implant";"intramuscular";NA;188
+"448";"inhalation vapour";"nasal";"inhalation";188
+"449";"suspension";"intraarticular";NA;188
+"450";"oral solution";"subcutaneous";"oral";186
+"451";"unk";"urethral";NA;185
+"452";"capsule";"subcutaneous";"oral";182
+"453";"tablet";"oropharingeal";"oral";182
+"454";"suspension for infusion";NA;"parenteral";180
+"455";"cutaneous emulsion";"topical";"cutaneous";173
+"456";"aerosol";"nasal";"inhalation";172
+"457";"oral solution";"transdermal";"oral";171
+"458";"cachet";"oral";"oral";171
+"459";"rectal suspension";"rectal";"rectal";170
+"460";"powder for injection";"transplacental";"parenteral";166
+"461";"eye drops";"oral";"ophtalmic";164
+"462";"cutaneous powder";"topical";"cutaneous";163
+"463";"solution for injection";"sublingual";"parenteral";162
+"464";"inhalation solution";"oral";"inhalation";160
+"465";"sublingual tablet";"intravenous";"sublingual";160
+"466";"mouth wash";"oropharingeal";"buccal";159
+"467";"vaginal gel";NA;"vaginal";159
+"468";"solution for injection";"intravesical";"parenteral";158
+"469";"ampoule";"oral";NA;158
+"470";"medicated plaster";"topical";"topical";158
+"471";"ampoule";"subcutaneous";NA;157
+"472";"cutaneous powder";"inhalation";"cutaneous";157
+"473";"capsule";"vaginal";"oral";155
+"474";"unk";"intraperitoneal";NA;154
+"475";"tablet-gastroresistant";"transplacental";"oral";153
+"476";"intrauterine delivery system";"transplacental";"intrauterine";152
+"477";"tablet-MR";"transplacental";"oral";151
+"478";"nebuliser";"oral";"inhalation";149
+"479";"wafer";"oral";NA;147
+"480";"solution for infusion";"intracisternal";"parenteral";147
+"481";"vaginal gel";"vaginal";"vaginal";143
+"482";"patch";"oral";"cutaneous";139
+"483";"eye ointment";"topical";"ophtalmic";139
+"484";"rectal suspension";NA;"rectal";139
+"485";"solution";"transplacental";NA;139
+"486";"inhaler";"nasal";"inhalation";135
+"487";"lozenge";"transplacental";"oral";135
+"488";"cutaneous emulsion";NA;"cutaneous";135
+"489";"oros";NA;"oral";134
+"490";"urethral stick";NA;"urethral";133
+"491";"orodispersible tablet";"sublingual";"oral";132
+"492";"solution for infusion";"intraperitoneal";"parenteral";132
+"493";"sublingual tablet";"transmammary";"sublingual";130
+"494";"tablet";"urethral";"oral";130
+"495";"mouth wash";"buccal";"buccal";130
+"496";"nasal powder";"nasal";NA;129
+"497";"rectal foam";NA;"rectal";129
+"498";"implant";"transplacental";NA;127
+"499";"sealant";"topical";NA;127
+"500";"mouth wash";"topical";"buccal";126
+"501";"elixir";NA;"oral";126
+"502";"gel";"vaginal";"topical";124
+"503";"vaginal capsule";"vaginal";"vaginal";122
+"504";"microspheres";"topical";"oral";122
+"505";"capsule";"transmammary";"oral";121
+"506";"elixir";"oral";"oral";120
+"507";"solution for injection";"intratumor";"parenteral";120
+"508";"oral gel";"oral";"oral";118
+"509";"oral spray";"inhalation";"oral";116
+"510";"nasal spray";"oral";"nasal";116
+"511";NA;"retrobulbar";NA;115
+"512";"drops";"topical";NA;115
+"513";"liquid";"intramuscular";NA;114
+"514";"nebuliser";"nasal";"inhalation";114
+"515";"pessary";NA;"vaginal";110
+"516";"tablet";"intracardiac";"oral";110
+"517";"nasal powder";NA;NA;108
+"518";"solution for infusion";"transmammary";"parenteral";107
+"519";"cachet";NA;"oral";105
+"520";"inhalation powder";"transplacental";"inhalation";105
+"521";"cream";"transplacental";"topical";104
+"522";"unk";"intradermal";NA;104
+"523";"capsule";"topical";"oral";104
+"524";"solution for injection";"transdermal";"parenteral";103
+"525";"unk";"intracervical";NA;103
+"526";"gel";"subcutaneous";"topical";102
+"527";"powder for injection";"irrigation";"parenteral";102
+"528";"solution for injection";"intrauterine";"parenteral";101
+"529";"capsule";"nasal";"oral";101
+"530";"tablet-XR";"inhalation";"oral";101
+"531";"tablet";"intrauterine";"oral";100
+"532";"syrup";"transplacental";"oral";99
+"533";"rectal gel";"rectal";"rectal";98
+"534";"coated tablet";"buccal";"oral";98
+"535";"solution for injection";"intramedullar";"parenteral";97
+"536";"medicated sponge";NA;"topical";97
+"537";"vaginal capsule";NA;"vaginal";95
+"538";"capsule";"intramuscular";"oral";95
+"539";"liquid";"ophthalmic";NA;94
+"540";"solution for injection";"nasal";"parenteral";94
+"541";"coated tablet";"subcutaneous";"oral";91
+"542";"solution for injection";"rectal";"parenteral";90
+"543";"tablet-XR";"transdermal";"oral";90
+"544";"herbal tea";"intravenous";"oral";90
+"545";NA;"intracerebral";NA;89
+"546";"unk";"intrauterine";NA;89
+"547";"vaginal delivery system";"transplacental";"vaginal";89
+"548";NA;"iontophoresis";NA;87
+"549";"solution for infusion";"intracavity";"parenteral";87
+"550";"oral solution";"ophthalmic";"oral";87
+"551";"medicated plaster";"transdermal";"topical";86
+"552";"implant";"intrasinal";NA;86
+"553";"ointment";"rectal";"topical";85
+"554";"ointment";"transplacental";"topical";85
+"555";"suppository";"transplacental";"rectal";85
+"556";NA;"intracorneal";NA;84
+"557";"oral solution";"transmammary";"oral";84
+"558";"nasal spray";"transplacental";"nasal";83
+"559";"powder for injection";"ophthalmic";"parenteral";83
+"560";"tablet-XR";"subcutaneous";"oral";83
+"561";"device";NA;NA;82
+"562";"transdermal patch";"parenteral";"transdermal";82
+"563";"solution for infusion";"topical";"parenteral";81
+"564";"unk";"oropharingeal";NA;80
+"565";"oral suspension";"intravenous";"oral";80
+"566";"tablet";"occlusive dressing";"oral";79
+"567";"oral drops";"transplacental";"oral";79
+"568";"solution for injection";"intrameningeal";"parenteral";78
+"569";"capsule";"ophthalmic";"oral";76
+"570";"solution for injection";"intratracheal";"parenteral";76
+"571";"suspension for injection";"intrathecal";"parenteral";76
+"572";"ointment";"subcutaneous";"topical";75
+"573";"coated tablet";"transmammary";"oral";74
+"574";"ointment";"intravenous";"topical";73
+"575";"unk";"intratracheal";NA;72
+"576";"solution";"intravesical";NA;72
+"577";"powder for injection";"intrathecal";"parenteral";72
+"578";"tablet-XR";"nasal";"oral";70
+"579";"powder for infusion";"oral";"parenteral";70
+"580";"rectal ointment";NA;"rectal";70
+"581";"sublingual tablet";"parenteral";"sublingual";69
+"582";NA;"intraamniotic";NA;68
+"583";"solution for injection";"retrobulbar";"parenteral";68
+"584";"unk";"hemodialysis";NA;68
+"585";"oral drops";"ophthalmic";"oral";67
+"586";"transdermal system";"topical";"transdermal";67
+"587";"unk";"intracardiac";NA;67
+"588";"powder";"intrathecal";NA;67
+"589";"eye gel";"topical";"ophtalmic";66
+"590";"microspheres";"oral";"oral";66
+"591";"lyophilized powder";"topical";NA;66
+"592";"accuhaler";"inhalation";"inhalation";65
+"593";"capsule-MR";"transplacental";"oral";65
+"594";"unk";"irrigation";NA;65
+"595";"ear drops";"topical";"otic";65
+"596";"solution";"transdermal";NA;65
+"597";"powder for infusion";"subcutaneous";"parenteral";64
+"598";"transdermal patch";"subcutaneous";"transdermal";64
+"599";"capsule";"parenteral";"oral";64
+"600";"sublingual tablet";"nasal";"sublingual";64
+"601";"tablet-gastroresistant";"intravenous";"oral";64
+"602";"tablet-DR";NA;"oral";64
+"603";"dental liquid";"buccal";NA;64
+"604";"lotion";"transdermal";"topical";63
+"605";"liposome injection";"transplacental";"parenteral";62
+"606";"pessary";"vaginal";"vaginal";62
+"607";"solution for infusion";"intravesical";"parenteral";62
+"608";"solution";"intrathecal";NA;62
+"609";"cutaneous liquid";"cutaneous";"cutaneous";61
+"610";NA;"subdural";NA;61
+"611";"nasal ointment";NA;"nasal";61
+"612";"oral gel";NA;"oral";61
+"613";"capsule";"buccal";"oral";61
+"614";"inhalation solution";"nasal";"inhalation";61
+"615";"cream";"nasal";"topical";61
+"616";"rectal solution";"rectal";"rectal";60
+"617";"paste";NA;"topical";60
+"618";"powder for infusion";"transplacental";"parenteral";60
+"619";"nasal gel";"nasal";"nasal";59
+"620";"unk";"intracavity";NA;59
+"621";"capsule-XR";"intravenous";"oral";58
+"622";"unk";"intraarticular";NA;58
+"623";"capsule";"intracervical";"oral";58
+"624";"medicated nail lacquer";"topical";"topical";58
+"625";"intrauterine delivery system";"vaginal";"intrauterine";58
+"626";"eye drops";"otic";"ophtalmic";58
+"627";"gel";"rectal";"topical";57
+"628";"gel";"transplacental";"topical";55
+"629";"implant";"intrauterine";NA;55
+"630";"per os";"transplacental";"oral";55
+"631";"dispersion";NA;NA;54
+"632";"coated tablet";"nasal";"oral";54
+"633";"suspension";"topical";NA;54
+"634";"cutaneous liquid";"transdermal";"cutaneous";54
+"635";"emulsion";"intravenous";NA;53
+"636";"solution";"otic";NA;52
+"637";"chewable";"transplacental";"buccal";52
+"638";"solution for peritoneal dialysis";"intrapericardial";"intraperitoneal";51
+"639";"transdermal system";"oral";"transdermal";51
+"640";"intrauterine delivery system";"subcutaneous";"intrauterine";51
+"641";"powder";"nasal";NA;51
+"642";"lotion";"oral";"topical";50
+"643";"coated tablet";"vaginal";"oral";50
+"644";"gel";"oropharingeal";"topical";49
+"645";NA;"gastrostomy tube";NA;48
+"646";"solution for intravesical use";"intravenous";"intravesical";48
+"647";"kit for radiopharmaceutical preparation";"parenteral";NA;48
+"648";"implant";"ophthalmic";NA;47
+"649";"liquid";"inhalation";NA;47
+"650";"inhalation vapour";"transplacental";"inhalation";47
+"651";"capsule";"sublingual";"oral";47
+"652";"accuhaler";NA;"inhalation";46
+"653";"inhaler";"transplacental";"inhalation";46
+"654";"wafer";NA;NA;46
+"655";"eye drops";"transplacental";"ophtalmic";46
+"656";"oral solution";"sublingual";"oral";46
+"657";"cream";"ophthalmic";"topical";46
+"658";NA;"intracisternal";NA;45
+"659";"solution for injection";"intrahepatic";"parenteral";45
+"660";"oral spray";"oral";"oral";45
+"661";"cutaneous foam";"cutaneous";"cutaneous";45
+"662";"implant";"parenteral";NA;45
+"663";"urethral gel";NA;"urethral";45
+"664";"coated tablet";"ophthalmic";"oral";45
+"665";"liquid";"buccal";NA;44
+"666";"solution for infusion";"intrauterine";"parenteral";44
+"667";"shampoo";"cutaneous";"topical";44
+"668";"tablet-CR";"transplacental";"oral";43
+"669";"microspheres";"intravenous";"oral";43
+"670";NA;"intrapericardial";NA;42
+"671";"cream";"intravenous";"topical";42
+"672";"eye drops";"sublingual";"ophtalmic";42
+"673";"liposome injection";"intraarterial";"parenteral";42
+"674";"dental gel";NA;NA;42
+"675";"lozenge";"sublingual";"oral";41
+"676";"plaster";NA;NA;41
+"677";"solution";"parenteral";NA;41
+"678";"inhalation powder";"oropharingeal";"inhalation";41
+"679";"shampoo";"oral";"topical";41
+"680";"suspension for injection";"intradermal";"parenteral";41
+"681";"solution for infusion";"intracervical";"parenteral";41
+"682";"ointment";"parenteral";"topical";40
+"683";"mouth wash";"transplacental";"buccal";40
+"684";"unk";"otic";NA;39
+"685";"lotion";"cutaneous";"topical";39
+"686";"capsule-gastroresistant";"transplacental";"oral";39
+"687";"implant";"transdermal";NA;39
+"688";"oral suspension";"transplacental";"oral";39
+"689";"patch";"transplacental";"cutaneous";38
+"690";"pad";"transdermal";NA;38
+"691";"inhalant";"intravenous";"inhalation";38
+"692";"cutaneous liquid";"oral";"cutaneous";38
+"693";"liquid";"transplacental";NA;38
+"694";"oral solution";"intramuscular";"oral";38
+"695";"nasal ointment";"nasal";"nasal";38
+"696";"unk";"intracoronary";NA;38
+"697";"capsule";"rectal";"oral";38
+"698";"solution for injection";"intracardiac";"parenteral";38
+"699";"unk";"retrobulbar";NA;38
+"700";"intrauterine delivery system";"transmammary";"intrauterine";37
+"701";"solution for injection";"intracavernous";"parenteral";37
+"702";"solution for injection";"periarticular";"parenteral";37
+"703";"nasal spray";"topical";"nasal";37
+"704";"lyophilized powder";"oral";NA;36
+"705";"cutaneous spray";"oral";"cutaneous";36
+"706";"solution";"rectal";NA;36
+"707";"vial";"oral";"parenteral";36
+"708";"tablet-MR";"intravenous";"oral";36
+"709";"liquid";"intraarticular";NA;36
+"710";"eye drops";"subconjunctival";"ophtalmic";36
+"711";"solution";"intraperitoneal";NA;36
+"712";"powder";"dental";NA;36
+"713";"transdermal patch";"intravenous";"transdermal";35
+"714";"patch";"subcutaneous";"cutaneous";35
+"715";"spray";"buccal";NA;35
+"716";"solution for injection";"buccal";"parenteral";35
+"717";"ear spray";"ophthalmic";"otic";35
+"718";"tablet";"intracavernous";"oral";35
+"719";"impregnated pad";"oral";"topical";34
+"720";"gel";"buccal";"topical";34
+"721";"solution";"buccal";NA;34
+"722";"nebuliser";"intravenous";"inhalation";34
+"723";"transdermal patch";"sublingual";"transdermal";34
+"724";"tablet";"intraarterial";"oral";34
+"725";"solution for injection";"intrathoracic";"parenteral";34
+"726";"syrup";"intravenous";"oral";34
+"727";"vial";"inhalation";"parenteral";34
+"728";"powder for infusion";"inhalation";"parenteral";34
+"729";"tablet-XR";"parenteral";"oral";33
+"730";"cutaneous solution";"oral";"cutaneous";33
+"731";"liposome injection";"intraperitoneal";"parenteral";33
+"732";"lotion";"ophthalmic";"topical";33
+"733";"granules";"transplacental";"oral";33
+"734";"solution";"cutaneous";NA;33
+"735";"solution for infusion";"inhalation";"parenteral";33
+"736";"tablet-XR";"intrauterine";"oral";33
+"737";"unk";"intradiscal";NA;33
+"738";"herbal tea";NA;"oral";33
+"739";"transdermal patch";"intradermal";"transdermal";32
+"740";"microspheres";"subcutaneous";"oral";32
+"741";"gel";"nasal";"topical";32
+"742";"solution for infusion";"intrapleural";"parenteral";32
+"743";"rectal cream";"rectal";"rectal";32
+"744";"drops";"otic";NA;31
+"745";"vaginal gel";"transplacental";"vaginal";31
+"746";"oral solution";"nasal";"oral";31
+"747";"enema";"oral";"rectal";31
+"748";"nasal spray";"intrasinal";"nasal";31
+"749";"sublingual spray";"oral";"sublingual";31
+"750";"inhalation solution";"intravenous";"inhalation";30
+"751";"inhalation powder";"intravenous";"inhalation";30
+"752";"tablet-XR";"transmammary";"oral";30
+"753";"oral emulsion";NA;"oral";30
+"754";"nasal gel";NA;"nasal";30
+"755";"unk";"perineural";NA;30
+"756";"rectal ointment";"rectal";"rectal";29
+"757";"drops";"nasal";NA;29
+"758";"rectal cream";NA;"rectal";29
+"759";"rectal solution";NA;"rectal";29
+"760";"inhalation powder";"subcutaneous";"inhalation";29
+"761";"suspension for injection";"intraarterial";"parenteral";29
+"762";"suspension for injection";"topical";"parenteral";29
+"763";"ear spray";"otic";"otic";29
+"764";"foam";"ophthalmic";"topical";29
+"765";"tablet";"cutaneous";"oral";28
+"766";"shampoo";"transdermal";"topical";28
+"767";"suppository";"topical";"rectal";28
+"768";"eye drops";"nasal";"ophtalmic";28
+"769";"capsule";"transdermal";"oral";28
+"770";"caplet";"transplacental";"oral";28
+"771";"vaginal ring";"transplacental";"vaginal";28
+"772";"capsule";"occlusive dressing";"oral";28
+"773";"inhalation suspension";"nasal";"inhalation";27
+"774";"solution";"epidural";NA;27
+"775";"drops";"sublingual";NA;27
+"776";"oral solution";"intrauterine";"oral";27
+"777";"coated tablet";"intramuscular";"oral";27
+"778";"oral drops";"intravenous";"oral";27
+"779";"drops";"inhalation";NA;27
+"780";"medicated plaster";"cutaneous";"topical";27
+"781";"chewable";"transmammary";"buccal";27
+"782";"implant";"intrathecal";NA;27
+"783";"liquid";"oropharingeal";NA;26
+"784";"capsule";"oropharingeal";"oral";26
+"785";"tablet-DR";"oral";"oral";26
+"786";"suspension";"otic";NA;26
+"787";"suspension";"transplacental";NA;26
+"788";"orodispersible tablet";"intravenous";"oral";26
+"789";"drops";"transplacental";NA;26
+"790";"tablet-SR";"transplacental";"oral";26
+"791";"transdermal system";"cutaneous";"transdermal";26
+"792";"suspension";"rectal";NA;26
+"793";"unk";"occlusive dressing";NA;26
+"794";"solution for injection";"vaginal";"parenteral";25
+"795";"gel";"intravenous";"topical";25
+"796";"aerosol";"topical";"inhalation";25
+"797";"coated tablet";"parenteral";"oral";25
+"798";"sealant";"oral";NA;25
+"799";"tablet";"otic";"oral";25
+"800";"emulsion for infusion";"parenteral";"parenteral";24
+"801";"oral paste";"topical";"oral";24
+"802";"powder";"transplacental";NA;24
+"803";"cutaneous solution";"otic";"cutaneous";24
+"804";"coated tablet";"inhalation";"oral";24
+"805";"powder for injection";"inhalation";"parenteral";24
+"806";"oral suspension";"buccal";"oral";24
+"807";"foam";"oral";"topical";24
+"808";"powder";"urethral";NA;23
+"809";"nasal spray";"ophthalmic";"nasal";23
+"810";"transdermal patch";"transmammary";"transdermal";23
+"811";"vaginal capsule";"oral";"vaginal";23
+"812";"solution for haemodialysis";NA;"parenteral";23
+"813";"capsule";"intracardiac";"oral";23
+"814";"granules";"intravenous";"oral";22
+"815";"paste";"topical";"topical";22
+"816";"powder for injection";"transmammary";"parenteral";22
+"817";"oral suspension";"nasal";"oral";22
+"818";"inhalant";"subcutaneous";"inhalation";22
+"819";"spray";"intrasinal";NA;22
+"820";"unk";"intravesical";NA;22
+"821";"solution for haemodialysis";"intravenous";"parenteral";22
+"822";"sublingual tablet";"transdermal";"sublingual";22
+"823";NA;"intralymphatic";NA;21
+"824";"ointment";"oropharingeal";"topical";21
+"825";"tablet-SR";"intravenous";"oral";21
+"826";"intrauterine delivery system";"intraarticular";"intrauterine";21
+"827";"foam";"rectal";"topical";21
+"828";"suspension for injection";"intradiscal";"parenteral";21
+"829";"oral paste";"dental";"oral";21
+"830";"vaginal tablet";"transplacental";"vaginal";21
+"831";"ampoule";"inhalation";NA;21
+"832";"unk";"subconjunctival";NA;21
+"833";"oral solution";"parenteral";"oral";21
+"834";"solution for infusion";"intracoronary";"parenteral";21
+"835";"microspheres";"transplacental";"oral";20
+"836";"ear spray";NA;"otic";20
+"837";"emulsion for injection";"parenteral";"parenteral";20
+"838";NA;"extraamniotic";NA;19
+"839";"transdermal patch";"inhalation";"transdermal";19
+"840";"implant";"vaginal";NA;19
+"841";"capsule";"urethral";"oral";19
+"842";"oral suspension";"subcutaneous";"oral";19
+"843";"solution for injection";"urethral";"parenteral";19
+"844";"cutaneous solution";"transdermal";"cutaneous";19
+"845";"eye drops";"occlusive dressing";"ophtalmic";19
+"846";"lyophilized powder";"transmammary";NA;19
+"847";"cutaneous paste";NA;"cutaneous";19
+"848";"oral suspension";"inhalation";"oral";19
+"849";"solution for intravesical use";NA;"intravesical";19
+"850";"ear drops";"oral";"otic";19
+"851";"cream";"buccal";"topical";19
+"852";"suspension for injection";"periarticular";"parenteral";19
+"853";"nasal spray";"intravenous";"nasal";18
+"854";"solution for injection";"intrapleural";"parenteral";18
+"855";"patch";"intradermal";"cutaneous";18
+"856";"solution";"sublingual";NA;18
+"857";"solution for infusion";"intradermal";"parenteral";18
+"858";"oral suspension";"ophthalmic";"oral";18
+"859";"implant";"intravenous";NA;18
+"860";"cutaneous liquid";"ophthalmic";"cutaneous";18
+"861";"rectal foam";"topical";"rectal";18
+"862";"coated tablet";"intracervical";"oral";18
+"863";"nasal drops";"inhalation";"nasal";17
+"864";"suppository";"parenteral";"rectal";17
+"865";"inhalation vapour";"topical";"inhalation";17
+"866";"liquid";"parenteral";NA;17
+"867";"gel";"dental";"topical";17
+"868";"cutaneous spray";"transdermal";"cutaneous";17
+"869";"coated tablet";"topical";"oral";17
+"870";"syrup";"parenteral";"oral";17
+"871";"lozenge";"parenteral";"oral";17
+"872";"coated tablet";"urethral";"oral";17
+"873";"tablet-gastroresistant";"intratracheal";"oral";17
+"874";"dental gel";"oral";NA;16
+"875";"cutaneous spray";"nasal";"cutaneous";16
+"876";"lozenge";"transdermal";"oral";16
+"877";"solution for infusion";"perineural";"parenteral";16
+"878";"unk";"intramedullar";NA;16
+"879";"coated tablet";"transdermal";"oral";16
+"880";"inhalant";"transplacental";"inhalation";16
+"881";"liquid";"nasal";NA;16
+"882";"emulsion";"oral";NA;16
+"883";"powder for injection";"topical";"parenteral";16
+"884";"subcutaneous injection";"intravenous";"subcutaneous";16
+"885";"capsule";"intrathecal";"oral";16
+"886";"solution for infusion";"intracavernous";"parenteral";16
+"887";"transdermal patch";"occlusive dressing";"transdermal";16
+"888";"tablet-gastroresistant";"subcutaneous";"oral";16
+"889";"paste";"buccal";"topical";16
+"890";"solution for infusion";"intratracheal";"parenteral";16
+"891";"powder for infusion";"intravesical";"parenteral";16
+"892";"transdermal patch";"buccal";"transdermal";15
+"893";"implant";"oral";NA;15
+"894";"oral solution";"buccal";"oral";15
+"895";"tablet";"intraarticular";"oral";15
+"896";"orodispersible tablet";"buccal";"oral";15
+"897";"solution for peritoneal dialysis";"intravenous";"intraperitoneal";15
+"898";"cutaneous foam";"oral";"cutaneous";15
+"899";"gel capsule";"inhalation";"oral";15
+"900";"solution for haemodialysis";"intraperitoneal";"parenteral";15
+"901";"emulsion";"cutaneous";NA;15
+"902";"oral drops";"topical";"oral";15
+"903";"oral suspension";"topical";"oral";15
+"904";"capsule-MR";"intravenous";"oral";15
+"905";"capsule";"cutaneous";"oral";15
+"906";"caplet";"topical";"oral";15
+"907";"inhalation powder";"intracervical";"inhalation";15
+"908";"dental liquid";"dental";NA;15
+"909";"solution for injection";"intracisternal";"parenteral";15
+"910";"orodispersible tablet";"oropharingeal";"oral";15
+"911";"vaginal cream";"transplacental";"vaginal";14
+"912";"vaginal tablet";"oral";"vaginal";14
+"913";"capsule";"intrauterine";"oral";14
+"914";"emulsion";"topical";NA;14
+"915";"oral drops";"sublingual";"oral";14
+"916";"coated tablet";"oropharingeal";"oral";14
+"917";"eye drops";"intravenous";"ophtalmic";14
+"918";"vaginal cream";"oral";"vaginal";14
+"919";"oral powder";"transplacental";"oral";14
+"920";"suspension for injection";"cutaneous";"parenteral";14
+"921";"vaginal cream";"urethral";"vaginal";14
+"922";"lotion";"parenteral";"topical";13
+"923";"unk";"intracavernous";NA;13
+"924";"nasal drops";"oral";"nasal";13
+"925";"inhalation gas";"transplacental";"inhalation";13
+"926";"coated tablet";"rectal";"oral";13
+"927";"orodispersible tablet";"subcutaneous";"oral";13
+"928";"urethral gel";"oral";"urethral";13
+"929";"ointment";"intramuscular";"topical";13
+"930";"cutaneous emulsion";"cutaneous";"cutaneous";13
+"931";"liquid";"sublingual";NA;13
+"932";"medicated sponge";"topical";"topical";13
+"933";"solution";"intraarterial";NA;13
+"934";"solution for injection";"intraamniotic";"parenteral";13
+"935";"suspension for injection";"irrigation";"parenteral";13
+"936";"powder for injection";"cutaneous";"parenteral";13
+"937";"foam";"intravenous";"topical";13
+"938";"capsule";"intraarterial";"oral";13
+"939";"solution for infusion";"subconjunctival";"parenteral";12
+"940";"pills";"transplacental";"oral";12
+"941";"emulsion for injection";"transplacental";"parenteral";12
+"942";NA;"intraventricular";NA;12
+"943";"liposome injection";"intrathecal";"parenteral";12
+"944";"nasal spray";"otic";"nasal";12
+"945";"patch";"inhalation";"cutaneous";12
+"946";"tablet-XR";"rectal";"oral";12
+"947";"solution";"intradermal";NA;12
+"948";"inhalation gas";"intrapleural";"inhalation";12
+"949";"spray";"transplacental";NA;12
+"950";"solution for infusion";"transdermal";"parenteral";12
+"951";"spray";"otic";NA;12
+"952";"cutaneous liquid";"subcutaneous";"cutaneous";12
+"953";"oral solution";"oropharingeal";"oral";12
+"954";"cutaneous solution";"transplacental";"cutaneous";12
+"955";"ear spray";"topical";"otic";12
+"956";"dental gel";"dental";NA;12
+"957";"solution for infusion";"nasal";"parenteral";11
+"958";"gel";"urethral";"topical";11
+"959";"capsule-XR";"nasal";"oral";11
+"960";"solution for peritoneal dialysis";"oral";"intraperitoneal";11
+"961";"caplet";"transmammary";"oral";11
+"962";"suppository";"intravenous";"rectal";11
+"963";"orodispersible tablet";"ophthalmic";"oral";11
+"964";"lotion";"otic";"topical";11
+"965";"vaginal ring";"subcutaneous";"vaginal";11
+"966";"spray";"intravenous";NA;11
+"967";"sublingual tablet";"subcutaneous";"sublingual";11
+"968";"tablet-XR";"sublingual";"oral";11
+"969";"drops";"intravenous";NA;11
+"970";"inhalation powder";"topical";"inhalation";11
+"971";"tablet-XR";"topical";"oral";11
+"972";"transdermal patch";"intrasinal";"transdermal";11
+"973";"pills";"sublingual";"oral";11
+"974";"nasal ointment";"topical";"nasal";11
+"975";"cutaneous solution";"nasal";"cutaneous";11
+"976";"granules";"parenteral";"oral";11
+"977";"dental gel";"topical";NA;11
+"978";"transdermal system";"transplacental";"transdermal";11
+"979";"per os";"intravenous";"oral";11
+"980";"rectal ointment";"topical";"rectal";11
+"981";"suspension for injection";"subconjunctival";"parenteral";11
+"982";"unk";"dental";NA;11
+"983";"cream";"otic";"topical";11
+"984";"syrup";"perineural";"oral";11
+"985";"dental liquid";"topical";NA;11
+"986";"solution for injection";"intralymphatic";"parenteral";11
+"987";"oral drops";"subcutaneous";"oral";11
+"988";"oros";"transplacental";"oral";10
+"989";"oral powder";"intravenous";"oral";10
+"990";"oral emulsion";"oral";"oral";10
+"991";"inhalation vapour";"intratracheal";"inhalation";10
+"992";NA;"nasogastric tube";NA;10
+"993";"orodispersible tablet";"transmammary";"oral";10
+"994";"sprinkle capsule";NA;NA;10
+"995";"solution for infusion";"rectal";"parenteral";10
+"996";"tablet-MR";"sublingual";"oral";10
+"997";"cutaneous spray";"ophthalmic";"cutaneous";10
+"998";"orodispersible tablet";"parenteral";"oral";10
+"999";"suppository";"subcutaneous";"rectal";10
+"1000";"oros";"intramuscular";"oral";10
+"1001";"impregnated pad";"nasal";"topical";10
+"1002";"suspension for injection";"intramedullar";"parenteral";10
+"1003";"ophtalmic";"oral";"ophtalmic";10
+"1004";"shampoo";"ophthalmic";"topical";10
+"1005";"unk";"intratumor";NA;10
+"1006";"suspension for injection";"inhalation";"parenteral";10
+"1007";"ointment";"otic";"topical";10
+"1008";"rectal suspension";"oral";"rectal";10
+"1009";"nasal ointment";"oral";"nasal";10
+"1010";"solution";"intracervical";NA;10
+"1011";"liquid";"transdermal";NA;10
+"1012";"aerosol";"intraperitoneal";"inhalation";10
+"1013";"cream";"parenteral";"topical";10
+"1014";"tablet-gastroresistant";"nasal";"oral";10
+"1015";"liquid";"epidural";NA;10
+"1016";"vaginal tablet";"intravenous";"vaginal";10
+"1017";"solution";"periarticular";NA;10
+"1018";"solution for infusion";"irrigation";"parenteral";9
+"1019";"oral spray";"sublingual";"oral";9
+"1020";"capsule";"intravesical";"oral";9
+"1021";"cream";"dental";"topical";9
+"1022";"solution for infusion";"intraarticular";"parenteral";9
+"1023";"nebuliser";"oropharingeal";"inhalation";9
+"1024";"cutaneous powder";"intravenous";"cutaneous";9
+"1025";"inhalation gas";"intravenous";"inhalation";9
+"1026";"solution";"oropharingeal";NA;9
+"1027";"implant";"transmammary";NA;9
+"1028";"ampoule";"intratracheal";NA;9
+"1029";"solution for peritoneal dialysis";"topical";"intraperitoneal";9
+"1030";"solution for injection";"oropharingeal";"parenteral";9
+"1031";"implant";"inhalation";NA;9
+"1032";"syrup";"topical";"oral";9
+"1033";"granules";"nasal";"oral";9
+"1034";"lyophilized powder";"intramuscular";NA;9
+"1035";"intrauterine device";"vaginal";"intrauterine";9
+"1036";"tablet";"intrameningeal";"oral";9
+"1037";"ointment";"buccal";"topical";9
+"1038";"nasal drops";"transplacental";"nasal";9
+"1039";"chewable";"intravenous";"buccal";9
+"1040";"plaster";"transdermal";NA;9
+"1041";"dental liquid";"oral";NA;9
+"1042";"granules";"oropharingeal";"oral";9
+"1043";"tablet";"dental";"oral";9
+"1044";"cream";"intramuscular";"topical";9
+"1045";"solution";"subconjunctival";NA;9
+"1046";"suspension for infusion";"intraarticular";"parenteral";9
+"1047";"oral lyophilisate";"buccal";"oral";9
+"1048";"tablet";"intracavity";"oral";9
+"1049";"ointment";"epidural";"topical";9
+"1050";"intrauterine delivery system";"oral";"intrauterine";8
+"1051";"suspension for injection";"transmammary";"parenteral";8
+"1052";"solution for injection";"otic";"parenteral";8
+"1053";"solution for infusion";"cutaneous";"parenteral";8
+"1054";"medicated nail lacquer";NA;"topical";8
+"1055";"granules";"inhalation";"oral";8
+"1056";"coated tablet";"intrauterine";"oral";8
+"1057";"pad";"topical";NA;8
+"1058";"sealant";"subcutaneous";NA;8
+"1059";"oral gel";"topical";"oral";8
+"1060";"suspension";"parenteral";NA;8
+"1061";"implant";"cutaneous";NA;8
+"1062";"per os";"transmammary";"oral";8
+"1063";"transdermal system";"parenteral";"transdermal";8
+"1064";"oral suspension";"intramuscular";"oral";8
+"1065";"transdermal system";"intravenous";"transdermal";8
+"1066";"patch";"intravenous";"cutaneous";8
+"1067";"solution for infusion";"vaginal";"parenteral";8
+"1068";"oral drops";"nasal";"oral";8
+"1069";"solution";"intraarticular";NA;8
+"1070";"liquid";"rectal";NA;8
+"1071";"gel";"intramuscular";"topical";8
+"1072";"inhalation gas";"subcutaneous";"inhalation";8
+"1073";"solution for infusion";"intrameningeal";"parenteral";8
+"1074";"transdermal system";"subcutaneous";"transdermal";8
+"1075";"cream";"intradermal";"topical";8
+"1076";"lozenge";"oropharingeal";"oral";8
+"1077";"tablet-XR";"intramuscular";"oral";8
+"1078";"unk";"iontophoresis";NA;8
+"1079";"inhaler";"oropharingeal";"inhalation";8
+"1080";"ophtalmic";"topical";"ophtalmic";8
+"1081";"capsule-XR";"intramuscular";"oral";8
+"1082";"vaginal gel";"topical";"vaginal";8
+"1083";"gel";"intracervical";"topical";8
+"1084";"cream";"inhalation";"topical";8
+"1085";"inhalation solution";"transplacental";"inhalation";8
+"1086";"dispersion";"oral";NA;8
+"1087";"capsule-SR";"transplacental";"oral";8
+"1088";"vaginal gel";"intravenous";"vaginal";8
+"1089";"liposome injection";"subcutaneous";"parenteral";7
+"1090";NA;"intrabursal";NA;7
+"1091";"paste";"oral";"topical";7
+"1092";"capsule";"otic";"oral";7
+"1093";"tablet";"intratracheal";"oral";7
+"1094";"inhalant";"oropharingeal";"inhalation";7
+"1095";"oral emulsion";"ophthalmic";"oral";7
+"1096";"eye ointment";"transplacental";"ophtalmic";7
+"1097";"tablet-XR";"urethral";"oral";7
+"1098";"syrup";"nasal";"oral";7
+"1099";"aerosol";"sublingual";"inhalation";7
+"1100";"powder";"parenteral";NA;7
+"1101";"kit for radiopharmaceutical preparation";"oral";NA;7
+"1102";"mouth wash";"sublingual";"buccal";7
+"1103";"tablet-gastroresistant";"rectal";"oral";7
+"1104";"sublingual tablet";"inhalation";"sublingual";7
+"1105";"solution for injection";"intracorneal";"parenteral";7
+"1106";"vaginal ring";"oral";"vaginal";7
+"1107";"coated tablet";"intratracheal";"oral";7
+"1108";"ophthalmic insert";"topical";"ophtalmic";7
+"1109";"chewable";"transdermal";"buccal";7
+"1110";"sublingual tablet";"buccal";"sublingual";7
+"1111";"oral solution";"rectal";"oral";7
+"1112";"solution";"urethral";NA;7
+"1113";"inhalation gas";"intratracheal";"inhalation";7
+"1114";"syrup";"transmammary";"oral";7
+"1115";"eye ointment";"oral";"ophtalmic";7
+"1116";"inhalation gas";"ophthalmic";"inhalation";7
+"1117";"tablet-SR";"sublingual";"oral";7
+"1118";"tablet";"intradermal";"oral";7
+"1119";"inhalation vapour";"subcutaneous";"inhalation";7
+"1120";"plaster";"cutaneous";NA;7
+"1121";"powder for infusion";"ophthalmic";"parenteral";7
+"1122";"orodispersible tablet";"nasal";"oral";7
+"1123";"nebuliser";"transplacental";"inhalation";7
+"1124";"oral suspension";"rectal";"oral";7
+"1125";"vaginal gel";"oral";"vaginal";7
+"1126";"solution for infusion";"sublingual";"parenteral";7
+"1127";"eye drops";"parenteral";"ophtalmic";7
+"1128";"patch";"buccal";"cutaneous";6
+"1129";"oral emulsion";"transplacental";"oral";6
+"1130";"tablet-MR";"buccal";"oral";6
+"1131";"tablet";"epidural";"oral";6
+"1132";"nasal drops";"oropharingeal";"nasal";6
+"1133";"solution for infusion";"buccal";"parenteral";6
+"1134";"powder for infusion";"parenteral";"parenteral";6
+"1135";"solution for peritoneal dialysis";"intrapleural";"intraperitoneal";6
+"1136";"inhalation suspension";"oropharingeal";"inhalation";6
+"1137";"powder for infusion";"intraarterial";"parenteral";6
+"1138";"pessary";"intravenous";"vaginal";6
+"1139";"inhalation powder";"buccal";"inhalation";6
+"1140";"cutaneous spray";"cutaneous";"cutaneous";6
+"1141";"powder for injection";"subconjunctival";"parenteral";6
+"1142";"suspension for injection";"intrabursal";"parenteral";6
+"1143";"solution for infusion";"intracardiac";"parenteral";6
+"1144";"suspension for injection";"nasal";"parenteral";6
+"1145";"eye drops";"intramuscular";"ophtalmic";6
+"1146";"lozenge";"intravenous";"oral";6
+"1147";"gel";"parenteral";"topical";6
+"1148";"suppository";"urethral";"rectal";6
+"1149";"pessary";"transplacental";"vaginal";6
+"1150";"inhalation vapour";"parenteral";"inhalation";6
+"1151";"solution";"intratracheal";NA;6
+"1152";"oral suspension";"parenteral";"oral";6
+"1153";"pills";"intravenous";"oral";6
+"1154";"ointment";"sublingual";"topical";6
+"1155";"medicated sponge";"transdermal";"topical";6
+"1156";"granules";"topical";"oral";6
+"1157";"rectal gel";"oral";"rectal";6
+"1158";"inhalation powder";"transmammary";"inhalation";6
+"1159";"syrup";"subcutaneous";"oral";6
+"1160";"oral paste";"ophthalmic";"oral";6
+"1161";"sachet";"topical";"oral";6
+"1162";"orodispersible tablet";"intramuscular";"oral";6
+"1163";"emulsion for injection";"oral";"parenteral";6
+"1164";"eye drops";"subcutaneous";"ophtalmic";6
+"1165";"ampoule";"intraarticular";NA;6
+"1166";"capsule-MR";"intradermal";"oral";6
+"1167";"syrup";"ophthalmic";"oral";6
+"1168";"suspension";"oropharingeal";NA;6
+"1169";"orodispersible tablet";"inhalation";"oral";6
+"1170";"pills";"vaginal";"oral";6
+"1171";"cream";"urethral";"topical";6
+"1172";"powder";"ophthalmic";NA;6
+"1173";"tablet";"intrasinal";"oral";6
+"1174";"vaginal cream";"transdermal";"vaginal";6
+"1175";"cutaneous liquid";"intracardiac";"cutaneous";6
+"1176";"powder";"transdermal";NA;5
+"1177";"sublingual spray";"subcutaneous";"sublingual";5
+"1178";"powder for injection";"intracavity";"parenteral";5
+"1179";"orodispersible tablet";"topical";"oral";5
+"1180";"vaginal ring";"urethral";"vaginal";5
+"1181";"ear drops";"intravenous";"otic";5
+"1182";"unk";"intrahepatic";NA;5
+"1183";"vaginal capsule";"transplacental";"vaginal";5
+"1184";"inhalation solution";"oropharingeal";"inhalation";5
+"1185";"lotion";"nasal";"topical";5
+"1186";"capsule-XR";"inhalation";"oral";5
+"1187";"rectal cream";"topical";"rectal";5
+"1188";"inhaler";"intravenous";"inhalation";5
+"1189";"lotion";"transplacental";"topical";5
+"1190";"subcutaneous injection";"oral";"subcutaneous";5
+"1191";"herbal tea";"oral";"oral";5
+"1192";"transdermal patch";"epidural";"transdermal";5
+"1193";"tablet-gastroresistant";"intramuscular";"oral";5
+"1194";"aerosol";"transplacental";"inhalation";5
+"1195";"tablet-MR";"inhalation";"oral";5
+"1196";"cutaneous spray";"parenteral";"cutaneous";5
+"1197";"solution for infusion";"intramedullar";"parenteral";5
+"1198";"gel";"inhalation";"topical";5
+"1199";"solution";"intradiscal";NA;5
+"1200";"inhalation vapour";"ophthalmic";"inhalation";5
+"1201";"emulsion for infusion";"intrathecal";"parenteral";5
+"1202";"caplet";"ophthalmic";"oral";5
+"1203";"gastroenteral suspension";"topical";"oral";5
+"1204";"powder";"sublingual";NA;5
+"1205";"transdermal patch";"ophthalmic";"transdermal";5
+"1206";"suspension for injection";"vaginal";"parenteral";5
+"1207";"chewable";"topical";"buccal";5
+"1208";"oral suspension";"transmammary";"oral";5
+"1209";"suspension for injection";"retrobulbar";"parenteral";5
+"1210";"patch";"sublingual";"cutaneous";5
+"1211";"tablet-XR";"ophthalmic";"oral";5
+"1212";"spray";"oropharingeal";NA;5
+"1213";"patch";"occlusive dressing";"cutaneous";5
+"1214";"inhalation powder";"intramuscular";"inhalation";5
+"1215";"solution";"intrauterine";NA;5
+"1216";"unk";"intrathoracic";NA;5
+"1217";"rectal suspension";"inhalation";"rectal";5
+"1218";"solution for infusion";"occlusive dressing";"parenteral";5
+"1219";"implant";"subconjunctival";NA;5
+"1220";"capsule";"intrasinal";"oral";5
+"1221";"tablet-gastroresistant";"topical";"oral";5
+"1222";"rectal foam";"cutaneous";"rectal";5
+"1223";"cutaneous liquid";"otic";"cutaneous";5
+"1224";"subcutaneous injection";"transdermal";"subcutaneous";5
+"1225";"coated tablet";"intrasinal";"oral";5
+"1226";"unk";"extraamniotic";NA;5
+"1227";"tablet";"intraperitoneal";"oral";4
+"1228";"inhalant";"buccal";"inhalation";4
+"1229";"drops";"subconjunctival";NA;4
+"1230";"granules";"transmammary";"oral";4
+"1231";"pills";"subcutaneous";"oral";4
+"1232";"oral drops";"inhalation";"oral";4
+"1233";"tablet-SR";"nasal";"oral";4
+"1234";"liquid";"intrauterine";NA;4
+"1235";"vaginal ring";"transmammary";"vaginal";4
+"1236";"tablet";"subconjunctival";"oral";4
+"1237";"inhalation suspension";"buccal";"inhalation";4
+"1238";"nasal drops";"topical";"nasal";4
+"1239";"tablet-MR";"transmammary";"oral";4
+"1240";"solution for infusion";"intrathoracic";"parenteral";4
+"1241";"intrauterine delivery system";"transdermal";"intrauterine";4
+"1242";"nasal spray";"transmammary";"nasal";4
+"1243";"powder for injection";"intramedullar";"parenteral";4
+"1244";"caplet";"inhalation";"oral";4
+"1245";"suspension for infusion";"subcutaneous";"parenteral";4
+"1246";"powder for injection";"intraperitoneal";"parenteral";4
+"1247";"powder for injection";"intraarticular";"parenteral";4
+"1248";"tablet-MR";"topical";"oral";4
+"1249";"ampoule";"transplacental";NA;4
+"1250";"medicated sponge";"cutaneous";"topical";4
+"1251";"inhalation powder";"intrasinal";"inhalation";4
+"1252";"nasal drops";"intrasinal";"nasal";4
+"1253";"spray";"ophthalmic";NA;4
+"1254";"powder for infusion";"intrathecal";"parenteral";4
+"1255";"powder for injection";"urethral";"parenteral";4
+"1256";"powder for injection";"nasal";"parenteral";4
+"1257";"sealant";"ophthalmic";NA;4
+"1258";"kit for radiopharmaceutical preparation";"intraarterial";NA;4
+"1259";"granules";"buccal";"oral";4
+"1260";"intrauterine delivery system";"intravenous";"intrauterine";4
+"1261";"tablet-gastroresistant";"parenteral";"oral";4
+"1262";"gel capsule";"intravenous";"oral";4
+"1263";"oral powder";"intramuscular";"oral";4
+"1264";"solution";"vaginal";NA;4
+"1265";"transdermal patch";"intrathecal";"transdermal";4
+"1266";"powder";"intracavity";NA;4
+"1267";"foam";"inhalation";"topical";4
+"1268";"powder for injection";"intraarterial";"parenteral";4
+"1269";"subcutaneous injection";"parenteral";"subcutaneous";4
+"1270";"powder";"vaginal";NA;4
+"1271";"spray";"transdermal";NA;4
+"1272";"solution";"hemodialysis";NA;4
+"1273";"transdermal system";"inhalation";"transdermal";4
+"1274";"gel capsule";"ophthalmic";"oral";4
+"1275";"transdermal system";"intrathecal";"transdermal";4
+"1276";"capsule-XR";"subcutaneous";"oral";4
+"1277";"liposome injection";"parenteral";"parenteral";4
+"1278";"lotion";"intraarticular";"topical";4
+"1279";"tablet";"iontophoresis";"oral";4
+"1280";"transdermal system";"nasal";"transdermal";4
+"1281";"vial";"transplacental";"parenteral";4
+"1282";"transdermal system";"intradermal";"transdermal";4
+"1283";"nasal drops";"subcutaneous";"nasal";4
+"1284";"rectal suspension";"topical";"rectal";4
+"1285";"inhalation vapour";"oropharingeal";"inhalation";4
+"1286";"cutaneous foam";"transdermal";"cutaneous";4
+"1287";"ointment";"inhalation";"topical";4
+"1288";"sealant";"intravenous";NA;4
+"1289";"vaginal capsule";"subcutaneous";"vaginal";4
+"1290";"capsule-MR";"transmammary";"oral";4
+"1291";"nasal spray";"iontophoresis";"nasal";4
+"1292";"capsule-SR";"cutaneous";"oral";4
+"1293";"inhalation solution";"intratracheal";"inhalation";4
+"1294";"tablet";"perineural";"oral";4
+"1295";"vaginal capsule";"intravenous";"vaginal";4
+"1296";"coated tablet";"perineural";"oral";4
+"1297";"cutaneous foam";"ophthalmic";"cutaneous";4
+"1298";"oral solution";"subconjunctival";"oral";4
+"1299";"enema";"topical";"rectal";4
+"1300";"tablet";"intrathoracic";"oral";4
+"1301";"tablet";"intratumor";"oral";4
+"1302";"powder for injection";"intracervical";"parenteral";4
+"1303";"transdermal patch";"nasal";"transdermal";4
+"1304";"tablet-XR";"intracervical";"oral";4
+"1305";"liquid";"intracavity";NA;4
+"1306";"chewable";"sublingual";"buccal";4
+"1307";"oral drops";"dental";"oral";4
+"1308";"coated tablet";"occlusive dressing";"oral";4
+"1309";"solution for infusion";"intrapericardial";"parenteral";4
+"1310";"suspension for infusion";"intramuscular";"parenteral";4
+"1311";"enema";"transplacental";"rectal";4
+"1312";"subcutaneous injection";"cutaneous";"subcutaneous";4
+"1313";"cutaneous powder";"cutaneous";"cutaneous";4
+"1314";"intrauterine device";"intracervical";"intrauterine";4
+"1315";"eye gel";"oral";"ophtalmic";4
+"1316";"gastroenteral suspension";"cutaneous";"oral";4
+"1317";"capsule-gastroresistant";"parenteral";"oral";4
+"1318";"vaginal delivery system";"oral";"vaginal";3
+"1319";"powder";"rectal";NA;3
+"1320";"lozenge";"intrathecal";"oral";3
+"1321";"ampoule";"parenteral";NA;3
+"1322";"pessary";"rectal";"vaginal";3
+"1323";"lyophilized powder";"ophthalmic";NA;3
+"1324";"oral emulsion";"cutaneous";"oral";3
+"1325";"nasal drops";"intravenous";"nasal";3
+"1326";"inhaler";"intrahepatic";"inhalation";3
+"1327";"ear drops";"transplacental";"otic";3
+"1328";"patch";"epidural";"cutaneous";3
+"1329";"inhalation suspension";"transplacental";"inhalation";3
+"1330";"nebuliser";"subcutaneous";"inhalation";3
+"1331";"powder for injection";"sublingual";"parenteral";3
+"1332";"sprinkle capsule";"transplacental";NA;3
+"1333";"microspheres";"dental";"oral";3
+"1334";"oral suspension";"oropharingeal";"oral";3
+"1335";"solution for injection";"intrabursal";"parenteral";3
+"1336";"liquid";"otic";NA;3
+"1337";"intrauterine device";"intravenous";"intrauterine";3
+"1338";"cutaneous paste";"dental";"cutaneous";3
+"1339";"solution for peritoneal dialysis";"periarticular";"intraperitoneal";3
+"1340";"inhalation gas";"topical";"inhalation";3
+"1341";"microspheres";"transmammary";"oral";3
+"1342";"patch";"parenteral";"cutaneous";3
+"1343";"tablet";"gastrostomy tube";"oral";3
+"1344";"capsule";"intradermal";"oral";3
+"1345";"cutaneous spray";"otic";"cutaneous";3
+"1346";"tablet-MR";"intrauterine";"oral";3
+"1347";"inhaler";"intrathecal";"inhalation";3
+"1348";"urethral gel";"urethral";"urethral";3
+"1349";"powder for infusion";"intramuscular";"parenteral";3
+"1350";"oral drops";"intramuscular";"oral";3
+"1351";"transdermal system";"ophthalmic";"transdermal";3
+"1352";"nebuliser";"ophthalmic";"inhalation";3
+"1353";"nasal drops";"ophthalmic";"nasal";3
+"1354";"suppository";"inhalation";"rectal";3
+"1355";"gel";"intrauterine";"topical";3
+"1356";"solution";"intracoronary";NA;3
+"1357";"solution";"intracavity";NA;3
+"1358";"cutaneous spray";"inhalation";"cutaneous";3
+"1359";"solution for peritoneal dialysis";"subcutaneous";"intraperitoneal";3
+"1360";"cachet";"intravenous";"oral";3
+"1361";"nasal spray";"sublingual";"nasal";3
+"1362";"solution";"irrigation";NA;3
+"1363";"lyophilized powder";"intracavity";NA;3
+"1364";"powder";"intraarterial";NA;3
+"1365";"nasal spray";"subcutaneous";"nasal";3
+"1366";"ointment";"intracervical";"topical";3
+"1367";"tablet-MR";"parenteral";"oral";3
+"1368";"aerosol";"rectal";"inhalation";3
+"1369";"gel";"intradermal";"topical";3
+"1370";"cutaneous stick";"transdermal";"cutaneous";3
+"1371";"oral solution";"epidural";"oral";3
+"1372";"oral solution";"intraperitoneal";"oral";3
+"1373";"powder";"oropharingeal";NA;3
+"1374";"sublingual tablet";"intraarterial";"sublingual";3
+"1375";"tablet-XR";"intraarterial";"oral";3
+"1376";"eye drops";"intracervical";"ophtalmic";3
+"1377";"pessary";"topical";"vaginal";3
+"1378";"chewable";"nasal";"buccal";3
+"1379";"suppository";"transmammary";"rectal";3
+"1380";"cream";"intracardiac";"topical";3
+"1381";"device";"intramuscular";NA;3
+"1382";"powder";"buccal";NA;3
+"1383";"shampoo";"subcutaneous";"topical";3
+"1384";"per os";"sublingual";"oral";3
+"1385";"suspension for injection";"intraperitoneal";"parenteral";3
+"1386";"inhalation suspension";"subcutaneous";"inhalation";3
+"1387";"tablet-gastroresistant";"buccal";"oral";3
+"1388";"suspension for injection";"intracervical";"parenteral";3
+"1389";"oral solution";"otic";"oral";3
+"1390";"oral powder";"parenteral";"oral";3
+"1391";"powder for injection";"vaginal";"parenteral";3
+"1392";"emulsion for injection";"epidural";"parenteral";3
+"1393";"suspension for injection";"intrameningeal";"parenteral";3
+"1394";"unk";"periarticular";NA;3
+"1395";"eye ointment";"otic";"ophtalmic";3
+"1396";"transdermal system";"transmammary";"transdermal";3
+"1397";"suspension for infusion";"oral";"parenteral";3
+"1398";"chewable";"oropharingeal";"buccal";3
+"1399";"lyophilized powder";"intrauterine";NA;3
+"1400";"chewable";"rectal";"buccal";3
+"1401";"chewable";"subcutaneous";"buccal";3
+"1402";"nasal spray";"intracervical";"nasal";3
+"1403";"subcutaneous injection";"topical";"subcutaneous";3
+"1404";"spray";"cutaneous";NA;3
+"1405";"mouth wash";"cutaneous";"buccal";3
+"1406";"subcutaneous injection";"intradermal";"subcutaneous";3
+"1407";"pad";NA;NA;3
+"1408";"nasal drops";"otic";"nasal";3
+"1409";"oral emulsion";"buccal";"oral";3
+"1410";"oral solution";"intrathecal";"oral";3
+"1411";"suppository";"intramuscular";"rectal";3
+"1412";"ointment";"dental";"topical";3
+"1413";"suspension for injection";"dental";"parenteral";3
+"1414";"powder for injection";"intrauterine";"parenteral";3
+"1415";"suspension";"intratracheal";NA;3
+"1416";"unk";"intracorneal";NA;3
+"1417";"shampoo";"otic";"topical";3
+"1418";"eye ointment";"subconjunctival";"ophtalmic";3
+"1419";"oral solution";"vaginal";"oral";3
+"1420";"implant";"topical";NA;3
+"1421";"lozenge";"topical";"oral";3
+"1422";"capsule-SR";"intravenous";"oral";3
+"1423";"oral drops";"oropharingeal";"oral";3
+"1424";"pen";"intramuscular";"parenteral";3
+"1425";"oral drops";"cutaneous";"oral";3
+"1426";"gastroenteral suspension";"oral";"oral";3
+"1427";"solution for infusion";"intraamniotic";"parenteral";3
+"1428";"tablet-gastroresistant";"urethral";"oral";3
+"1429";"drops";"subcutaneous";NA;3
+"1430";"intrauterine delivery system";"intraamniotic";"intrauterine";3
+"1431";"oral drops";"rectal";"oral";3
+"1432";"powder for infusion";"intracardiac";"parenteral";3
+"1433";"syrup";"inhalation";"oral";3
+"1434";"oral drops";"transmammary";"oral";3
+"1435";"inhalation vapour";"intrasinal";"inhalation";3
+"1436";"nebuliser";"topical";"inhalation";3
+"1437";"emulsion for infusion";"transplacental";"parenteral";3
+"1438";"oral powder";"nasal";"oral";3
+"1439";"drops";"cutaneous";NA;3
+"1440";"per os";"subcutaneous";"oral";3
+"1441";"liquid";"intradermal";NA;3
+"1442";"device";"intrauterine";NA;3
+"1443";"ophtalmic";"subconjunctival";"ophtalmic";3
+"1444";"aerosol";"subcutaneous";"inhalation";3
+"1445";"dispersion";"intravenous";NA;3
+"1446";"aerosol";"ophthalmic";"inhalation";3
+"1447";"suspension for infusion";"inhalation";"parenteral";3
+"1448";"cream";"irrigation";"topical";3
+"1449";"inhalation powder";"vaginal";"inhalation";3
+"1450";"pen";"intravenous";"parenteral";3
+"1451";"inhalation vapour";"intramuscular";"inhalation";2
+"1452";"nasal spray";"intramedullar";"nasal";2
+"1453";"inhaler";"topical";"inhalation";2
+"1454";"lozenge";"epidural";"oral";2
+"1455";"enema";"vaginal";"rectal";2
+"1456";"oral drops";"otic";"oral";2
+"1457";"patch";"urethral";"cutaneous";2
+"1458";"mouth wash";"dental";"buccal";2
+"1459";"inhalation solution";"topical";"inhalation";2
+"1460";"patch";"nasal";"cutaneous";2
+"1461";"unk";"intrapleural";NA;2
+"1462";"orodispersible tablet";"intrauterine";"oral";2
+"1463";"capsule";"gastrostomy tube";"oral";2
+"1464";"oral drops";"intracervical";"oral";2
+"1465";"tablet-gastroresistant";"inhalation";"oral";2
+"1466";"unk";"intrapericardial";NA;2
+"1467";"tablet";"intravesical";"oral";2
+"1468";"powder";"intradermal";NA;2
+"1469";"cutaneous paste";"cutaneous";"cutaneous";2
+"1470";"aerosol";"transdermal";"inhalation";2
+"1471";"solution for infusion";"intrahepatic";"parenteral";2
+"1472";"powder";"cutaneous";NA;2
+"1473";"eye drops";"oropharingeal";"ophtalmic";2
+"1474";"oral emulsion";"parenteral";"oral";2
+"1475";"inhalation gas";"intramuscular";"inhalation";2
+"1476";"cutaneous liquid";"nasal";"cutaneous";2
+"1477";"tablet-SR";"transmammary";"oral";2
+"1478";"oral gel";"buccal";"oral";2
+"1479";"paste";"cutaneous";"topical";2
+"1480";"liquid";"subconjunctival";NA;2
+"1481";"inhalation powder";"intratracheal";"inhalation";2
+"1482";"chewable";"dental";"buccal";2
+"1483";"orodispersible tablet";"transdermal";"oral";2
+"1484";"sachet";"transplacental";"oral";2
+"1485";"orodispersible tablet";"vaginal";"oral";2
+"1486";"lyophilized powder";"intrathecal";NA;2
+"1487";"liposome injection";"intraarticular";"parenteral";2
+"1488";"vaginal cream";"cutaneous";"vaginal";2
+"1489";"tablet-MR";"nasal";"oral";2
+"1490";"oral solution";"intraarticular";"oral";2
+"1491";"spray";"subcutaneous";NA;2
+"1492";"inhalant";"intramedullar";"inhalation";2
+"1493";"nasal spray";"transdermal";"nasal";2
+"1494";"inhalation vapour";"sublingual";"inhalation";2
+"1495";"inhalation gas";"oropharingeal";"inhalation";2
+"1496";"cutaneous spray";"transplacental";"cutaneous";2
+"1497";"impregnated pad";"transplacental";"topical";2
+"1498";"inhalation powder";"rectal";"inhalation";2
+"1499";"inhalant";"intratracheal";"inhalation";2
+"1500";"liquid";"intracavernous";NA;2
+"1501";"cutaneous powder";"subcutaneous";"cutaneous";2
+"1502";"suspension";"intrathecal";NA;2
+"1503";"oros";"intravenous";"oral";2
+"1504";"shampoo";"transplacental";"topical";2
+"1505";"transdermal system";"sublingual";"transdermal";2
+"1506";"vial";"parenteral";"parenteral";2
+"1507";"coated tablet";"cutaneous";"oral";2
+"1508";"eye drops";"transmammary";"ophtalmic";2
+"1509";"emulsion for infusion";"ophthalmic";"parenteral";2
+"1510";"rectal solution";"intravenous";"rectal";2
+"1511";"pessary";"oral";"vaginal";2
+"1512";"suspension";"intrasinal";NA;2
+"1513";"shampoo";"vaginal";"topical";2
+"1514";"gel";"transmammary";"topical";2
+"1515";"capsule-gastroresistant";"nasal";"oral";2
+"1516";"rectal cream";"oral";"rectal";2
+"1517";"solution for injection";"occlusive dressing";"parenteral";2
+"1518";"tablet-SR";"topical";"oral";2
+"1519";"transdermal patch";"intramuscular";"transdermal";2
+"1520";"aerosol";"intrasinal";"inhalation";2
+"1521";"oral emulsion";"topical";"oral";2
+"1522";"dispersion";"transdermal";NA;2
+"1523";"capsule";"dental";"oral";2
+"1524";"oral solution";"intradermal";"oral";2
+"1525";"foam";"nasal";"topical";2
+"1526";"pessary";"subcutaneous";"vaginal";2
+"1527";"patch";"intramuscular";"cutaneous";2
+"1528";"pills";"intracervical";"oral";2
+"1529";"powder for infusion";"transmammary";"parenteral";2
+"1530";"pen";"oral";"parenteral";2
+"1531";"powder for infusion";"intracervical";"parenteral";2
+"1532";"inhalant";"intrapleural";"inhalation";2
+"1533";"microspheres";"parenteral";"oral";2
+"1534";"solution";"intracavernous";NA;2
+"1535";"elixir";"intravenous";"oral";2
+"1536";"tablet-MR";"vaginal";"oral";2
+"1537";"lozenge";"intramuscular";"oral";2
+"1538";"capsule-XR";"occlusive dressing";"oral";2
+"1539";"syrup";"transdermal";"oral";2
+"1540";"vaginal ring";"intrauterine";"vaginal";2
+"1541";"oral drops";"intraarticular";"oral";2
+"1542";"inhalation suspension";"topical";"inhalation";2
+"1543";"impregnated pad";"intravenous";"topical";2
+"1544";"urethral stick";"rectal";"urethral";2
+"1545";"nebuliser";"intratracheal";"inhalation";2
+"1546";"emulsion for injection";"intramuscular";"parenteral";2
+"1547";"patch";"intrathecal";"cutaneous";2
+"1548";"drops";"intracervical";NA;2
+"1549";"solution for peritoneal dialysis";"hemodialysis";"intraperitoneal";2
+"1550";"vaginal cream";"rectal";"vaginal";2
+"1551";"capsule-XR";"transmammary";"oral";2
+"1552";"unk";"intraamniotic";NA;2
+"1553";"lotion";"subcutaneous";"topical";2
+"1554";"capsule-XR";"topical";"oral";2
+"1555";"oral suspension";"occlusive dressing";"oral";2
+"1556";"pills";"ophthalmic";"oral";2
+"1557";"mouth wash";"transmammary";"buccal";2
+"1558";"nasal spray";"buccal";"nasal";2
+"1559";"enema";"intravenous";"rectal";2
+"1560";"powder for infusion";"topical";"parenteral";2
+"1561";"inhalation solution";"subcutaneous";"inhalation";2
+"1562";"suspension for injection";"intravesical";"parenteral";2
+"1563";"implant";"sublingual";NA;2
+"1564";"coated tablet";"intravesical";"oral";2
+"1565";"liposome injection";"intracavity";"parenteral";2
+"1566";"rectal foam";"oral";"rectal";2
+"1567";"cream";"intracervical";"topical";2
+"1568";"pessary";"inhalation";"vaginal";2
+"1569";"urethral gel";"topical";"urethral";2
+"1570";"ointment";"intradermal";"topical";2
+"1571";"ointment";"intraarterial";"topical";2
+"1572";"caplet";"rectal";"oral";2
+"1573";"gel capsule";"transplacental";"oral";2
+"1574";"impregnated pad";"transdermal";"topical";2
+"1575";"vaginal delivery system";"topical";"vaginal";2
+"1576";"unk";"intrameningeal";NA;2
+"1577";"gastroenteral suspension";"subcutaneous";"oral";2
+"1578";"solution for infusion";"otic";"parenteral";2
+"1579";"tablet-SR";"subcutaneous";"oral";2
+"1580";"syrup";"rectal";"oral";2
+"1581";"capsule-MR";"parenteral";"oral";2
+"1582";"tablet-SR";"transdermal";"oral";2
+"1583";"patch";"intracervical";"cutaneous";2
+"1584";"intrauterine delivery system";"intramuscular";"intrauterine";2
+"1585";"medicated nail lacquer";"oral";"topical";2
+"1586";"solution";"intratumor";NA;2
+"1587";"liposome injection";"intrauterine";"parenteral";2
+"1588";"patch";"transmammary";"cutaneous";2
+"1589";"aerosol";"intratracheal";"inhalation";2
+"1590";"urethral gel";"subcutaneous";"urethral";2
+"1591";"lozenge";"inhalation";"oral";2
+"1592";"urethral gel";"vaginal";"urethral";2
+"1593";"pills";"intramuscular";"oral";2
+"1594";"paste";"dental";"topical";2
+"1595";"coated tablet";"intraarterial";"oral";2
+"1596";"aerosol";"extraamniotic";"inhalation";2
+"1597";"sublingual tablet";"intramuscular";"sublingual";2
+"1598";"ointment";"intrathecal";"topical";2
+"1599";"suppository";"ophthalmic";"rectal";2
+"1600";"eye gel";"subconjunctival";"ophtalmic";2
+"1601";"cutaneous solution";"intramuscular";"cutaneous";2
+"1602";"suspension";"sublingual";NA;2
+"1603";"capsule-XR";"vaginal";"oral";2
+"1604";"chewable";"intracervical";"buccal";2
+"1605";"oral lyophilisate";"nasal";"oral";2
+"1606";"tablet-gastroresistant";"ophthalmic";"oral";2
+"1607";"aerosol";"oropharingeal";"inhalation";2
+"1608";"rectal solution";"oral";"rectal";2
+"1609";"ophthalmic insert";"oral";"ophtalmic";2
+"1610";"powder for injection";"rectal";"parenteral";2
+"1611";"pills";"transmammary";"oral";2
+"1612";"inhaler";"intratracheal";"inhalation";2
+"1613";"vaginal ring";"topical";"vaginal";2
+"1614";"vaginal cream";"transmammary";"vaginal";2
+"1615";"paste";"ophthalmic";"topical";2
+"1616";"powder for injection";"intracardiac";"parenteral";2
+"1617";"orodispersible tablet";"rectal";"oral";2
+"1618";"eye ointment";"cutaneous";"ophtalmic";2
+"1619";"granules";"rectal";"oral";2
+"1620";"inhalant";"rectal";"inhalation";2
+"1621";"tablet-XR";"oropharingeal";"oral";2
+"1622";"inhalant";"intramuscular";"inhalation";2
+"1623";"unk";"intrasinal";NA;2
+"1624";"kit for radiopharmaceutical preparation";"subcutaneous";NA;2
+"1625";"cutaneous foam";"transmammary";"cutaneous";2
+"1626";"kit for radiopharmaceutical preparation";"intrathecal";NA;2
+"1627";"ampoule";"nasal";NA;2
+"1628";"solution for infusion";"intrasinal";"parenteral";2
+"1629";"eye drops";"cutaneous";"ophtalmic";2
+"1630";"nasal ointment";"intravenous";"nasal";2
+"1631";"tablet-XR";"vaginal";"oral";2
+"1632";"medicated sponge";"intravenous";"topical";2
+"1633";"suspension for injection";"intratracheal";"parenteral";2
+"1634";"suspension for injection";"intracorneal";"parenteral";2
+"1635";"solution";"intracardiac";NA;2
+"1636";"solution for injection";"iontophoresis";"parenteral";2
+"1637";"tablet-XR";"buccal";"oral";2
+"1638";"elixir";"sublingual";"oral";2
+"1639";"liquid";"intrathecal";NA;2
+"1640";"implant";"rectal";NA;2
+"1641";"urethral stick";"oral";"urethral";2
+"1642";"nasal powder";"inhalation";NA;2
+"1643";"subcutaneous injection";"ophthalmic";"subcutaneous";2
+"1644";"dental liquid";NA;NA;2
+"1645";"lotion";"intrathecal";"topical";2
+"1646";"chewable";"ophthalmic";"buccal";2
+"1647";"coated tablet";"epidural";"oral";2
+"1648";"capsule";"perineural";"oral";2
+"1649";"inhaler";"parenteral";"inhalation";2
+"1650";"inhalation powder";"hemodialysis";"inhalation";2
+"1651";"nasal spray";"irrigation";"nasal";2
+"1652";"wafer";"intravenous";NA;2
+"1653";"ointment";"intracardiac";"topical";2
+"1654";"drops";"intramuscular";NA;2
+"1655";"cream";"intraarticular";"topical";2
+"1656";"ampoule";"rectal";NA;1
+"1657";"ear drops";"intraarticular";"otic";1
+"1658";"gel";"subconjunctival";"topical";1
+"1659";NA;"intraductal";NA;1
+"1660";"oral emulsion";"intrathecal";"oral";1
+"1661";"capsule";"intratracheal";"oral";1
+"1662";"lozenge";"transmammary";"oral";1
+"1663";"medicated nail lacquer";"cutaneous";"topical";1
+"1664";"solution for peritoneal dialysis";"transmammary";"intraperitoneal";1
+"1665";"solution for peritoneal dialysis";"transplacental";"intraperitoneal";1
+"1666";"rectal cream";"transplacental";"rectal";1
+"1667";"liquid";"urethral";NA;1
+"1668";"solution for injection";"intraventricular";"parenteral";1
+"1669";"nebuliser";"sublingual";"inhalation";1
+"1670";"caplet";"subcutaneous";"oral";1
+"1671";"oral powder";"periodontal";"oral";1
+"1672";"tablet";"periodontal";"oral";1
+"1673";"vaginal delivery system";"intracervical";"vaginal";1
+"1674";"vaginal ring";"intracervical";"vaginal";1
+"1675";"plaster";"oral";NA;1
+"1676";"spray";"dental";NA;1
+"1677";"cream";"intrauterine";"topical";1
+"1678";"sublingual spray";"transplacental";"sublingual";1
+"1679";"chewable";"inhalation";"buccal";1
+"1680";"transdermal patch";"oropharingeal";"transdermal";1
+"1681";"spray";"epidural";NA;1
+"1682";"liposome injection";"intrapleural";"parenteral";1
+"1683";"nebuliser";"intrahepatic";"inhalation";1
+"1684";"suspension";"transdermal";NA;1
+"1685";"sealant";"cutaneous";NA;1
+"1686";"cutaneous solution";"inhalation";"cutaneous";1
+"1687";"powder for injection";"intracavernous";"parenteral";1
+"1688";"eye drops";"urethral";"ophtalmic";1
+"1689";"ampoule";"perineural";NA;1
+"1690";"ampoule";"intradermal";NA;1
+"1691";"inhalation solution";"intravesical";"inhalation";1
+"1692";"powder";"intracavernous";NA;1
+"1693";"vaginal tablet";"transdermal";"vaginal";1
+"1694";"capsule-gastroresistant";"intravenous";"oral";1
+"1695";"wafer";"transmammary";NA;1
+"1696";"wafer";"transplacental";NA;1
+"1697";"inhalant";"intracavernous";"inhalation";1
+"1698";"intrauterine delivery system";"intracavernous";"intrauterine";1
+"1699";"inhalation powder";"intrauterine";"inhalation";1
+"1700";"tablet-SR";"ophthalmic";"oral";1
+"1701";"inhalation powder";"transdermal";"inhalation";1
+"1702";"powder";"intratracheal";NA;1
+"1703";"inhalation gas";"hemodialysis";"inhalation";1
+"1704";"nasal powder";"transmammary";NA;1
+"1705";"oral solution";"occlusive dressing";"oral";1
+"1706";"pad";"oral";NA;1
+"1707";"ear drops";"subconjunctival";"otic";1
+"1708";"oral drops";"transdermal";"oral";1
+"1709";"solution for haemodialysis";"ophthalmic";"parenteral";1
+"1710";"gel";"intravesical";"topical";1
+"1711";"capsule-XR";"intrasinal";"oral";1
+"1712";"unk";"intrabursal";NA;1
+"1713";"syrup";"buccal";"oral";1
+"1714";"implant";"nasal";NA;1
+"1715";"implant";"intratumor";NA;1
+"1716";"suspension for injection";"intracavernous";"parenteral";1
+"1717";"eye drops";"buccal";"ophtalmic";1
+"1718";"cutaneous stick";"rectal";"cutaneous";1
+"1719";"suspension for injection";"urethral";"parenteral";1
+"1720";"inhalation vapour";"hemodialysis";"inhalation";1
+"1721";"shampoo";"nasal";"topical";1
+"1722";"intrauterine delivery system";"topical";"intrauterine";1
+"1723";"solution for peritoneal dialysis";"intrameningeal";"intraperitoneal";1
+"1724";"transdermal system";"urethral";"transdermal";1
+"1725";"liposome injection";"intrahepatic";"parenteral";1
+"1726";"oral spray";"transplacental";"oral";1
+"1727";"cutaneous stick";"transplacental";"cutaneous";1
+"1728";"impregnated pad";"oropharingeal";"topical";1
+"1729";"oros";"parenteral";"oral";1
+"1730";"kit for radiopharmaceutical preparation";"intrauterine";NA;1
+"1731";NA;"periodontal";NA;1
+"1732";"oral spray";"oropharingeal";"oral";1
+"1733";"per os";"inhalation";"oral";1
+"1734";"capsule-XR";"oropharingeal";"oral";1
+"1735";"gel capsule";"transdermal";"oral";1
+"1736";"oral lyophilisate";"oropharingeal";"oral";1
+"1737";"oral solution";"gastrostomy tube";"oral";1
+"1738";"capsule";"iontophoresis";"oral";1
+"1739";"capsule-XR";"buccal";"oral";1
+"1740";"liposome injection";"intradermal";"parenteral";1
+"1741";"solution";"transmammary";NA;1
+"1742";"cutaneous emulsion";"transplacental";"cutaneous";1
+"1743";"sachet";"intramuscular";"oral";1
+"1744";"lyophilized powder";"periarticular";NA;1
+"1745";"liquid";"cutaneous";NA;1
+"1746";"vaginal ring";"transdermal";"vaginal";1
+"1747";"powder for infusion";"intradermal";"parenteral";1
+"1748";"sealant";"intradiscal";NA;1
+"1749";"vial";"ophthalmic";"parenteral";1
+"1750";"nasal ointment";"transplacental";"nasal";1
+"1751";"medicated plaster";"oral";"topical";1
+"1752";"cutaneous emulsion";"ophthalmic";"cutaneous";1
+"1753";"microspheres";"transdermal";"oral";1
+"1754";"syrup";"otic";"oral";1
+"1755";"inhaler";"subcutaneous";"inhalation";1
+"1756";"cream";"intrathecal";"topical";1
+"1757";"cutaneous foam";"subcutaneous";"cutaneous";1
+"1758";"rectal gel";"vaginal";"rectal";1
+"1759";"cutaneous spray";"intravenous";"cutaneous";1
+"1760";"solution for infusion";"intrabursal";"parenteral";1
+"1761";"inhalation gas";"rectal";"inhalation";1
+"1762";"sachet";"intravenous";"oral";1
+"1763";"nebuliser";"epidural";"inhalation";1
+"1764";"spray";"rectal";NA;1
+"1765";"emulsion";"inhalation";NA;1
+"1766";"orodispersible tablet";"cutaneous";"oral";1
+"1767";"capsule";"periarticular";"oral";1
+"1768";"ear drops";"nasal";"otic";1
+"1769";"oral solution";"intracervical";"oral";1
+"1770";"gel";"irrigation";"topical";1
+"1771";"inhalation gas";"transmammary";"inhalation";1
+"1772";"pessary";"transdermal";"vaginal";1
+"1773";"tablet";"intracoronary";"oral";1
+"1774";"oral suspension";"transdermal";"oral";1
+"1775";"suspension for injection";"transdermal";"parenteral";1
+"1776";"eye drops";"intradermal";"ophtalmic";1
+"1777";"cutaneous stick";"oral";"cutaneous";1
+"1778";"powder for injection";"hemodialysis";"parenteral";1
+"1779";"solution for haemodialysis";"cutaneous";"parenteral";1
+"1780";"cutaneous emulsion";"intravenous";"cutaneous";1
+"1781";"suspension for injection";"otic";"parenteral";1
+"1782";"oral solution";"dental";"oral";1
+"1783";"inhalation suspension";"transmammary";"inhalation";1
+"1784";"inhalation suspension";"intrasinal";"inhalation";1
+"1785";"tablet-gastroresistant";"transdermal";"oral";1
+"1786";"elixir";"topical";"oral";1
+"1787";"ophthalmic insert";"transplacental";"ophtalmic";1
+"1788";"lotion";"intracervical";"topical";1
+"1789";"impregnated pad";"rectal";"topical";1
+"1790";"gel capsule";"subcutaneous";"oral";1
+"1791";"patch";"intrauterine";"cutaneous";1
+"1792";"nasal spray";"oropharingeal";"nasal";1
+"1793";"ophtalmic";"nasal";"ophtalmic";1
+"1794";"device";"transplacental";NA;1
+"1795";"chewable";"intraarterial";"buccal";1
+"1796";"inhaler";"intrasinal";"inhalation";1
+"1797";"solution for peritoneal dialysis";"parenteral";"intraperitoneal";1
+"1798";"urethral gel";"otic";"urethral";1
+"1799";"powder";"hemodialysis";NA;1
+"1800";"sprinkle capsule";"nasal";NA;1
+"1801";"nasal spray";"rectal";"nasal";1
+"1802";"lotion";"intraarterial";"topical";1
+"1803";"medicated sponge";"otic";"topical";1
+"1804";"capsule-XR";"intracervical";"oral";1
+"1805";"capsule-XR";"ophthalmic";"oral";1
+"1806";"oral gel";"oropharingeal";"oral";1
+"1807";"emulsion for injection";"nasal";"parenteral";1
+"1808";"capsule-SR";"ophthalmic";"oral";1
+"1809";"device";"oral";NA;1
+"1810";"inhalant";"parenteral";"inhalation";1
+"1811";"inhalation gas";"intraarticular";"inhalation";1
+"1812";"powder for infusion";"cutaneous";"parenteral";1
+"1813";"vaginal tablet";"subcutaneous";"vaginal";1
+"1814";"inhalation gas";"urethral";"inhalation";1
+"1815";"enema";"subconjunctival";"rectal";1
+"1816";"granules";"sublingual";"oral";1
+"1817";"inhalation gas";"sublingual";"inhalation";1
+"1818";"patch";"intratracheal";"cutaneous";1
+"1819";"syrup";"oropharingeal";"oral";1
+"1820";"ear drops";"inhalation";"otic";1
+"1821";"inhaler";"intramuscular";"inhalation";1
+"1822";"powder for infusion";"vaginal";"parenteral";1
+"1823";"tablet-XR";"intradermal";"oral";1
+"1824";"capsule";"hemodialysis";"oral";1
+"1825";"solution";"dental";NA;1
+"1826";"inhalation powder";"cutaneous";"inhalation";1
+"1827";"ophtalmic";"subcutaneous";"ophtalmic";1
+"1828";"capsule-SR";"topical";"oral";1
+"1829";"inhalation vapour";"intracavernous";"inhalation";1
+"1830";"tablet-MR";"intraarterial";"oral";1
+"1831";"oral powder";"topical";"oral";1
+"1832";"implant";"buccal";NA;1
+"1833";"implant";"intraperitoneal";NA;1
+"1834";"gel capsule";"vaginal";"oral";1
+"1835";"powder";"transmammary";NA;1
+"1836";"inhalation gas";"subconjunctival";"inhalation";1
+"1837";"nebuliser";"cutaneous";"inhalation";1
+"1838";"mouth wash";"intravenous";"buccal";1
+"1839";"suspension";"intraarterial";NA;1
+"1840";"paste";"sublingual";"topical";1
+"1841";"inhalation gas";"intracavernous";"inhalation";1
+"1842";"solution for injection";"intrapericardial";"parenteral";1
+"1843";"gel capsule";"topical";"oral";1
+"1844";"device";"transdermal";NA;1
+"1845";"cutaneous foam";"inhalation";"cutaneous";1
+"1846";"rectal suspension";"subcutaneous";"rectal";1
+"1847";"capsule-XR";"intrathecal";"oral";1
+"1848";"powder for injection";"intradiscal";"parenteral";1
+"1849";"suspension for injection";"sublingual";"parenteral";1
+"1850";"inhalant";"intrathecal";"inhalation";1
+"1851";"powder for injection";"buccal";"parenteral";1
+"1852";"inhalation solution";"ophthalmic";"inhalation";1
+"1853";"pills";"transdermal";"oral";1
+"1854";"suppository";"periarticular";"rectal";1
+"1855";"sublingual spray";"intramuscular";"sublingual";1
+"1856";"intrauterine delivery system";"intravesical";"intrauterine";1
+"1857";"syrup";"intraperitoneal";"oral";1
+"1858";"inhalation solution";"parenteral";"inhalation";1
+"1859";"tablet-MR";"intramuscular";"oral";1
+"1860";"eye drops";"inhalation";"ophtalmic";1
+"1861";"emulsion for infusion";"topical";"parenteral";1
+"1862";"cutaneous emulsion";"subcutaneous";"cutaneous";1
+"1863";"capsule-gastroresistant";"otic";"oral";1
+"1864";"medicated sponge";"intraperitoneal";"topical";1
+"1865";"transdermal system";"intracervical";"transdermal";1
+"1866";"inhalation gas";"intraarterial";"inhalation";1
+"1867";"sublingual tablet";"topical";"sublingual";1
+"1868";"oral suspension";"intrathoracic";"oral";1
+"1869";"capsule-XR";"rectal";"oral";1
+"1870";"tablet";"retrobulbar";"oral";1
+"1871";"cutaneous liquid";"intravenous";"cutaneous";1
+"1872";"tablet-gastroresistant";"transmammary";"oral";1
+"1873";"powder for injection";"intrathoracic";"parenteral";1
+"1874";"tablet-XR";"intratracheal";"oral";1
+"1875";"coated tablet";"intraamniotic";"oral";1
+"1876";"spray";"intramuscular";NA;1
+"1877";"chewable";"parenteral";"buccal";1
+"1878";"rectal foam";"vaginal";"rectal";1
+"1879";"powder for injection";"epidural";"parenteral";1
+"1880";"vaginal gel";"transdermal";"vaginal";1
+"1881";"granules";"perineural";"oral";1
+"1882";"drops";"transdermal";NA;1
+"1883";"sublingual spray";"topical";"sublingual";1
+"1884";"suppository";"transdermal";"rectal";1
+"1885";"inhaler";"extraamniotic";"inhalation";1
+"1886";"tablet-gastroresistant";"sublingual";"oral";1
+"1887";"liposome injection";"intracavernous";"parenteral";1
+"1888";"gel capsule";"sublingual";"oral";1
+"1889";"oros";"intrauterine";"oral";1
+"1890";"solution";"perineural";NA;1
+"1891";"powder for injection";"intrahepatic";"parenteral";1
+"1892";"cutaneous emulsion";"transdermal";"cutaneous";1
+"1893";"inhalation solution";"vaginal";"inhalation";1
+"1894";"solution for haemodialysis";"subcutaneous";"parenteral";1
+"1895";"capsule";"epidural";"oral";1
+"1896";"cutaneous solution";"vaginal";"cutaneous";1
+"1897";"cutaneous foam";"nasal";"cutaneous";1
+"1898";"inhalation powder";"intracavity";"inhalation";1
+"1899";"inhalation powder";"parenteral";"inhalation";1
+"1900";"cream";"transmammary";"topical";1
+"1901";"capsule-XR";"intracavernous";"oral";1
+"1902";"cutaneous paste";"transdermal";"cutaneous";1
+"1903";"emulsion for infusion";"cutaneous";"parenteral";1
+"1904";"cutaneous liquid";"intramuscular";"cutaneous";1
+"1905";"gel capsule";"rectal";"oral";1
+"1906";"solution for infusion";"intratumor";"parenteral";1
+"1907";"oral paste";"transdermal";"oral";1
+"1908";"cutaneous solution";"iontophoresis";"cutaneous";1
+"1909";"sachet";"intracervical";"oral";1
+"1910";"granules";"subcutaneous";"oral";1
+"1911";"solution for infusion";"iontophoresis";"parenteral";1
+"1912";"urethral gel";"intravenous";"urethral";1
+"1913";"emulsion";"rectal";NA;1
+"1914";"dispersion";"inhalation";NA;1
+"1915";"coated tablet";"intracardiac";"oral";1
+"1916";"syrup";"intradermal";"oral";1
+"1917";"solution for peritoneal dialysis";"intrathecal";"intraperitoneal";1
+"1918";"syrup";"sublingual";"oral";1
+"1919";"gel";"hemodialysis";"topical";1
+"1920";"solution for injection";"intrasinal";"parenteral";1
+"1921";"implant";"intraarterial";NA;1
+"1922";"capsule-MR";"vaginal";"oral";1
+"1923";"tablet-gastroresistant";"intracardiac";"oral";1
+"1924";"cutaneous emulsion";"otic";"cutaneous";1
+"1925";"microspheres";"cutaneous";"oral";1
+"1926";"lozenge";"vaginal";"oral";1
+"1927";"tablet-XR";"intracardiac";"oral";1
+"1928";"cutaneous powder";"parenteral";"cutaneous";1
+"1929";"per os";"oropharingeal";"oral";1
+"1930";"sealant";"irrigation";NA;1
+"1931";"vaginal cream";"nasal";"vaginal";1
+"1932";"oral suspension";"urethral";"oral";1
+"1933";"ointment";"subconjunctival";"topical";1
+"1934";"oral suspension";"intracervical";"oral";1
+"1935";"lozenge";"cutaneous";"oral";1
+"1936";"cutaneous solution";"intraarterial";"cutaneous";1
+"1937";"solution";"intraamniotic";NA;1
+"1938";"orodispersible tablet";"intracervical";"oral";1
+"1939";"sublingual tablet";"intracervical";"sublingual";1
+"1940";"tablet-SR";"buccal";"oral";1
+"1941";"intrauterine delivery system";"intracardiac";"intrauterine";1
+"1942";"ear drops";"parenteral";"otic";1
+"1943";"lyophilized powder";"transdermal";NA;1
+"1944";"medicated plaster";"intrauterine";"topical";1
+"1945";"oral spray";"buccal";"oral";1
+"1946";"oral drops";"occlusive dressing";"oral";1
+"1947";"tablet";"intrapleural";"oral";1
+"1948";"device";"inhalation";NA;1
+"1949";"granules";"occlusive dressing";"oral";1
+"1950";"solution for infusion";"intracorneal";"parenteral";1
+"1951";"tablet-MR";"periarticular";"oral";1
+"1952";"aerosol";"buccal";"inhalation";1
+"1953";"sealant";"transplacental";NA;1
+"1954";"ear drops";"sublingual";"otic";1
+"1955";"enema";"parenteral";"rectal";1
+"1956";"solution for infusion";"dental";"parenteral";1
+"1957";"urethral stick";"intrauterine";"urethral";1
+"1958";"cachet";"subcutaneous";"oral";1
+"1959";"oral lyophilisate";"intravenous";"oral";1
+"1960";"tablet";"intrapericardial";"oral";1
+"1961";"sublingual tablet";"subconjunctival";"sublingual";1
+"1962";"ointment";"urethral";"topical";1
+"1963";"oral powder";"inhalation";"oral";1
+"1964";"vaginal capsule";"topical";"vaginal";1
+"1965";"pills";"topical";"oral";1
+"1966";"rectal foam";"perineural";"rectal";1
+"1967";"vaginal delivery system";"intrauterine";"vaginal";1
+"1968";"cachet";"topical";"oral";1
+"1969";"urethral stick";"transplacental";"urethral";1
+"1970";"tablet-MR";"intracoronary";"oral";1
+"1971";"patch";"intramedullar";"cutaneous";1
+"1972";"unk";"intralymphatic";NA;1
+"1973";"capsule-MR";"buccal";"oral";1
+"1974";"solution for intravesical use";"intramuscular";"intravesical";1
+"1975";"inhalation solution";"retrobulbar";"inhalation";1
+"1976";"intrauterine device";"transplacental";"intrauterine";1
+"1977";"capsule-gastroresistant";"intracardiac";"oral";1
+"1978";"rectal gel";"buccal";"rectal";1
+"1979";"solution for haemodialysis";"oral";"parenteral";1
+"1980";"sachet";"subcutaneous";"oral";1
+"1981";"oral drops";"intracardiac";"oral";1
+"1982";"emulsion";"subconjunctival";NA;1
+"1983";"coated tablet";"otic";"oral";1
+"1984";"subcutaneous injection";"transplacental";"subcutaneous";1
+"1985";"sealant";"vaginal";NA;1
+"1986";"powder for injection";"transdermal";"parenteral";1
+"1987";"urethral stick";"oropharingeal";"urethral";1
+"1988";"per os";"intracervical";"oral";1
+"1989";"emulsion for infusion";"intracervical";"parenteral";1
+"1990";"cutaneous foam";"transplacental";"cutaneous";1
+"1991";"cutaneous solution";"parenteral";"cutaneous";1
+"1992";"kit for radiopharmaceutical preparation";"intrahepatic";NA;1
+"1993";"eye ointment";"transdermal";"ophtalmic";1
+"1994";"solution for haemodialysis";"intrathecal";"parenteral";1
+"1995";"inhalation gas";"epidural";"inhalation";1
+"1996";"herbal tea";"subcutaneous";"oral";1
+"1997";"powder";"intracervical";NA;1
+"1998";"spray";"irrigation";NA;1
+"1999";"gastroenteral suspension";"dental";"oral";1
+"2000";"intrauterine device";"oral";"intrauterine";1
+"2001";"capsule-XR";"intrathoracic";"oral";1
+"2002";"pills";"parenteral";"oral";1
+"2003";"gel";"intratracheal";"topical";1
+"2004";"transdermal patch";"subconjunctival";"transdermal";1
+"2005";"lozenge";"subcutaneous";"oral";1
+"2006";"inhalation vapour";"occlusive dressing";"inhalation";1
+"2007";"sealant";"rectal";NA;1
+"2008";"ampoule";"intracavernous";NA;1
+"2009";"implant";"intraarticular";NA;1
+"2010";"inhalation vapour";"rectal";"inhalation";1
+"2011";"capsule-MR";"intrapericardial";"oral";1
+"2012";"capsule";"intracavernous";"oral";1
+"2013";"sublingual spray";"nasal";"sublingual";1
+"2014";"cutaneous liquid";"intrauterine";"cutaneous";1
+"2015";"mouth wash";"intracervical";"buccal";1
+"2016";"drops";"intraarticular";NA;1
+"2017";"cutaneous solution";"sublingual";"cutaneous";1
+"2018";"tablet-gastroresistant";"intracervical";"oral";1
+"2019";"inhalation suspension";"intraarticular";"inhalation";1
+"2020";"nasal ointment";"ophthalmic";"nasal";1
+"2021";"capsule-gastroresistant";"subcutaneous";"oral";1
+"2022";"kit for radiopharmaceutical preparation";"inhalation";NA;1
+"2023";"pills";"buccal";"oral";1
+"2024";"suspension for injection";"intrapericardial";"parenteral";1
+"2025";"coated tablet";"intrathoracic";"oral";1
+"2026";"cutaneous liquid";"intradermal";"cutaneous";1
+"2027";"cutaneous solution";"intradermal";"cutaneous";1
+"2028";"cutaneous paste";"buccal";"cutaneous";1
+"2029";"nasal ointment";"transdermal";"nasal";1
+"2030";"tablet-gastroresistant";"vaginal";"oral";1
+"2031";"dental liquid";"transplacental";NA;1
+"2032";"emulsion for injection";"intracervical";"parenteral";1
+"2033";"dispersion";"subcutaneous";NA;1
+"2034";"sublingual spray";"inhalation";"sublingual";1
+"2035";"pessary";"ophthalmic";"vaginal";1
+"2036";"vaginal tablet";"rectal";"vaginal";1
+"2037";"transdermal patch";"rectal";"transdermal";1
+"2038";"shampoo";"intravenous";"topical";1
+"2039";"nasal spray";"intratracheal";"nasal";1
+"2040";"powder";"intrauterine";NA;1
+"2041";"suspension";"irrigation";NA;1
+"2042";"eye drops";"rectal";"ophtalmic";1
+"2043";"drops";"rectal";NA;1
+"2044";"cream";"epidural";"topical";1
+"2045";"cream";"subconjunctival";"topical";1
+"2046";"tablet";"hemodialysis";"oral";1
+"2047";"cutaneous solution";"oropharingeal";"cutaneous";1
+"2048";"coated tablet";"intradermal";"oral";1
+"2049";"lotion";"rectal";"topical";1
+"2050";"XR";"transplacental";"oral";1
+"2051";"shampoo";"intramuscular";"topical";1
+"2052";"ophtalmic";"intravenous";"ophtalmic";1
+"2053";"transdermal patch";"intravesical";"transdermal";1
+"2054";"nasal powder";"oral";NA;1
+"2055";"powder for infusion";"intracavity";"parenteral";1
+"2056";"suspension for injection";"rectal";"parenteral";1
+"2057";"oral spray";"topical";"oral";1
+"2058";"drops";"occlusive dressing";NA;1
+"2059";"per os";"topical";"oral";1
+"2060";"emulsion for injection";"intracavity";"parenteral";1
+"2061";"lotion";"vaginal";"topical";1
+"2062";"drops";"buccal";NA;1
+"2063";"sachet";"rectal";"oral";1
+"2064";"lotion";"transmammary";"topical";1
+"2065";"transdermal patch";"intrauterine";"transdermal";1
+"2066";"granules";"intramuscular";"oral";1
+"2067";"tablet-SR";"parenteral";"oral";1
+"2068";"plaster";"sublingual";NA;1
+"2069";"emulsion for infusion";"oral";"parenteral";1
+"2070";"vial";"intravesical";"parenteral";1
+"2071";"inhaler";"transmammary";"inhalation";1
+"2072";"enema";"subcutaneous";"rectal";1
+"2073";"wafer";"sublingual";NA;1
+"2074";"cutaneous solution";"intracavernous";"cutaneous";1
+"2075";"solution for infusion";"intradiscal";"parenteral";1
+"2076";"oral lyophilisate";"intramuscular";"oral";1
+"2077";"foam";"subcutaneous";"topical";1
+"2078";"suppository";"occlusive dressing";"rectal";1
+"2079";"mouth wash";"subcutaneous";"buccal";1
+"2080";"medicated sponge";"intraarticular";"topical";1
+"2081";"tablet-MR";"intravesical";"oral";1
+"2082";"intrauterine delivery system";"intraarterial";"intrauterine";1
+"2083";"vial";"nasal";"parenteral";1
+"2084";"suppository";"intrathecal";"rectal";1
+"2085";"coated tablet";"dental";"oral";1
+"2086";"liquid";"intravesical";NA;1
+"2087";"capsule";"intrathoracic";"oral";1
+"2088";"nasal gel";"oral";"nasal";1
+"2089";"solution for injection";"extraamniotic";"parenteral";1
+"2090";"inhalation solution";"transmammary";"inhalation";1
+"2091";"capsule-MR";"cutaneous";"oral";1
+"2092";"oral lyophilisate";"transplacental";"oral";1
+"2093";"mouth wash";"inhalation";"buccal";1
+"2094";"suppository";"subconjunctival";"rectal";1
+"2095";"gel";"intraperitoneal";"topical";1
+"2096";"plaster";"topical";NA;1
+"2097";"emulsion for infusion";"intracardiac";"parenteral";1
+"2098";"pills";"rectal";"oral";1
+"2099";"nasal ointment";"cutaneous";"nasal";1
+"2100";"mouth wash";"transdermal";"buccal";1
+"2101";"aerosol";"intravenous";"inhalation";1
+"2102";"nebuliser";"transdermal";"inhalation";1
+"2103";"inhalation solution";"intrasinal";"inhalation";1
+"2104";"mouth wash";"rectal";"buccal";1
+"2105";"inhalation powder";"sublingual";"inhalation";1
+"2106";"enema";"transdermal";"rectal";1
+"2107";"vaginal capsule";"cutaneous";"vaginal";1
+"2108";"urethral stick";"transdermal";"urethral";1
+"2109";"chewable";"occlusive dressing";"buccal";1
+"2110";"eye drops";"dental";"ophtalmic";1
+"2111";"transdermal system";"epidural";"transdermal";1

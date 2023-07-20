@@ -1,0 +1,91 @@
+"";"route";"route_st";"N"
+"1";NA;NA;18633671
+"2";"oral";"oral";12177940
+"3";"unknown";NA;11413214
+"4";"subcutaneous";"subcutaneous";2234387
+"5";"intravenous (not otherwise specified)";"intravenous";1436328
+"6";"topical";"topical";960915
+"7";"intravenous";"intravenous";917001
+"8";"intramuscular";"intramuscular";459254
+"9";"intravenous drip";"intravenous";396096
+"10";"respiratory (inhalation)";"inhalation";340234
+"11";"intraperitoneal";"intraperitoneal";276621
+"12";"transplacental";"transplacental";264301
+"13";"transdermal";"transdermal";242940
+"14";"ophthalmic";"ophthalmic";136041
+"15";"other";NA;133344
+"16";"intra-uterine";"intrauterine";117587
+"17";"inhalation";"inhalation";75367
+"18";"intrathecal";"intrathecal";71494
+"19";"nasal";"nasal";62551
+"20";"subdermal";"subcutaneous";46013
+"21";"parenteral";"parenteral";45370
+"22";"intravenous bolus";"intravenous";44027
+"23";"vaginal";"vaginal";41938
+"24";"sublingual";"sublingual";41460
+"25";"intraocular";"ophthalmic";39752
+"26";"intrauterine";"intrauterine";30199
+"27";"buccal";"buccal";18449
+"28";"rectal";"rectal";16710
+"29";"cutaneous";"cutaneous";12860
+"30";"oropharingeal";"oropharingeal";11622
+"31";"intra-arterial";"intraarterial";9025
+"32";"epidural";"epidural";7998
+"33";"transmammary";"transmammary";6464
+"34";"irrigation";"irrigation";6099
+"35";"intradermal";"intradermal";5680
+"36";"intravesical";"intravesical";5291
+"37";"intra-articular";"intraarticular";5288
+"38";"endocervical";"intracervical";3608
+"39";"dental";"dental";3115
+"40";"hemodialysis";"hemodialysis";3034
+"41";"intracardiac";"intracardiac";2510
+"42";"urethral";"urethral";2411
+"43";"intra-aural";"otic";1371
+"44";"endotracheal";"intratracheal";1339
+"45";"intradiscal (intraspinal)";"intradiscal";1035
+"46";"sunconjunctival";"subconjunctival";1013
+"47";"intratracheal";"intratracheal";996
+"48";"perineural";"perineural";994
+"49";"intracavity";"intracavity";960
+"50";"intracoronary";"intracoronary";884
+"51";"occlusive dressing technique";"occlusive dressing";632
+"52";"intracavernous";"intracavernous";620
+"53";"auricular (otic)";"otic";560
+"54";"subconjunctival";"subconjunctival";493
+"55";"intralesional";"intralesional";421
+"56";"intrathoracic";"intrathoracic";397
+"57";"intratumor";"intratumor";369
+"58";"intrasinal";"intrasinal";363
+"59";"intrapleural";"intrapleural";331
+"60";"intrameningeal";"intrameningeal";297
+"61";"intrahepatic";"intrahepatic";292
+"62";"periarticular";"periarticular";281
+"63";"intramedullar (bone marrow)";"intramedullar";267
+"64";"retrobulbar";"retrobulbar";228
+"65";"intracisternal";"intracisternal";207
+"66";"transammmary";"transmammary";190
+"67";"intra corpus cavernosum";"intracavernous";147
+"68";"intratrachael";"intratracheal";123
+"69";"intracervical";"intracervical";109
+"70";"iontophoresis";"iontophoresis";108
+"71";"intrapericardial";"intrapericardial";103
+"72";"intracorneal";"intracorneal";97
+"73";"intra-amniotic";"intraamniotic";91
+"74";"intracerebral";"intracerebral";89
+"75";"intradiscal";"intradiscal";69
+"76";"occlusive dressing";"occlusive dressing";68
+"77";"intramedullar";"intramedullar";68
+"78";"subdural";"subdural";61
+"79";"intrasynovial";"intraarticular";59
+"80";"gastrostomy tube";"gastrostomy tube";54
+"81";"intracavernosa";"intracavernous";53
+"82";"endosinusial";"intrasinal";46
+"83";"intralymphatic";"intralymphatic";33
+"84";"intra-cervical";"intracervical";33
+"85";"extra-amniotic";"extraamniotic";28
+"86";"intra-bursal";"intrabursal";18
+"87";"intraventricular";"intraventricular";13
+"88";"nasogastric tube";"nasogastric tube";10
+"89";"periodontal";"periodontal";3
+"90";"intraductal";"intraductal";1

@@ -511,3 +511,54 @@ Ther <- Ther[, time_to_onset := ifelse(is.na(time_to_onset) | ( time_to_onset<=0
 saveRDS(Ther, "Clean Data/THER.rds")
 rm(list = ls())
 
+## DRUG_INFO standardization------------------------------------------------
+DRUG_INFO <- setDT(readRDS("Clean Data/DRUG_INFO.rds"))
+DRUG_INFO <- DRUG_INFO[,route:=tolower(trimws(route)),]
+route_st <- setDT(read_delim("External Sources/Manual_fix/route_st.csv",";",
+                             escape_double = FALSE, trim_ws = TRUE))[
+                               ,.(route,route_st)] %>% distinct()
+DRUG_INFO <- route_st[DRUG_INFO,on="route"]
+write.csv2(DRUG_INFO[,.N,by=c("route","route_st")][order(-N)],
+           "External Sources/Manual_fix/route_st.csv") #integrate NAs & repeat
+
+DRUG_INFO$dechal[!DRUG_INFO$dechal %in% c("Y","N","D")] <- NA
+DRUG_INFO$dechal <- as.factor(DRUG_INFO$dechal)
+DRUG_INFO$rechal[!DRUG_INFO$rechal %in% c("Y","N","D")] <- NA
+DRUG_INFO$rechal <- as.factor(DRUG_INFO$rechal)
+
+DRUG_INFO$dose_form <- tolower(trimws(DRUG_INFO$dose_form))
+dose_form_st <- setDT(read_delim("External Sources/Manual_fix/dose_form_st.csv",
+                                 ";", escape_double = FALSE, trim_ws = TRUE))[
+                                   ,.(dose_form,dose_form_st)]
+DRUG_INFO <- dose_form_st[DRUG_INFO,on="dose_form"]
+DRUG_INFO$dose_form_st <- as.factor(DRUG_INFO$dose_form_st)
+write.csv2(DRUG_INFO[,.N,by=c("dose_form","dose_form_st")][order(-N)],
+           "External Sources/Manual_fix/dose_form_st.csv")#integrate NAs & repeat
+
+dose_freq <- setDT(read_delim("External Sources/Manual_fix/dose_freq_st.csv",
+                              ";", escape_double = FALSE, trim_ws = TRUE))[
+                                ,.(dose_freq,dose_freq_st)][!is.na(dose_freq_st)] %>%
+  distinct()
+DRUG_INFO <-  DRUG_INFO %>% select(-route,-dose_form)
+DRUG_INFO <- dose_freq[DRUG_INFO,on="dose_freq"]
+DRUG_INFO$dose_freq_st <- as.factor(DRUG_INFO$dose_freq_st)
+write.csv2(DRUG_INFO[,.N,by=c("dose_freq","dose_freq_st")][order(-N)],
+           "External Sources/Manual_fix/dose_freq_st.csv")#integrate NAs & repeat
+
+route_form <- setDT(read_delim("External Sources/Manual_fix/route_form_st.csv",";",
+                               escape_double = FALSE, trim_ws = TRUE))[
+                                 ,.(dose_form_st,route_plus)] %>% distinct()
+DRUG_INFO <- route_form[DRUG_INFO,on="dose_form_st"]
+write.csv2(DRUG_INFO[,.N,by=c("dose_form_st","route_st","route_plus")][order(-N)],
+           "External Sources/Manual_fix/route_form_st.csv")#integrate NAs & repeat
+
+DRUG_INFO$route_st <- ifelse(is.na(DRUG_INFO$route_st)|DRUG_INFO$route_st=="unknown",
+                             DRUG_INFO$route_plus,DRUG_INFO$route_st)
+DRUG_INFO$route_st <- as.factor(DRUG_INFO$route_st)
+
+
+DRUG_INFO <- DRUG_INFO[,.(primaryid,drug_seq,val_vbm,route=route_st,dose_vbm,cum_dose_unit,cum_dose_chr, dose_amt,dose_unit,dose_form=dose_form_st,dose_freq=dose_freq_st,dechal,rechal,lot_num,nda_num,exp_dt)]
+
+saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
+rm(list=ls())
+
