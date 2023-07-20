@@ -604,77 +604,77 @@
 603;film, soluble;film;40
 604;bdf-0096;NA;40
 605;tablet-zyban;tablet;39
-606;concentrate for gargle;NA;39
+606;concentrate for gargle;oral solution;39
 607;hyporet;NA;39
-608;geltabs;NA;38
-609;for injection;NA;38
-610;dental solution;NA;38
-611;cap;NA;38
-612;modified-release capsule;NA;38
+608;geltabs;tablet;38
+609;for injection;solution for injection;38
+610;dental solution;dental liquid;38
+611;cap;caplet;38
+612;modified-release capsule;capsule-MR;38
 613;cloth;NA;38
-614;unspecified injectable;NA;37
-615;injection-premixed;NA;37
-616;injection for intravenous infusion;NA;37
+614;unspecified injectable;solution for injection;37
+615;injection-premixed;solution for injection;37
+616;injection for intravenous infusion;solution for injection;37
 617;tablet (delayed release);tablet-DR;36
-618;concentrate and solvent for infusion;NA;36
-619;solution for solution for injection;NA;36
-620;suspension intra-articular;NA;36
-621;nebuliser emulsion;NA;35
-622;injection, for intravenous use;NA;35
-623;powder for injection or infusion;NA;34
-624;capsule, coated;NA;34
-625;rinse;NA;34
-626;powder, metered;NA;34
+618;concentrate and solvent for infusion;solution for infusion;36
+619;solution for solution for injection;solution for injection;36
+620;suspension intra-articular;suspension;36
+621;nebuliser emulsion;nebuliser;35
+622;injection, for intravenous use;solution for injection;35
+623;powder for injection or infusion;powder for injection;34
+624;capsule, coated;coated capsule;34
+625;rinse;oral solution;34
+626;powder, metered;aerosol;34
 627;n/a;NA;34
-628;nasal drops (including nasal spray;NA;33
-629;concentrate for suspension for infusion;NA;33
+628;nasal drops (including nasal spray;"nasal drops;nasal spray";33
+629;concentrate for suspension for infusion;solution for infusion;33
 630;delayed-release oral granules;granules-DR;33
-631;tablet, immediate release;NA;33
-632;enteric coated capsule;NA;32
-633;powder for nebuliser suspension;NA;32
-634;enteric-coated tablets;NA;32
-635;orodisperible tablets;NA;32
-636;per oral;NA;32
-637;liquid, extended release;NA;32
-638;solution for intravenous injection;NA;32
-639;powder for solution for intravesical use;NA;31
-640;oral rinse;NA;31
-641;concentrate and solvent for solution for injection;NA;31
-642;capsule, prolonged release;NA;30
-643;infusions;NA;30
-644;irrigation;NA;30
-645;liquid oral;NA;30
-646;solution inhalation;NA;29
-647;metered-dose (aerosol);NA;29
-648;powder for solution for nasal spray;NA;29
-649;tablet cr;NA;29
-650;tablet for vaginal solution;NA;28
-651;powder for oral/rectal suspension;NA;28
+631;tablet, immediate release;tablet;33
+632;enteric coated capsule;coated capsule;32
+633;powder for nebuliser suspension;nebuliser;32
+634;enteric-coated tablets;coated tablet;32
+635;orodisperible tablets;tablet;32
+636;per oral;per os;32
+637;liquid, extended release;liquid;32
+638;solution for intravenous injection;solution for injection;32
+639;powder for solution for intravesical use;solution for intravesical use;31
+640;oral rinse;oral solution;31
+641;concentrate and solvent for solution for injection;solution for injection;31
+642;capsule, prolonged release;capsule-XR;30
+643;infusions;solution for infusion;30
+644;irrigation;solution;30
+645;liquid oral;liquid;30
+646;solution inhalation;inhalant;29
+647;metered-dose (aerosol);aerosol;29
+648;powder for solution for nasal spray;nasal spray;29
+649;tablet cr;tablet-CR;29
+650;tablet for vaginal solution;vaginal tablet;28
+651;powder for oral/rectal suspension;"oral powder;rectal powder";28
 652;8;NA;28
 653;medicine for external use;NA;28
-654;minute grain;NA;28
-655;inhalation vapour, tablet;NA;27
-656;retard tablet;NA;27
+654;minute grain;granules;28
+655;inhalation vapour, tablet;"inhalation vapour;tablet";27
+656;retard tablet;tablet;27
 657;cellular sheet;NA;27
-658;suppository, extended release;NA;27
-659;suspension for inhalation;NA;27
-660;subcutaneous infusion;NA;27
+658;suppository, extended release;suppository;27
+659;suspension for inhalation;inhalation suspension;27
+660;subcutaneous infusion;subcutaneous infusion;27
 661;tbe;NA;27
 662;stick;NA;26
-663;extended-release chewable tablets;NA;26
-664;vaginal inserts;NA;26
-665;vaginal suppository;NA;26
-666;concentrate for concentrate for solution for infus;NA;26
-667;gastroenteral emulsion;NA;25
-668;concentrate for intravenous infusion;NA;25
-669;capsule, coated, extended release;NA;25
-670;prolonged released capsule;NA;25
-671;tablet, prolonged release;NA;25
-672;topical aerosol foam;NA;25
-673;powder for dispersion for infusion;NA;24
-674;solution/ drops;NA;24
-675;nasal/oromucosal solution;NA;24
-676;intracanalicular insert;NA;24
+663;extended-release chewable tablets;tablet;26
+664;vaginal inserts;vaginal delivery system;26
+665;vaginal suppository;suppository;26
+666;concentrate for concentrate for solution for infus;solution for infusion;26
+667;gastroenteral emulsion;emulsion;25
+668;concentrate for intravenous infusion;solution for infusion;25
+669;capsule, coated, extended release;capsule-XR;25
+670;prolonged released capsule;capsule-XR;25
+671;tablet, prolonged release;tablet-XR;25
+672;topical aerosol foam;aerosol;25
+673;powder for dispersion for infusion;powder for infusion;24
+674;solution/ drops;drops;24
+675;nasal/oromucosal solution;nasal wash;24
+676;intracanalicular insert;implant;24
 677;capsule, liquid filled;NA;24
 678;shot;NA;24
 679;swab;NA;24
