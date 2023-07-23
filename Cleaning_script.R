@@ -573,6 +573,16 @@ DRUG_INFO$route_st <- as.factor(DRUG_INFO$route_st)
 
 DRUG_INFO <- DRUG_INFO[,.(primaryid,drug_seq,val_vbm,route=route_st,dose_vbm,cum_dose_unit,cum_dose_chr, dose_amt,dose_unit,dose_form=dose_form_st,dose_freq=dose_freq_st,dechal,rechal,lot_num,nda_num,exp_dt)]
 
+check_date <- function(dt) {
+  n <- nchar(dt)
+  invalid_dates <- (n == 4 & (dt <1985|dt > as.numeric(substr(max_date, 0,4)))) |
+    (n == 6 & (dt <198500|dt > as.numeric(substr(max_date, 0,6)))) |
+    (n == 8 & (dt <19850000|dt > as.numeric(substr(max_date, 0,8)))) |
+    (!n %in% c(4, 6, 8))
+  dt[invalid_dates] <- NA
+  return(dt)
+}
+
 max_date <- 20500101
 for (col in c("exp_dt")) {
   DRUG_INFO[, n := nchar(.SD[[col]])]
@@ -581,4 +591,110 @@ for (col in c("exp_dt")) {
 
 saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
 rm(list=ls())
+
+## Remove nullified reports ------------------------------------------------
+Deleted <- faers_list[str_detect(faers_list,regex("deleted",ignore_case = T))]
+i <- 0
+for (f in Deleted){
+  name <- gsub("txt",".rds",f)
+  x <- read.table(f,skip=1,sep="$",header = F, comment.char = "",quote="",
+                  row.names = NULL)
+  colnames(x) <- "primaryid"
+  if(i>0){DELETED <- rbindlist(list(DELETED,x))}else{DELETED <- x}
+  i <- i+1
+}
+DELETED <- DELETED %>%  distinct()
+DEMO <- DEMO[!primaryid %in%DELETED$primaryid]
+
+## Flatten case version -----------------------------------------------------
+#column T/F if multiple versions
+
+## Remove duplicate ids -----------------------------------------------------
+#remove duplicate primaryid
+DEMO <- DEMO[DEMO[,.I[quarter==last(quarter)],by=primaryid]$V1]
+
+#remove duplicate mfr
+DEMO <- DEMO[order(fda_dt)]
+DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="mfr_num"]$V1,
+                           DEMO[,which(is.na(mfr_num))])]]
+
+#remove duplicate caseid
+DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="caseid"]$V1)]]
+cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
+          "age_cod","wt_cod","occp_cod","e_sub","age_grp","occr_country",
+          "reporter_country")
+DEMO[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
+saveRDS(DEMO,"Clean Data/Demo.rds")
+PIDS_KEPT <- DEMO$primaryid
+write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
+rm(list=ls())
+## Remove no drug or reac ---------------------------------------------------
+Demo <- readRDS("Clean Data/Demo.rds")
+Drug <- readRDS("Clean Data/Drug.rds")
+Reac <- readRDS("Clean Data/Reac.rds")
+no_drugs <- setdiff(unique(Demo$primaryid),unique(Drug$primaryid))
+no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
+not_complete <- union(no_drugs,no_event)
+
+## Remove pre-marketing -----------------------------------------------------
+Drug <- setDT(readRDS("Clean Data/Drug.rds"))
+d <- rbind(Drug[,.(drug=drugname)],Drug[,.(drug=prod_ai)])[,.(
+  drug=tolower(trimws(drug)))] %>% distinct()
+blinded <- d[grepl("blind",drug)|grepl("placeb",drug)|
+               grepl("comparator",drug)|
+               grepl(" vs ",drug)|grepl(" vs. ",drug)]
+Drug[,drugname:=tolower(trimws(drugname))][,prod_ai:=tolower(trimws(prod_ai))]
+temp <- Drug[drugname%in%blinded$drug|prod_ai%in%blinded$drug]
+pids_blind <- unique(temp$primaryid)
+write.csv2(pids_blind,"Clean Data/pids_blind.csv")
+rm(Drug)
+databases <- c("Demo","Reac","Drug","Ther","Indi","Outc","Rpsr","Drug_Info")
+foreach (db = databases) %do% {
+  x <- setDT(readRDS(paste0("Clean Data/",db,".rds")))
+  x <- x[!primaryid%in%pids_blind]
+  print(nrow(x))
+  saveRDS(x,paste0("Clean Data/",db,".rds"))
+  rm(x)
+}
+
+rm(list=ls())
+
+## Fixed deduplication ------------------------------------------------------
+REAC <- setDT(readRDS("Clean Data/REAC.rds"))
+complete_duplicates <- c("event_dt","sex","country","age_in_days","wt_in_kgs","pt","Substance")
+temp_reac <- REAC[,.(primaryid,pt),] %>% distinct()
+temp_reac <- temp_reac[,.(pt=paste0(pt,collapse="; ")),by="primaryid"]
+rm(REAC)
+DRUG <- setDT(readRDS("Clean Data/DRUG.rds"))
+temp_drug <- DRUG[,.(primaryid,Substance),][order(Substance)] %>% distinct()
+temp_drug <- temp_drug[,.(Substance=paste0(Substance,collapse="; ")),by="primaryid"]
+rm(DRUG)
+DEMO <- setDT(readRDS("Clean Data/DEMO.rds"))
+temp <- temp_drug[DEMO,on="primaryid"]
+temp <- temp_reac[temp,on="primaryid"]
+rm(DEMO)
+temp1_plus <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
+temp1_plus_1 <- temp1_plus[,.N,by="DUP_ID"][N==1]
+pids_accepted <- temp1_plus[DUP_ID%in%temp1_plus_1$DUP_ID]$primaryid
+temp1_plus_2 <- temp1_plus[!DUP_ID%in%temp1_plus_1$DUP_ID]
+temp1_plus_2 <- temp1_plus_2[temp1_plus_2[,.I[fda_dt==max(fda_dt)],by="DUP_ID"]$V1]
+temp1_plus_1fda <- temp1_plus_2[,.N,by="DUP_ID"][N==1]
+pids_accepted <- c(pids_accepted,temp1_plus_2[DUP_ID%in%temp1_plus_1fda$DUP_ID]$primaryid)
+temp1_plus_3 <- temp1_plus_2[!DUP_ID%in%temp1_plus_1fda$DUP_ID]
+temp1_plus_1_last <- temp1_plus_3[temp1_plus_3[,.I[primaryid==last(primaryid)],by="DUP_ID"]$V1]
+pids_accepted <- c(pids_accepted,temp1_plus_3[DUP_ID%in%temp1_plus_1_last$DUP_ID]$primaryid)
+
+DEMO <- setDT(readRDS("Clean Data/DEMO.rds"))
+DEMO <- DEMO[primaryid%in%pids_accepted]
+DEMO <- DEMO[,.(primaryid,caseid,sex,occp_cod,rept_cod,fda_dt,init_fda_dt,age_in_days,wt_in_kgs,country,quarter)]
+saveRDS(DEMO,"DIANA/data/DEMO.rds")
+write.csv2(pids_accepted,"Clean Data/pids_accepted.csv")
+rm(list=ls())
+## Probabilistic deduplication ----------------------------------------------
+
+## Refine datasets ----------------------------------------------------------
+
+
+
+
 

@@ -879,7 +879,7 @@ Information about therapy regimen, even if often neglected, requires a thorough 
 
 This way we standardize the route of administration, information about dechallenge and rechallenge, information about formulation and frequency of administration. Often the information provided was ambiguous, and this standardization will need further refinement.
 
-Information about doses needs a drug-specific standardization, since information about it is stored in multiple fields, and the unit is often dose-formulation. Information about lot number and nda number is also kept as it is (and in the future may help to impute other fields), together with the exp_dt.
+Information about doses needs a drug-specific standardization, since information about it is stored in multiple fields, and the unit is often dose-formulation. Information about lot number and nda number is also kept as it is (and in the future may help to impute other fields). The expiration date was cleaned as the other dates.
 
 ```{r eval = FALSE}
 DRUG_INFO <- setDT(readRDS("Clean Data/DRUG_INFO.rds"))
@@ -943,11 +943,28 @@ DRUG_INFO$route_st <- as.factor(DRUG_INFO$route_st)
 
 DRUG_INFO <- DRUG_INFO[,.(primaryid,drug_seq,val_vbm,route=route_st,dose_vbm,cum_dose_unit,cum_dose_chr, dose_amt,dose_unit,dose_form=dose_form_st,dose_freq=dose_freq_st,dechal,rechal,lot_num,nda_num,exp_dt)]
 
+
+check_date <- function(dt) {
+  n <- nchar(dt)
+  invalid_dates <- (n == 4 & (dt <1985|dt > as.numeric(substr(max_date, 0,4)))) |
+    (n == 6 & (dt <198500|dt > as.numeric(substr(max_date, 0,6)))) |
+    (n == 8 & (dt <19850000|dt > as.numeric(substr(max_date, 0,8)))) |
+    (!n %in% c(4, 6, 8))
+  dt[invalid_dates] <- NA
+  return(dt)
+}
+
+max_date <- 20500101
+for (col in c("exp_dt")) {
+  DRUG_INFO[, n := nchar(.SD[[col]])]
+  DRUG_INFO[, (col) := check_date(.SD[[col]])]
+}
+
 saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
 rm(list=ls())
 ```
 
-## 6. Remove deleted (nullified) reports
+## 6. Remove nullified reports
 
 ## 7. Flattening of case versions
 
