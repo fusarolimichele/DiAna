@@ -431,8 +431,8 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 Countries <- setDT(read_delim("External Sources/Manual_fix/countries.csv",";", escape_double = FALSE, trim_ws = TRUE))
 Countries[is.na(Countries$country)]$country <- "NA" #to avoid losing Namibia
 Countries[union(Demo$occr_country,Demo$reporter_country),on="country"][is.na(Country_Name)] #check if new not translated
-Demo <- Countries[,.(country,occr_country=Country_Name)][Demo[,country:=occr_country],on="country"] 
-Demo <- Countries[,.(country,reporter_country=Country_Name)][Demo[,country:=reporter_country],on="country"] 
+Demo <- Countries[,.(country,occr_country=Country_Name)][Demo[,country:=occr_country] %>% select(-occr_country),on="country"] 
+Demo <- Countries[,.(country,reporter_country=Country_Name)][Demo[,country:=reporter_country]%>% select(-reporter_country),on="country"] 
 Demo <- Demo %>% select(-country) %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
@@ -614,15 +614,10 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 #remove duplicated primaryid
 Demo <- Demo[Demo[,.I[quarter==last(quarter)],by=primaryid]$V1]
 
-#remove duplicated mfr
-Demo <- Demo[order(fda_dt)]
-Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="mfr_num"]$V1,
-                           Demo[,which(is.na(mfr_num))])]]
-
 #flatten case version by caseid --------------------------------------------
 Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="caseid"]$V1)]]
 cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
-          "age_cod","wt_cod","occp_cod","e_sub","age_grp","occr_country",
+          "occp_cod","e_sub","age_grp","occr_country",
           "reporter_country")
 Demo[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
 saveRDS(Demo,"Clean Data/DEMO.rds")
@@ -700,5 +695,9 @@ rm(list=ls())
 
 
 
-
+#remove duplicated mfr
+Demo <- Demo[order(fda_dt)]
+Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="mfr_num"]$V1,
+                           Demo[,which(is.na(mfr_num))])]]
+#Subsequently, we analyzed duplicated mfr_num records. Although these entries were more diverse, there were indications that they likely referred to the same case. We selected the most recent entry, prioritizing first based on fda_date and then on position.
 

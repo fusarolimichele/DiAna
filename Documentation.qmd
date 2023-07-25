@@ -761,8 +761,8 @@ There are two variables with information about the country: "occur-country" with
 Countries <- setDT(read_delim("External Sources/Manual_fix/countries.csv",";", escape_double = FALSE, trim_ws = TRUE))
 Countries[is.na(Countries$country)]$country <- "NA" #to avoid losing Namibia
 Countries[union(Demo$occr_country,Demo$reporter_country),on="country"][is.na(Country_Name)] #check if new not translated
-Demo <- Countries[,.(country,occr_country=Country_Name)][Demo[,country:=occr_country],on="country"] 
-Demo <- Countries[,.(country,reporter_country=Country_Name)][Demo[,country:=reporter_country],on="country"] 
+Demo <- Countries[,.(country,occr_country=Country_Name)][Demo[,country:=occr_country] %>% select(-occr_country),on="country"] 
+Demo <- Countries[,.(country,reporter_country=Country_Name)][Demo[,country:=reporter_country]%>% select(-reporter_country),on="country"] 
 Demo <- Demo %>% select(-country) %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 ```
@@ -999,18 +999,40 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 
 Next, we conducted an analysis of duplicated primaryids, and during this process, we observed that they only differed in the quarter field and caseid. We retained the entry with the most recent quarter.
 
-Subsequently, we analyzed duplicated mfr_num records. Although these entries were more diverse, there were indications that they likely referred to the same case. We selected the most recent entry, prioritizing first based on fda_date and then on position.
-
 ```{r eval = FALSE}
 #remove duplicated primaryid
 Demo <- Demo[Demo[,.I[quarter==last(quarter)],by=primaryid]$V1]
 
-#remove duplicated mfr
-Demo <- Demo[order(fda_dt)]
-Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="mfr_num"]$V1,
-                           Demo[,which(is.na(mfr_num))])]]
 ```
 
 ## 8. Flattening of case versions
 
-## 9. Deduplication
+```{r eval = FALSE}
+emo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="caseid"]$V1)]]
+cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
+          "occp_cod","e_sub","age_grp","occr_country",
+          "reporter_country")
+Demo[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
+saveRDS(Demo,"Clean Data/DEMO.rds")
+```
+
+## 9. Removing reports without drug or reaction
+
+To comply with FAERS indications, for which each report is characterized by at least one drug and one event, we removed all DEMO cases for which information of either reaction or drug was missing.
+
+```{r eval=FALSE}
+Drug <- readRDS("Clean Data/DRUG.rds")
+Reac <- readRDS("Clean Data/REAC.rds")
+no_drugs <- setdiff(unique(Demo$primaryid),unique(Drug$primaryid))
+no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
+not_complete <- union(no_drugs,no_event)
+Demo <- Demo[!primaryid %in% not_complete]
+saveRDS(Demo,"Clean Data/DEMO.rds")
+PIDS_KEPT <- Demo$primaryid
+write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
+rm(list=ls())
+```
+
+## 10. Identification of pre-marketing cases
+
+## 11. Rule-based deduplication
