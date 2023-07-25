@@ -526,15 +526,15 @@ standardize_PT <- function(data_file, pt_variable) {
   return(data)
 }
 
-Reac <- standardize_PT("Clean Data/Reac.rds","pt")
+Reac <- standardize_PT("Clean Data/REAC.rds","pt")
 #consider updating the pt_fixed file
-saveRDS(Reac,"Clean Data/Reac.rds")
-Reac <- standardize_PT("Clean Data/Reac.rds","drug_rec_act")
+saveRDS(Reac,"Clean Data/REAC.rds")
+Reac <- standardize_PT("Clean Data/REAC.rds","drug_rec_act")
 #consider updating the pt_fixed file
-saveRDS(Reac,"Clean Data/Reac.rds")
-Indi <- standardize_PT("Clean Data/Indi.rds","indi_pt")
+saveRDS(Reac,"Clean Data/REAC.rds")
+Indi <- standardize_PT("Clean Data/INDI.rds","indi_pt")
 #consider updating the pt_fixed file
-saveRDS(Indi,"Clean Data/Indi.rds")
+saveRDS(Indi,"Clean Data/INDI.rds")
 ```
 
 ### Drug
@@ -544,7 +544,7 @@ The FDA Adverse Event Reporting System (FAERS) receives drug names in various fo
 ![](images/Screenshot%202023-07-18%20at%2019.12.14.png)
 
 ```{r eval = FALSE}
-Drug <- setDT(readRDS("Clean Data/Drug.rds"))
+Drug <- setDT(readRDS("Clean Data/DRUG.rds"))
 old_DIANA_dictionary <- setDT(read.csv2("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.csv"))[
   ,.(drugname,Substance,Checked,OpenRefine)][Substance!="na"][!is.na(Substance)]
 
@@ -587,7 +587,7 @@ Drug <- Drug[,Substance:=gsub(", trial","",Substance)]
 Drug$drugname <- as.factor(Drug$drugname)
 Drug$prod_ai <- as.factor(Drug$prod_ai)
 Drug$Substance <- as.factor(Drug$Substance)
-saveRDS(Drug,"Clean Data/Drug.rds")
+saveRDS(Drug,"Clean Data/DRUG.rds")
 
 ```
 
@@ -596,7 +596,7 @@ saveRDS(Drug,"Clean Data/Drug.rds")
 Within the ASCII Sex field, according to the ASC_NTS.pdf guidelines, entries should only consist of "F" (Female), "M" (Male), and "UNK" (Unknown). However, during our analysis, we discovered additional entries that deviated from these expected values. These included "NS" (possibly resembling NAs), "YR" (likely a compilation error), as well as "P," "I," and "T" reported consistently throughout the entire year of 2019 in the United States by the mfr_sndr FDA-CTU. To maintain data consistency, we made the decision to retain only the "F" and "M" entries, while converting all other values to "NA" to denote missing or invalid data. By implementing this approach, we ensure adherence to the intended standards and enhance the accuracy and reliability of the dataset, at the potential cost of losing some non-codified information.![](images/Screenshot%202023-07-19%20at%2011.09.30.png)
 
 ```{r eval = FALSE}
-Demo <- setDT(readRDS("Clean Data/Demo.rds"))
+Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
 Demo[,.N,by="sex"][order(-N)]
 Demo[!sex %in% c("F","M")]$sex<- NA
 ```
@@ -823,7 +823,7 @@ for (col in date_columns) {
 Demo <- Demo %>% select(-n)
 saveRDS(Demo, "Clean Data/DEMO.rds")
 
-Ther <- setDT(readRDS("Clean Data/Ther.rds"))
+Ther <- setDT(readRDS("Clean Data/THER.rds"))
 
 for (col in c("start_dt", "end_dt")) {
   Ther[, n := nchar(.SD[[col]])]
@@ -992,7 +992,7 @@ for (f in Deleted){
 }
 DELETED <- DELETED %>%  distinct()
 Demo <- Demo[!primaryid %in%DELETED$primaryid]
-saveRDS(Demo,"Clean Data/Demo.rds")
+saveRDS(Demo,"Clean Data/DEMO.rds")
 ```
 
 ## 7. Flattening of case versions

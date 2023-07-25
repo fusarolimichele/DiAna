@@ -291,18 +291,18 @@ standardize_PT <- function(data_file, pt_variable) {
   return(data)
 }
 
-Reac <- standardize_PT("Clean Data/Reac.rds","pt")
+Reac <- standardize_PT("Clean Data/REAC.rds","pt")
 #consider updating the pt_fixed file
-saveRDS(Reac,"Clean Data/Reac.rds")
-Reac <- standardize_PT("Clean Data/Reac.rds","drug_rec_act")
+saveRDS(Reac,"Clean Data/REAC.rds")
+Reac <- standardize_PT("Clean Data/REAC.rds","drug_rec_act")
 #consider updating the pt_fixed file
-saveRDS(Reac,"Clean Data/Reac.rds")
-Indi <- standardize_PT("Clean Data/Indi.rds","indi_pt")
+saveRDS(Reac,"Clean Data/REAC.rds")
+Indi <- standardize_PT("Clean Data/INDI.rds","indi_pt")
 #consider updating the pt_fixed file
-saveRDS(Indi,"Clean Data/Indi.rds")
+saveRDS(Indi,"Clean Data/INDI.rds")
 
 ##Drug standardization-------------------------------------------------------
-Drug <- setDT(readRDS("Clean Data/Drug.rds"))
+Drug <- setDT(readRDS("Clean Data/DRUG.rds"))
 old_DIANA_dictionary <- setDT(read.csv2("External Sources/Dictionaries/DiAna_dictionary/drugnames_standardized.csv"))[
   ,.(drugname,Substance,Checked,OpenRefine)][Substance!="na"][!is.na(Substance)]
 
@@ -345,10 +345,10 @@ Drug <- Drug[,Substance:=gsub(", trial","",Substance)]
 Drug$drugname <- as.factor(Drug$drugname)
 Drug$prod_ai <- as.factor(Drug$prod_ai)
 Drug$Substance <- as.factor(Drug$Substance)
-saveRDS(Drug,"Clean Data/Drug.rds")
+saveRDS(Drug,"Clean Data/DRUG.rds")
 
 ## Sex standardization-----------------------------------------------------
-Demo <- setDT(readRDS("Clean Data/Demo.rds"))
+Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
 Demo[,.N,by="sex"][order(-N)]
 Demo[!sex %in% c("F","M")]$sex<- NA
 
@@ -467,7 +467,7 @@ for (col in date_columns) {
 Demo <- Demo %>% select(-n)
 saveRDS(Demo, "Clean Data/DEMO.rds")
 
-Ther <- setDT(readRDS("Clean Data/Ther.rds"))
+Ther <- setDT(readRDS("Clean Data/THER.rds"))
 
 for (col in c("start_dt", "end_dt")) {
   Ther[, n := nchar(.SD[[col]])]
@@ -608,7 +608,7 @@ for (f in Deleted){
 }
 DELETED <- DELETED %>%  distinct()
 Demo <- Demo[!primaryid %in%DELETED$primaryid]
-saveRDS(Demo,"Clean Data/Demo.rds")
+saveRDS(Demo,"Clean Data/DEMO.rds")
 
 ## Flatten case version and duplicated ids-----------------------------------
 #remove duplicated primaryid
@@ -627,20 +627,20 @@ cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
 DEMO[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
 
 ## Remove reports with no drug or reaction ---------------------------------
-Drug <- readRDS("Clean Data/Drug.rds")
-Reac <- readRDS("Clean Data/Reac.rds")
+Drug <- readRDS("Clean Data/DRUG.rds")
+Reac <- readRDS("Clean Data/REAC.rds")
 no_drugs <- setdiff(unique(DEMO$primaryid),unique(Drug$primaryid))
 no_event <- setdiff(unique(DEMO$primaryid),unique(Reac$primaryid))
 not_complete <- union(no_drugs,no_event)
 DEMO <- DEMO[!primaryid %in% not_complete]
-saveRDS(DEMO,"Clean Data/Demo.rds")
+saveRDS(DEMO,"Clean Data/DEMO.rds")
 PIDS_KEPT <- DEMO$primaryid
 write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
 rm(list=ls())
 
 ## Remove pre-marketing -----------------------------------------------------
 ##create TF column
-Drug <- setDT(readRDS("Clean Data/Drug.rds"))
+Drug <- setDT(readRDS("Clean Data/DRUG.rds"))
 d <- rbind(Drug[,.(drug=drugname)],Drug[,.(drug=prod_ai)])[,.(
   drug=tolower(trimws(drug)))] %>% distinct()
 blinded <- d[grepl("blind",drug)|grepl("placeb",drug)|
@@ -651,7 +651,7 @@ temp <- Drug[drugname%in%blinded$drug|prod_ai%in%blinded$drug]
 pids_blind <- unique(temp$primaryid)
 write.csv2(pids_blind,"Clean Data/pids_blind.csv")
 rm(Drug)
-databases <- c("Demo","Reac","Drug","Ther","Indi","Outc","Rpsr","Drug_Info")
+databases <- c("DEMO","REAC","DRUG","THER","INDI","OUTC","RPSR","DRUG_INFO")
 foreach (db = databases) %do% {
   x <- setDT(readRDS(paste0("Clean Data/",db,".rds")))
   x <- x[!primaryid%in%pids_blind]
