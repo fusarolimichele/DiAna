@@ -612,30 +612,30 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 
 ## Remove duplicated ids----------------------------------------------------
 #remove duplicated primaryid
-DEMO <- DEMO[DEMO[,.I[quarter==last(quarter)],by=primaryid]$V1]
+Demo <- Demo[Demo[,.I[quarter==last(quarter)],by=primaryid]$V1]
 
 #remove duplicated mfr
-DEMO <- DEMO[order(fda_dt)]
-DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="mfr_num"]$V1,
-                           DEMO[,which(is.na(mfr_num))])]]
+Demo <- Demo[order(fda_dt)]
+Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="mfr_num"]$V1,
+                           Demo[,which(is.na(mfr_num))])]]
 
 #flatten case version by caseid --------------------------------------------
-DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="caseid"]$V1)]]
+Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="caseid"]$V1)]]
 cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
           "age_cod","wt_cod","occp_cod","e_sub","age_grp","occr_country",
           "reporter_country")
-DEMO[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
+Demo[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
 ## Remove reports with no drug or reaction ---------------------------------
 Drug <- readRDS("Clean Data/DRUG.rds")
 Reac <- readRDS("Clean Data/REAC.rds")
-no_drugs <- setdiff(unique(DEMO$primaryid),unique(Drug$primaryid))
-no_event <- setdiff(unique(DEMO$primaryid),unique(Reac$primaryid))
+no_drugs <- setdiff(unique(Demo$primaryid),unique(Drug$primaryid))
+no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
 not_complete <- union(no_drugs,no_event)
-DEMO <- DEMO[!primaryid %in% not_complete]
-saveRDS(DEMO,"Clean Data/DEMO.rds")
-PIDS_KEPT <- DEMO$primaryid
+Demo <- Demo[!primaryid %in% not_complete]
+saveRDS(Demo,"Clean Data/DEMO.rds")
+PIDS_KEPT <- Demo$primaryid
 write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
 rm(list=ls())
 

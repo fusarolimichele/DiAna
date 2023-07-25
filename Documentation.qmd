@@ -974,7 +974,7 @@ rm(list=ls())
 
 ## 6. Remove nullified reports
 
-Starting from 19Q1, each quarter will include a DELETED file, which contains a list of report identities that are meant to be excluded from the database based on directives from the FDA or Manufacturers. These exclusions are made for various reasons, such as combining cases, and are intended to align the quarterly data extract with the information displayed on the public dashboard. Depending on the specific date of the data extract and when the deletion took place, these reports may or may not be visible in the quarterly data.
+Starting from 19Q1, each quarter will include a DELETED file, which contains a list of report identities (caseid) that are meant to be excluded from the database based on directives from the FDA or Manufacturers. These exclusions are made for various reasons, such as combining cases, and are intended to align the quarterly data extract with the information displayed on the public dashboard. Depending on the specific date of the data extract and when the deletion took place, these reports may or may not be visible in the quarterly data.
 
 ```{r eval = FALSE}
 faers_list <- read.csv2("Clean Data/faers_list.csv")$x
@@ -1003,12 +1003,12 @@ Subsequently, we analyzed duplicated mfr_num records. Although these entries wer
 
 ```{r eval = FALSE}
 #remove duplicated primaryid
-DEMO <- DEMO[DEMO[,.I[quarter==last(quarter)],by=primaryid]$V1]
+Demo <- Demo[Demo[,.I[quarter==last(quarter)],by=primaryid]$V1]
 
 #remove duplicated mfr
-DEMO <- DEMO[order(fda_dt)]
-DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="mfr_num"]$V1,
-                           DEMO[,which(is.na(mfr_num))])]]
+Demo <- Demo[order(fda_dt)]
+Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="mfr_num"]$V1,
+                           Demo[,which(is.na(mfr_num))])]]
 ```
 
 ## 8. Flattening of case versions
