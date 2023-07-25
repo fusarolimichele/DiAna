@@ -358,6 +358,8 @@ saveRDS(OUTC,"Clean Data/OUTC.rds")
 rm(OUTC)
 ```
 
+![](images/Screenshot%202023-07-25%20at%2009.29.25.png)
+
 ### REAC
 
 To ensure a cleaner and conflict-free database, we run the function unify_data with the parameters shown in the script below, and then removed rows with no reaction specified and saved the database as an RDS.
@@ -373,6 +375,8 @@ saveRDS(REAC,"Clean Data/REAC.rds")
 rm(REAC)
 ```
 
+![](images/Screenshot%202023-07-25%20at%2009.30.45.png)
+
 ### RPSR
 
 To ensure a cleaner and conflict-free database, we run the function unify_data with the parameters shown in the script below, and saved the database as an RDS.
@@ -386,6 +390,8 @@ RPSR <- unify_data(faers_list[str_detect(faers_list,regex("rpsr",ignore_case = T
 saveRDS(RPSR,"Clean Data/RPSR.rds")
 rm(RPSR)
 ```
+
+![](images/Screenshot%202023-07-25%20at%2009.30.03.png)
 
 ### THER
 
@@ -403,6 +409,8 @@ THER <- unify_data(faers_list[str_detect(faers_list,regex("ther",ignore_case = T
 saveRDS(THER,"Clean Data/THER.rds")
 rm(THER)
 ```
+
+![](images/Screenshot%202023-07-25%20at%2009.31.13.png)
 
 ## 3. Standardization
 
