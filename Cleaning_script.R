@@ -640,29 +640,68 @@ PIDS_KEPT <- Demo$primaryid
 write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
 rm(list=ls())
 
-## Remove pre-marketing -----------------------------------------------------
-##create TF column
+## Identify pre-marketing ---------------------------------------------------
 Drug <- setDT(readRDS("Clean Data/DRUG.rds"))
-d <- rbind(Drug[,.(drug=drugname)],Drug[,.(drug=prod_ai)])[,.(
-  drug=tolower(trimws(drug)))] %>% distinct()
-blinded <- d[grepl("blind",drug)|grepl("placeb",drug)|
-               grepl("comparator",drug)|
-               grepl(" vs ",drug)|grepl(" vs. ",drug)]
-Drug[,drugname:=tolower(trimws(drugname))][,prod_ai:=tolower(trimws(prod_ai))]
-temp <- Drug[drugname%in%blinded$drug|prod_ai%in%blinded$drug]
-pids_blind <- unique(temp$primaryid)
-write.csv2(pids_blind,"Clean Data/pids_blind.csv")
-rm(Drug)
-databases <- c("DEMO","REAC","DRUG","THER","INDI","OUTC","RPSR","DRUG_INFO")
-foreach (db = databases) %do% {
-  x <- setDT(readRDS(paste0("Clean Data/",db,".rds")))
-  x <- x[!primaryid%in%pids_blind]
-  print(nrow(x))
-  saveRDS(x,paste0("Clean Data/",db,".rds"))
-  rm(x)
-}
+Demo[,premarketing:=primaryid%in%Drug[trial=="TRUE"]]
+Demo <- Demo[,.()]
+saveRDS(Demo,"Clean Data/DEMO.rds")
 
 rm(list=ls())
+
+## Clean datasets from excluded primaryids ----------------------------------
+pids_kept <- read.csv2("Clean Data/pids_kept.csv")$x
+Drug <- setDT(readRDS("Clean Data/Drug.rds"))
+Drug_Name <- Drug[primaryid%in%pids_kept] %>% distinct()
+saveRDS(Drug,"DIANA/data/DRUG_NAME.rds")
+rm(Drug_Name)
+Drug <- Drug[primaryid%in%pids_kept][,.(primaryid,drug_seq,substance=Substance,drugname,role_cod)] %>% distinct()
+saveRDS(Drug,"DIANA/data/DRUG.rds")
+DIANA_dict <- setDT(read_delim("DIANA/data/DIANA_dict.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE))
+DIANA_ATC <- setDT(read_delim("External Sources/Dictionaries/DIANA_ATC.csv", 
+                              delim = ";", escape_double = FALSE, trim_ws = TRUE))[,.(Sub=Substance,code)][!is.na(code)] %>% distinct()
+t <- DIANA_dict[, strsplit(Substance, ";", fixed=TRUE),by=.(drugname,Substance)][,.(Substance,Sub=V1)] %>% distinct()
+Drug_ATC <- left_join(Drug,t,by="Substance")
+Drug_ATC <- DIANA_ATC[Drug_ATC,on="Sub"]
+Drug_ATC <- Drug_ATC[,role_cod:=factor(role_cod,levels=c("C","I","SS","PS"),ordered = TRUE)]
+Drug_ATC <- Drug_ATC[,.(role_cod=max(role_cod)),by=.(primaryid,code)] %>% distinct()
+saveRDS(Drug_ATC,"DIANA/data/DRUG_ATC.rds")
+rm(list=setdiff(ls(), "pids_kept"))
+
+
+REAC <- setDT(readRDS("Clean Data/Reac.rds"))
+REAC_rec <- REAC[primaryid%in%pids_kept][,.(primaryid,drug_rec_act)][!is.na(drug_rec_act)] %>% distinct()
+saveRDS(REAC_rec,"DIANA/data/REAC_rec.rds")
+rm(REAC_rec)
+REAC <- REAC[primaryid%in%pids_kept][,.(primaryid,pt)] %>% distinct()
+saveRDS(REAC,"DIANA/data/REAC.rds")
+rm(REAC)
+
+OUTC <- setDT(readRDS("Clean Data/Outc.rds"))
+OUTC <- OUTC[primaryid%in%pids_kept][,.(primaryid,outc_cod=factor(outc_cod,levels=c("OT", "CA", "HO", "RI", "DS", "LT", "DE"), ordered = TRUE))] %>% distinct()
+saveRDS(OUTC,"DIANA/data/OUTC.rds")
+rm(OUTC)
+
+INDI <- setDT(readRDS("Clean Data/Indi.rds"))
+INDI <- INDI[primaryid%in%pids_kept][,.(primaryid,drug_seq,indi_pt)] %>% distinct()
+saveRDS(INDI,"DIANA/data/INDI.rds")
+rm(INDI)
+
+THER <- setDT(readRDS("Clean Data/Ther.rds"))
+THER <- THER[primaryid%in%pids_kept][!is.na(time_to_onset)][,.(primaryid,drug_seq,time_to_onset,end_dt)] %>% distinct()
+saveRDS(THER,"DIANA/data/THER.rds")
+rm(THER)
+
+DRUG_INFO <- setDT(readRDS("Clean Data/Drug_info.rds"))
+DRUG_INFO_DRroute <- DRUG_INFO[primaryid%in%pids_kept] %>% select(primaryid,drug_seq,dose_form_st,route_st,dechal,rechal) %>% distinct()
+saveRDS(DRUG_INFO_DRroute,"DIANA/data/DRUG_INFO_DRroute.rds")
+rm(DRUG_INFO_DRroute)
+DRUG_INFO_Doses <- DRUG_INFO[primaryid%in%pids_kept] %>% select(primaryid,drug_seq,dose_vbm,dose_amt,dose_unit,cum_dose_unit,cum_dose_chr,dose_freq_st) %>% distinct()
+saveRDS(DRUG_INFO_Doses,"DIANA/data/DRUG_INFO_Doses.rds")
+rm(DRUG_INFO_Doses)
+rm(DRUG_INFO)
+
+
+
 
 ## Fixed deduplication ------------------------------------------------------
 REAC <- setDT(readRDS("Clean Data/REAC.rds"))
@@ -680,23 +719,20 @@ temp <- temp_reac[temp,on="primaryid"]
 rm(DEMO)
 temp1_plus <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
 temp1_plus_1 <- temp1_plus[,.N,by="DUP_ID"][N==1]
-pids_accepted <- temp1_plus[DUP_ID%in%temp1_plus_1$DUP_ID]$primaryid
+pids_kept <- temp1_plus[DUP_ID%in%temp1_plus_1$DUP_ID]$primaryid
 temp1_plus_2 <- temp1_plus[!DUP_ID%in%temp1_plus_1$DUP_ID]
 temp1_plus_2 <- temp1_plus_2[temp1_plus_2[,.I[fda_dt==max(fda_dt)],by="DUP_ID"]$V1]
 temp1_plus_1fda <- temp1_plus_2[,.N,by="DUP_ID"][N==1]
-pids_accepted <- c(pids_accepted,temp1_plus_2[DUP_ID%in%temp1_plus_1fda$DUP_ID]$primaryid)
+pids_kept <- c(pids_kept,temp1_plus_2[DUP_ID%in%temp1_plus_1fda$DUP_ID]$primaryid)
 temp1_plus_3 <- temp1_plus_2[!DUP_ID%in%temp1_plus_1fda$DUP_ID]
 temp1_plus_1_last <- temp1_plus_3[temp1_plus_3[,.I[primaryid==last(primaryid)],by="DUP_ID"]$V1]
-pids_accepted <- c(pids_accepted,temp1_plus_3[DUP_ID%in%temp1_plus_1_last$DUP_ID]$primaryid)
+pids_kept <- c(pids_kept,temp1_plus_3[DUP_ID%in%temp1_plus_1_last$DUP_ID]$primaryid)
 
 DEMO <- setDT(readRDS("Clean Data/DEMO.rds"))
-DEMO <- DEMO[primaryid%in%pids_accepted]
+DEMO <- DEMO[primaryid%in%pids_kept]
 DEMO <- DEMO[,.(primaryid,caseid,sex,occp_cod,rept_cod,fda_dt,init_fda_dt,age_in_days,wt_in_kgs,country,quarter)]
 saveRDS(DEMO,"DIANA/data/DEMO.rds")
-write.csv2(pids_accepted,"Clean Data/pids_accepted.csv")
+write.csv2(pids_kept,"Clean Data/pids_kept.csv")
 rm(list=ls())
 ## Probabilistic deduplication ----------------------------------------------
-
-## Refine datasets ----------------------------------------------------------
-
 

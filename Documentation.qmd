@@ -1046,4 +1046,17 @@ rm(list=ls())
 
 ## 10. Identification of pre-marketing cases
 
-## 11. Rule-based deduplication
+After considering the drug name and referring to the DIANA dictionary translation, we were able to identify reports originating from the pre-marketing phase. This identification process took into account situations where the medicinal product was named using pre-registration numbers or in the context of a trial (e.g., together with a placebo). This information may be useful to authors wishing to exclude pre-marketing evidence from the reports.
+
+```{r eval = FALSE}
+## Identify pre-marketing -----------------------------------------------------
+Drug <- setDT(readRDS("Clean Data/DRUG.rds"))
+Demo[,premarketing:=primaryid%in%Drug[trial=="TRUE"]]
+saveRDS(Demo,"Clean Data/DEMO.rds")
+
+rm(list=ls())
+```
+
+## 11. Clean datasets from excluded primaryids
+
+## 12. Rule-based deduplication
