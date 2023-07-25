@@ -986,15 +986,31 @@ for (f in Deleted){
   name <- gsub(".txt",".rds",f)
   x <- read.table(f,skip=1,sep="$",header = F, comment.char = "",quote="",
                   row.names = NULL)
-  colnames(x) <- "primaryid"
+  colnames(x) <- "caseid"
   if(i>0){DELETED <- rbindlist(list(DELETED,x))}else{DELETED <- x}
   i <- i+1
 }
 DELETED <- DELETED %>%  distinct()
-Demo <- Demo[!primaryid %in%DELETED$primaryid]
+Demo <- Demo[!caseid %in%DELETED$caseid]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 ```
 
-## 7. Flattening of case versions
+## 7. Remove duplicated IDs
 
-## 8. Deduplication
+Next, we conducted an analysis of duplicated primaryids, and during this process, we observed that they only differed in the quarter field and caseid. We retained the entry with the most recent quarter.
+
+Subsequently, we analyzed duplicated mfr_num records. Although these entries were more diverse, there were indications that they likely referred to the same case. We selected the most recent entry, prioritizing first based on fda_date and then on position.
+
+```{r eval = FALSE}
+#remove duplicated primaryid
+DEMO <- DEMO[DEMO[,.I[quarter==last(quarter)],by=primaryid]$V1]
+
+#remove duplicated mfr
+DEMO <- DEMO[order(fda_dt)]
+DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="mfr_num"]$V1,
+                           DEMO[,which(is.na(mfr_num))])]]
+```
+
+## 8. Flattening of case versions
+
+## 9. Deduplication

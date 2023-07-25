@@ -599,18 +599,18 @@ Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
 Deleted <- faers_list[str_detect(faers_list,regex("deleted",ignore_case = T))]
 i <- 0
 for (f in Deleted){
-  name <- gsub("txt",".rds",f)
+  name <- gsub(".txt",".rds",f)
   x <- read.table(f,skip=1,sep="$",header = F, comment.char = "",quote="",
                   row.names = NULL)
-  colnames(x) <- "primaryid"
+  colnames(x) <- "caseid"
   if(i>0){DELETED <- rbindlist(list(DELETED,x))}else{DELETED <- x}
   i <- i+1
 }
 DELETED <- DELETED %>%  distinct()
-Demo <- Demo[!primaryid %in%DELETED$primaryid]
+Demo <- Demo[!caseid %in%DELETED$caseid]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
-## Flatten case version and duplicated ids-----------------------------------
+## Remove duplicated ids----------------------------------------------------
 #remove duplicated primaryid
 DEMO <- DEMO[DEMO[,.I[quarter==last(quarter)],by=primaryid]$V1]
 
@@ -619,12 +619,13 @@ DEMO <- DEMO[order(fda_dt)]
 DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="mfr_num"]$V1,
                            DEMO[,which(is.na(mfr_num))])]]
 
-#flatten case version by caseid
+#flatten case version by caseid --------------------------------------------
 DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="caseid"]$V1)]]
 cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
           "age_cod","wt_cod","occp_cod","e_sub","age_grp","occr_country",
           "reporter_country")
 DEMO[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
+saveRDS(Demo,"Clean Data/DEMO.rds")
 
 ## Remove reports with no drug or reaction ---------------------------------
 Drug <- readRDS("Clean Data/DRUG.rds")
