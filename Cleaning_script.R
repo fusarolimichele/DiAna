@@ -593,6 +593,9 @@ saveRDS(DRUG_INFO,"Clean Data/DRUG_INFO.rds")
 rm(list=ls())
 
 ## Remove nullified reports ------------------------------------------------
+faers_list <- read.csv2("Clean Data/faers_list.csv")$x
+Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
+
 Deleted <- faers_list[str_detect(faers_list,regex("deleted",ignore_case = T))]
 i <- 0
 for (f in Deleted){
@@ -605,6 +608,7 @@ for (f in Deleted){
 }
 DELETED <- DELETED %>%  distinct()
 DEMO <- DEMO[!primaryid %in%DELETED$primaryid]
+saveRDS(DEMO,"Clean Data/Demo.rds")
 
 ## Flatten case version -----------------------------------------------------
 #column T/F if multiple versions
