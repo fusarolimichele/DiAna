@@ -610,37 +610,36 @@ DELETED <- DELETED %>%  distinct()
 DEMO <- DEMO[!primaryid %in%DELETED$primaryid]
 saveRDS(DEMO,"Clean Data/Demo.rds")
 
-## Flatten case version -----------------------------------------------------
-#column T/F if multiple versions
-
-## Remove duplicate ids -----------------------------------------------------
-#remove duplicate primaryid
+## Flatten case version and duplicated ids-----------------------------------
+#remove duplicated primaryid
 DEMO <- DEMO[DEMO[,.I[quarter==last(quarter)],by=primaryid]$V1]
 
-#remove duplicate mfr
+#remove duplicated mfr
 DEMO <- DEMO[order(fda_dt)]
 DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="mfr_num"]$V1,
                            DEMO[,which(is.na(mfr_num))])]]
 
-#remove duplicate caseid
+#flatten case version by caseid
 DEMO <- DEMO[DEMO[,.I%in%c(DEMO[,.I[.N],by="caseid"]$V1)]]
 cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
           "age_cod","wt_cod","occp_cod","e_sub","age_grp","occr_country",
           "reporter_country")
 DEMO[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
+
+## Remove reports with no drug or reaction ---------------------------------
+Drug <- readRDS("Clean Data/Drug.rds")
+Reac <- readRDS("Clean Data/Reac.rds")
+no_drugs <- setdiff(unique(DEMO$primaryid),unique(Drug$primaryid))
+no_event <- setdiff(unique(DEMO$primaryid),unique(Reac$primaryid))
+not_complete <- union(no_drugs,no_event)
+DEMO <- DEMO[!primaryid %in% not_complete]
 saveRDS(DEMO,"Clean Data/Demo.rds")
 PIDS_KEPT <- DEMO$primaryid
 write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
 rm(list=ls())
-## Remove no drug or reac ---------------------------------------------------
-Demo <- readRDS("Clean Data/Demo.rds")
-Drug <- readRDS("Clean Data/Drug.rds")
-Reac <- readRDS("Clean Data/Reac.rds")
-no_drugs <- setdiff(unique(Demo$primaryid),unique(Drug$primaryid))
-no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
-not_complete <- union(no_drugs,no_event)
 
 ## Remove pre-marketing -----------------------------------------------------
+##create TF column
 Drug <- setDT(readRDS("Clean Data/Drug.rds"))
 d <- rbind(Drug[,.(drug=drugname)],Drug[,.(drug=prod_ai)])[,.(
   drug=tolower(trimws(drug)))] %>% distinct()
