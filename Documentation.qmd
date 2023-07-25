@@ -974,6 +974,27 @@ rm(list=ls())
 
 ## 6. Remove nullified reports
 
+Starting from 19Q1, each quarter will include a DELETED file, which contains a list of report identities that are meant to be excluded from the database based on directives from the FDA or Manufacturers. These exclusions are made for various reasons, such as combining cases, and are intended to align the quarterly data extract with the information displayed on the public dashboard. Depending on the specific date of the data extract and when the deletion took place, these reports may or may not be visible in the quarterly data.
+
+```{r eval = FALSE}
+faers_list <- read.csv2("Clean Data/faers_list.csv")$x
+Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
+
+Deleted <- faers_list[str_detect(faers_list,regex("deleted",ignore_case = T))]
+i <- 0
+for (f in Deleted){
+  name <- gsub(".txt",".rds",f)
+  x <- read.table(f,skip=1,sep="$",header = F, comment.char = "",quote="",
+                  row.names = NULL)
+  colnames(x) <- "primaryid"
+  if(i>0){DELETED <- rbindlist(list(DELETED,x))}else{DELETED <- x}
+  i <- i+1
+}
+DELETED <- DELETED %>%  distinct()
+Demo <- Demo[!primaryid %in%DELETED$primaryid]
+saveRDS(Demo,"Clean Data/Demo.rds")
+```
+
 ## 7. Flattening of case versions
 
 ## 8. Deduplication

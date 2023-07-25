@@ -607,8 +607,8 @@ for (f in Deleted){
   i <- i+1
 }
 DELETED <- DELETED %>%  distinct()
-DEMO <- DEMO[!primaryid %in%DELETED$primaryid]
-saveRDS(DEMO,"Clean Data/Demo.rds")
+Demo <- Demo[!primaryid %in%DELETED$primaryid]
+saveRDS(Demo,"Clean Data/Demo.rds")
 
 ## Flatten case version and duplicated ids-----------------------------------
 #remove duplicated primaryid
