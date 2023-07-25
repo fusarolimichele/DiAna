@@ -995,7 +995,7 @@ Demo <- Demo[!caseid %in%DELETED$caseid]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 ```
 
-## 7. Remove duplicated IDs
+## 7. Remove duplicated primaryids
 
 Next, we conducted an analysis of duplicated primaryids, and during this process, we observed that they only differed in the quarter field and caseid. We retained the entry with the most recent quarter.
 
@@ -1016,7 +1016,18 @@ Demo[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 ```
 
-## 9. Removing reports without drug or reaction
+## 9. Remove duplicated manufacturer ids
+
+Subsequently, we analyzed duplicated mfr_num records (given the same manufacturer sender). Although these entries were more diverse, there were indications that they likely referred to the same case. We selected the most recent entry, prioritizing first based on fda_date and then on position.
+
+```{r eval = FALSE}
+Demo <- Demo[order(fda_dt)]
+Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by=c("mfr_num","mfr_sndr")]$V1,
+                           Demo[,which(is.na(mfr_num))],
+                           Demo[,which(is.na(mfr_sndr))])]]
+```
+
+## 10. Removing reports without drug or reaction
 
 To comply with FAERS indications, for which each report is characterized by at least one drug and one event, we removed all DEMO cases for which information of either reaction or drug was missing.
 

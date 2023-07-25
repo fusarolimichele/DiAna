@@ -622,6 +622,12 @@ cols <- c("caseversion","sex","quarter","i_f_cod","rept_cod",
 Demo[,(cols):=lapply(.SD, as.factor),.SDcols=cols]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
+## Remove duplicated manufacturer ids ---------------------------------
+Demo <- Demo[order(fda_dt)]
+Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by=c("mfr_num","mfr_sndr")]$V1,
+                           Demo[,which(is.na(mfr_num))],
+                           Demo[,which(is.na(mfr_sndr))])]]
+
 ## Remove reports with no drug or reaction ---------------------------------
 Drug <- readRDS("Clean Data/DRUG.rds")
 Reac <- readRDS("Clean Data/REAC.rds")
@@ -693,11 +699,4 @@ rm(list=ls())
 
 ## Refine datasets ----------------------------------------------------------
 
-
-
-#remove duplicated mfr
-Demo <- Demo[order(fda_dt)]
-Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by="mfr_num"]$V1,
-                           Demo[,which(is.na(mfr_num))])]]
-#Subsequently, we analyzed duplicated mfr_num records. Although these entries were more diverse, there were indications that they likely referred to the same case. We selected the most recent entry, prioritizing first based on fda_date and then on position.
 
