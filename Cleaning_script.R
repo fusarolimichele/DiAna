@@ -640,9 +640,6 @@ no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
 not_complete <- union(no_drugs,no_event)
 Demo <- Demo[!primaryid %in% not_complete]
 saveRDS(Demo,"Clean Data/DEMO.rds")
-PIDS_KEPT <- Demo$primaryid
-write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
-
 
 ## Identify pre-marketing and literature ------------------------------------
 Demo[,premarketing:=primaryid%in%Drug[trial==TRUE]$primaryid]
@@ -650,57 +647,90 @@ Demo[,literature:=!is.na(lit_ref)]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 
 ## Clean datasets from excluded primaryids ----------------------------------
-pids_kept <- read.csv2("Clean Data/pids_kept.csv")$x
-Drug <- setDT(readRDS("Clean Data/Drug.rds"))
-Drug_Name <- Drug[primaryid%in%pids_kept] %>% distinct()
-saveRDS(Drug,"DIANA/data/DRUG_NAME.rds")
+
+# replace the name of the directory
+# according to the last quarter downloaded
+
+data_directory <- "data23Q1"
+
+dir.create(data_directory)
+Demo_Supp <-  Demo[,.(primaryid,caseid,caseversion,i_f_cod,auth_num,e_sub,
+                      lit_ref,rept_dt,to_mfr,mfr_sndr,mfr_num,mfr_dt,quarter)]
+saveRDS(Demo_Supp,paste0(data_directory,"/DEMO_SUPP.rds"))
+Demo <- Demo[,.(primaryid,sex,age_in_days,wt_in_kgs,occr_country,event_dt,
+                occp_cod,reporter_country,rept_cod,init_fda_dt,fda_dt,
+                premarketing,literature)]
+saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
+
+Drug <- Drug[primaryid %in% Demo$primaryid]
+Drug_Name <- Drug[,.(primaryid,drug_seq,drugname,prod_ai)] %>% distinct()
+saveRDS(Drug_Name,paste0(data_directory,"/DRUG_NAME.rds"))
 rm(Drug_Name)
-Drug <- Drug[primaryid%in%pids_kept][,.(primaryid,drug_seq,substance=Substance,drugname,role_cod)] %>% distinct()
-saveRDS(Drug,"DIANA/data/DRUG.rds")
-DIANA_dict <- setDT(read_delim("DIANA/data/DIANA_dict.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE))
-DIANA_ATC <- setDT(read_delim("External Sources/Dictionaries/DIANA_ATC.csv", 
-                              delim = ";", escape_double = FALSE, trim_ws = TRUE))[,.(Sub=Substance,code)][!is.na(code)] %>% distinct()
-t <- DIANA_dict[, strsplit(Substance, ";", fixed=TRUE),by=.(drugname,Substance)][,.(Substance,Sub=V1)] %>% distinct()
-Drug_ATC <- left_join(Drug,t,by="Substance")
-Drug_ATC <- DIANA_ATC[Drug_ATC,on="Sub"]
-Drug_ATC <- Drug_ATC[,role_cod:=factor(role_cod,levels=c("C","I","SS","PS"),ordered = TRUE)]
-Drug_ATC <- Drug_ATC[,.(role_cod=max(role_cod)),by=.(primaryid,code)] %>% distinct()
-saveRDS(Drug_ATC,"DIANA/data/DRUG_ATC.rds")
-rm(list=setdiff(ls(), "pids_kept"))
 
+Drug <- Drug[,.(primaryid,drug_seq,substance=Substance,role_cod)] %>% distinct()
+Drug$role_cod <- factor(Drug$role_cod,levels=c("C","I","SS","PS"),
+                        ordered = TRUE)
+saveRDS(Drug,paste0(data_directory,"/DRUG.rds"))
+rm(Drug)
 
-REAC <- setDT(readRDS("Clean Data/Reac.rds"))
-REAC_rec <- REAC[primaryid%in%pids_kept][,.(primaryid,drug_rec_act)][!is.na(drug_rec_act)] %>% distinct()
-saveRDS(REAC_rec,"DIANA/data/REAC_rec.rds")
-rm(REAC_rec)
-REAC <- REAC[primaryid%in%pids_kept][,.(primaryid,pt)] %>% distinct()
-saveRDS(REAC,"DIANA/data/REAC.rds")
-rm(REAC)
+Reac <- Reac[primaryid %in% Demo$primaryid]
+meddra_primary <- setDT(read_csv2("External Sources/Dictionaries/MedDRA/meddra_primary.csv"))
+setorderv(meddra_primary,c("soc","hlgt","hlt","pt"))
 
-OUTC <- setDT(readRDS("Clean Data/Outc.rds"))
-OUTC <- OUTC[primaryid%in%pids_kept][,.(primaryid,outc_cod=factor(outc_cod,levels=c("OT", "CA", "HO", "RI", "DS", "LT", "DE"), ordered = TRUE))] %>% distinct()
-saveRDS(OUTC,"DIANA/data/OUTC.rds")
-rm(OUTC)
+Reac <- Reac[,.(primaryid,
+                pt=factor(pt,
+                          levels=meddra_primary$pt,
+                          ordered=TRUE),
+                drug_rec_act = factor(drug_rec_act,
+                                      levels=meddra_primary$pt,
+                                      ordered=TRUE))]
+saveRDS(Reac,paste0(data_directory,"/REAC.rds"))
+rm(Reac)
 
-INDI <- setDT(readRDS("Clean Data/Indi.rds"))
-INDI <- INDI[primaryid%in%pids_kept][,.(primaryid,drug_seq,indi_pt)] %>% distinct()
-saveRDS(INDI,"DIANA/data/INDI.rds")
-rm(INDI)
+Outc <- setDT(readRDS("Clean Data/Outc.rds"))
+Outc <- Outc[primaryid %in% Demo$primaryid][
+  ,.(primaryid,outc_cod=factor(outc_cod,levels=c("OT", "CA", "HO", "RI",
+                                                 "DS", "LT", "DE"),
+                               ordered = TRUE))] %>% distinct()
+saveRDS(Outc,paste0(data_directory,"/OUTC.rds"))
+rm(Outc)
 
-THER <- setDT(readRDS("Clean Data/Ther.rds"))
-THER <- THER[primaryid%in%pids_kept][!is.na(time_to_onset)][,.(primaryid,drug_seq,time_to_onset,end_dt)] %>% distinct()
-saveRDS(THER,"DIANA/data/THER.rds")
-rm(THER)
+Indi <- setDT(readRDS("Clean Data/Indi.rds"))
+Indi <- Indi[primaryid %in% Demo$primaryid]
+Indi <- Indi[,.(primaryid,drug_seq,
+                indi_pt= factor(indi_pt,
+                                levels=meddra_primary$pt,
+                                ordered=TRUE))] %>% distinct()
+saveRDS(Indi,paste0(data_directory,"/INDI.rds"))
+rm(Indi)
 
-DRUG_INFO <- setDT(readRDS("Clean Data/Drug_info.rds"))
-DRUG_INFO_DRroute <- DRUG_INFO[primaryid%in%pids_kept] %>% select(primaryid,drug_seq,dose_form_st,route_st,dechal,rechal) %>% distinct()
-saveRDS(DRUG_INFO_DRroute,"DIANA/data/DRUG_INFO_DRroute.rds")
-rm(DRUG_INFO_DRroute)
-DRUG_INFO_Doses <- DRUG_INFO[primaryid%in%pids_kept] %>% select(primaryid,drug_seq,dose_vbm,dose_amt,dose_unit,cum_dose_unit,cum_dose_chr,dose_freq_st) %>% distinct()
-saveRDS(DRUG_INFO_Doses,"DIANA/data/DRUG_INFO_Doses.rds")
-rm(DRUG_INFO_Doses)
-rm(DRUG_INFO)
+Ther <- setDT(readRDS("Clean Data/Ther.rds"))
+Ther <- Ther[primaryid%in%Demo$primaryid][,.(primaryid,drug_seq,start_dt,
+                                             dur_in_days,end_dt,time_to_onset,
+                                             event_dt)] %>% distinct()
+saveRDS(Ther,paste0(data_directory,"/THER.rds"))
+rm(Ther)
 
+Drug_Info <- setDT(readRDS("Clean Data/Drug_info.rds"))
+Drug_Info <- Drug_Info[primaryid%in%Demo$primaryid]
+Doses <-  Drug_Info[,.(primaryid,drug_seq,dose_vbm,cum_dose_unit,cum_dose_chr,
+                       dose_amt,dose_unit,dose_freq)] %>% distinct()
+saveRDS(Doses,paste0(data_directory,"/DOSES.rds"))
+rm(Doses)
+Drug_Supp <- Drug_Info[,.(primaryid,drug_seq,route,dose_form,dechal,rechal,
+                          lot_num,exp_dt)] %>% distinct()
+Drug_Supp <- Drug_Supp[,dose_form:=factor(dose_form)]
+saveRDS(Drug_Supp,paste0(data_directory,"/DRUG_SUPP.rds"))
+rm(Drug_Supp)
+
+Drug_Name <- readRDS(paste0(data_directory,"/DRUG_NAME.rds"))
+Drug_Name <- Drug_Info[,.(primaryid,drug_seq,val_vbm,nda_num)][
+  Drug_Name,on=c("primaryid","drug_seq")]
+saveRDS(Drug_Name,paste0(data_directory,"/DRUG_NAME.rds"))
+rm(Drug_Name)
+rm(Drug_Info)
+
+Rpsr <- setDT(readRDS("Clean Data/Rpsr.rds"))
 
 
 

@@ -1045,8 +1045,6 @@ no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
 not_complete <- union(no_drugs,no_event)
 Demo <- Demo[!primaryid %in% not_complete]
 saveRDS(Demo,"Clean Data/DEMO.rds")
-PIDS_KEPT <- Demo$primaryid
-write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
 ```
 
 ## 10. Identification of pre-marketing cases
@@ -1061,5 +1059,7 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 ```
 
 ## 11. Clean datasets from excluded primaryids
+
+Here we removed the excluded primaryid from each database, and we split the datasets to make them more easy to be managed by the computer during the analysis.
 
 ## 12. Rule-based deduplication
