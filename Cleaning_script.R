@@ -737,20 +737,31 @@ saveRDS(Demo_Supp,paste0(data_directory,"/DEMO_SUPP.rds"))
 rm(list = ls())
 
 
-## Fixed deduplication ------------------------------------------------------
-REAC <- setDT(readRDS("Clean Data/REAC.rds"))
-complete_duplicates <- c("event_dt","sex","country","age_in_days","wt_in_kgs","pt","Substance")
-temp_reac <- REAC[,.(primaryid,pt),] %>% distinct()
-temp_reac <- temp_reac[,.(pt=paste0(pt,collapse="; ")),by="primaryid"]
-rm(REAC)
-DRUG <- setDT(readRDS("Clean Data/DRUG.rds"))
-temp_drug <- DRUG[,.(primaryid,Substance),][order(Substance)] %>% distinct()
-temp_drug <- temp_drug[,.(Substance=paste0(Substance,collapse="; ")),by="primaryid"]
-rm(DRUG)
-DEMO <- setDT(readRDS("Clean Data/DEMO.rds"))
-temp <- temp_drug[DEMO,on="primaryid"]
-temp <- temp_reac[temp,on="primaryid"]
-rm(DEMO)
+## Rule-based deduplication --------------------------------------------------
+# replace the name of the directory
+# according to the last quarter downloaded
+
+data_directory <- "data23Q1"
+
+Reac <- setDT(readRDS(paste0(data_directory,"/REAC.rds")))
+Demo <- setDT(readRDS(paste0(data_directory,"/DEMO.rds")))
+Drug <- setDT(readRDS(paste0(data_directory,"/DRUG.rds")))
+
+complete_duplicates <- c("event_dt","sex","country","age_in_days","wt_in_kgs","pt","substance")
+temp_reac <- Reac[order(pt)][,.(pt=paste0(pt,collapse="; ")),by="primaryid"] %>%
+  distinct()
+temp_drug_PS <- Drug[order(substance)][role_cod=="PS"][
+  ,.(PS=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
+temp_drug_SS <- Drug[order(substance)][role_cod=="SS"][
+  ,.(SS=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
+temp_drug_IC <- Drug[order(substance)][role_cod%in%c("I","C")][
+  ,.(IC=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
+temp <- temp_reac[temp_drug_IC[temp_drug_SS[temp_drug_PS[Demo,
+                                                         on="primaryid"],
+                                            on="primaryid"],
+                               on="primaryid"],
+                  on="primaryid"]
+
 temp1_plus <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
 temp1_plus_1 <- temp1_plus[,.N,by="DUP_ID"][N==1]
 pids_kept <- temp1_plus[DUP_ID%in%temp1_plus_1$DUP_ID]$primaryid
