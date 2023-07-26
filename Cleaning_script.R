@@ -723,7 +723,7 @@ Drug_Supp <- Drug_Supp[,dose_form:=factor(dose_form)]
 saveRDS(Drug_Supp,paste0(data_directory,"/DRUG_SUPP.rds"))
 rm(Drug_Supp)
 
-Drug_Name <- readRDS(paste0(data_directory,"/DRUG_NAME.rds"))
+Drug_Name <- setDT(readRDS(paste0(data_directory,"/DRUG_NAME.rds")))
 Drug_Name <- Drug_Info[,.(primaryid,drug_seq,val_vbm,nda_num)][
   Drug_Name,on=c("primaryid","drug_seq")]
 saveRDS(Drug_Name,paste0(data_directory,"/DRUG_NAME.rds"))
@@ -731,7 +731,10 @@ rm(Drug_Name)
 rm(Drug_Info)
 
 Rpsr <- setDT(readRDS("Clean Data/Rpsr.rds"))
-
+Demo_Supp <- Rpsr[,.(primaryid,rpsr_cod=factor(rpsr_cod))][Demo_Supp,
+                                                           on="primaryid"]
+saveRDS(Demo_Supp,paste0(data_directory,"/DEMO_SUPP.rds"))
+rm(list = ls())
 
 
 ## Fixed deduplication ------------------------------------------------------
