@@ -1031,9 +1031,15 @@ Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by=c("mfr_num","mfr_sndr")]$V1,
 
 To comply with FAERS indications, for which each report is characterized by at least one drug and one event, we removed all DEMO cases for which information of either reaction or drug was missing.
 
+To implement this, our first step involved removing all rows from the DRUG dataset that referred to either no medication or were left unspecified. When it came to untranslated substances, we made a decision not to exclude them. However, for disproportionality analysis, it is advisable for the authors to extend the translation of the drug of interest. By doing so, they can prevent cases from being included in the denominator, leading to more accurate results.
+
 ```{r eval=FALSE}
 Drug <- readRDS("Clean Data/DRUG.rds")
 Reac <- readRDS("Clean Data/REAC.rds")
+
+Drug <- Drug[!Substance%in%c("no medication","unspecified")]
+Reac <- Reac[!pt%in%c("no adverse event")]
+
 no_drugs <- setdiff(unique(Demo$primaryid),unique(Drug$primaryid))
 no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
 not_complete <- union(no_drugs,no_event)

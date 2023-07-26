@@ -631,6 +631,10 @@ Demo <- Demo[Demo[,.I%in%c(Demo[,.I[.N],by=c("mfr_num","mfr_sndr")]$V1,
 ## Remove reports with no drug or reaction ---------------------------------
 Drug <- readRDS("Clean Data/DRUG.rds")
 Reac <- readRDS("Clean Data/REAC.rds")
+
+Drug <- Drug[!Substance%in%c("no medication","unspecified")]
+Reac <- Reac[!pt%in%c("no adverse event")]
+
 no_drugs <- setdiff(unique(Demo$primaryid),unique(Drug$primaryid))
 no_event <- setdiff(unique(Demo$primaryid),unique(Reac$primaryid))
 not_complete <- union(no_drugs,no_event)
