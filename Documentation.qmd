@@ -1062,4 +1062,98 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 
 Here we removed the excluded primaryid from each database, and we split the datasets to make them more easy to be managed by the computer during the analysis.
 
+![](images/Flowchart-Page-14%20(1).jpg)
+
+```{r eval = FALSE}
+# replace the name of the directory
+# according to the last quarter downloaded
+
+data_directory <- "data23Q1"
+
+dir.create(data_directory)
+Demo_Supp <-  Demo[,.(primaryid,caseid,caseversion,i_f_cod,auth_num,e_sub,
+                      lit_ref,rept_dt,to_mfr,mfr_sndr,mfr_num,mfr_dt,quarter)]
+saveRDS(Demo_Supp,paste0(data_directory,"/DEMO_SUPP.rds"))
+Demo <- Demo[,.(primaryid,sex,age_in_days,wt_in_kgs,occr_country,event_dt,
+                occp_cod,reporter_country,rept_cod,init_fda_dt,fda_dt,
+                premarketing,literature)]
+saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
+
+Drug <- Drug[primaryid %in% Demo$primaryid]
+Drug_Name <- Drug[,.(primaryid,drug_seq,drugname,prod_ai)] %>% distinct()
+saveRDS(Drug_Name,paste0(data_directory,"/DRUG_NAME.rds"))
+rm(Drug_Name)
+
+Drug <- Drug[,.(primaryid,drug_seq,substance=Substance,role_cod)] %>% distinct()
+Drug$role_cod <- factor(Drug$role_cod,levels=c("C","I","SS","PS"),
+                        ordered = TRUE)
+saveRDS(Drug,paste0(data_directory,"/DRUG.rds"))
+rm(Drug)
+
+Reac <- Reac[primaryid %in% Demo$primaryid]
+meddra_primary <- setDT(read_csv2("External Sources/Dictionaries/MedDRA/meddra_primary.csv"))
+setorderv(meddra_primary,c("soc","hlgt","hlt","pt"))
+
+Reac <- Reac[,.(primaryid,
+                pt=factor(pt,
+                          levels=meddra_primary$pt,
+                          ordered=TRUE),
+                drug_rec_act = factor(drug_rec_act,
+                                      levels=meddra_primary$pt,
+                                      ordered=TRUE))]
+saveRDS(Reac,paste0(data_directory,"/REAC.rds"))
+rm(Reac)
+
+Outc <- setDT(readRDS("Clean Data/Outc.rds"))
+Outc <- Outc[primaryid %in% Demo$primaryid][
+  ,.(primaryid,outc_cod=factor(outc_cod,levels=c("OT", "CA", "HO", "RI",
+                                                 "DS", "LT", "DE"),
+                               ordered = TRUE))] %>% distinct()
+saveRDS(Outc,paste0(data_directory,"/OUTC.rds"))
+rm(Outc)
+
+Indi <- setDT(readRDS("Clean Data/Indi.rds"))
+Indi <- Indi[primaryid %in% Demo$primaryid]
+Indi <- Indi[,.(primaryid,drug_seq,
+                indi_pt= factor(indi_pt,
+                                levels=meddra_primary$pt,
+                                ordered=TRUE))] %>% distinct()
+saveRDS(Indi,paste0(data_directory,"/INDI.rds"))
+rm(Indi)
+
+Ther <- setDT(readRDS("Clean Data/Ther.rds"))
+Ther <- Ther[primaryid%in%Demo$primaryid][,.(primaryid,drug_seq,start_dt,
+                                             dur_in_days,end_dt,time_to_onset,
+                                             event_dt)] %>% distinct()
+saveRDS(Ther,paste0(data_directory,"/THER.rds"))
+rm(Ther)
+
+Drug_Info <- setDT(readRDS("Clean Data/Drug_info.rds"))
+Drug_Info <- Drug_Info[primaryid%in%Demo$primaryid]
+Doses <-  Drug_Info[,.(primaryid,drug_seq,dose_vbm,cum_dose_unit,cum_dose_chr,
+                       dose_amt,dose_unit,dose_freq)] %>% distinct()
+saveRDS(Doses,paste0(data_directory,"/DOSES.rds"))
+rm(Doses)
+Drug_Supp <- Drug_Info[,.(primaryid,drug_seq,route,dose_form,dechal,rechal,
+                          lot_num,exp_dt)] %>% distinct()
+Drug_Supp <- Drug_Supp[,dose_form:=factor(dose_form)]
+saveRDS(Drug_Supp,paste0(data_directory,"/DRUG_SUPP.rds"))
+rm(Drug_Supp)
+
+Drug_Name <- setDT(readRDS(paste0(data_directory,"/DRUG_NAME.rds")))
+Drug_Name <- Drug_Info[,.(primaryid,drug_seq,val_vbm,nda_num)][
+  Drug_Name,on=c("primaryid","drug_seq")]
+saveRDS(Drug_Name,paste0(data_directory,"/DRUG_NAME.rds"))
+rm(Drug_Name)
+rm(Drug_Info)
+
+Rpsr <- setDT(readRDS("Clean Data/Rpsr.rds"))
+Demo_Supp <- Rpsr[,.(primaryid,rpsr_cod=factor(rpsr_cod))][Demo_Supp,
+                                                           on="primaryid"]
+saveRDS(Demo_Supp,paste0(data_directory,"/DEMO_SUPP.rds"))
+rm(list = ls())
+```
+
 ## 12. Rule-based deduplication
+
+## 13. Probabilistic deduplication
