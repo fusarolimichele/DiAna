@@ -761,7 +761,24 @@ temp <- temp_reac[temp_drug_IC[temp_drug_SS[temp_drug_PS[Demo,
                                             on="primaryid"],
                                on="primaryid"],
                   on="primaryid"]
+rm(temp_reac)
+rm(temp_drug_PS)
+rm(temp_drug_SS)
+rm(temp_drug_IC)
 
+
+temp <- temp[order(fda_dt)]
+temp_grouped <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
+singlets_pids <- temp_grouped[DUP_ID %in% temp_grouped[,.N,by="DUP_ID"][N==1]$DUP_ID]$primaryid
+duplicates <- temp_grouped[!primaryid %in% singlets_pids]
+duplicates_pids <- duplicates[duplicates[,.I[primaryid==last(primaryid)],by="DUP_ID"]$V1]$primaryid
+
+Demo[,RB_duplicates:=!primaryid%in% c(singlets_pids,duplicates_pids)]
+saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
+
+## Probabilistic deduplication ----------------------------------------------
+
+##old_script-------------------------
 temp1_plus <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
 temp1_plus_1 <- temp1_plus[,.N,by="DUP_ID"][N==1]
 pids_kept <- temp1_plus[DUP_ID%in%temp1_plus_1$DUP_ID]$primaryid
@@ -779,5 +796,4 @@ DEMO <- DEMO[,.(primaryid,caseid,sex,occp_cod,rept_cod,fda_dt,init_fda_dt,age_in
 saveRDS(DEMO,"DIANA/data/DEMO.rds")
 write.csv2(pids_kept,"Clean Data/pids_kept.csv")
 rm(list=ls())
-## Probabilistic deduplication ----------------------------------------------
 
