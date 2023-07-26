@@ -642,15 +642,12 @@ Demo <- Demo[!primaryid %in% not_complete]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 PIDS_KEPT <- Demo$primaryid
 write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
-rm(list=ls())
 
-## Identify pre-marketing ---------------------------------------------------
-Drug <- setDT(readRDS("Clean Data/DRUG.rds"))
-Demo[,premarketing:=primaryid%in%Drug[trial=="TRUE"]]
-Demo <- Demo[,.()]
+
+## Identify pre-marketing and literature ------------------------------------
+Demo[,premarketing:=primaryid%in%Drug[trial==TRUE]$primaryid]
+Demo[,literature:=!is.na(lit_ref)]
 saveRDS(Demo,"Clean Data/DEMO.rds")
-
-rm(list=ls())
 
 ## Clean datasets from excluded primaryids ----------------------------------
 pids_kept <- read.csv2("Clean Data/pids_kept.csv")$x

@@ -1047,20 +1047,17 @@ Demo <- Demo[!primaryid %in% not_complete]
 saveRDS(Demo,"Clean Data/DEMO.rds")
 PIDS_KEPT <- Demo$primaryid
 write.csv2(PIDS_KEPT, "Clean Data/pids_kept.csv")
-rm(list=ls())
 ```
 
 ## 10. Identification of pre-marketing cases
 
-After considering the drug name and referring to the DIANA dictionary translation, we were able to identify reports originating from the pre-marketing phase. This identification process took into account situations where the medicinal product was named using pre-registration numbers or in the context of a trial (e.g., together with a placebo). This information may be useful to authors wishing to exclude pre-marketing evidence from the reports.
+After considering the drug name and referring to the DIANA dictionary translation, we were able to identify reports originating from the pre-marketing phase. This identification process took into account situations where the medicinal product was named using pre-registration numbers or in the context of a trial (e.g., together with a placebo). This information may be useful to authors wishing to exclude pre-marketing evidence from the reports. These authors may consider also excluding reports from the literature (see lit_ref).
 
 ```{r eval = FALSE}
 ## Identify pre-marketing -----------------------------------------------------
-Drug <- setDT(readRDS("Clean Data/DRUG.rds"))
-Demo[,premarketing:=primaryid%in%Drug[trial=="TRUE"]]
+Demo[,premarketing:=primaryid%in%Drug[trial==TRUE]$primaryid]
+Demo[,literature:=!is.na(lit_ref)]
 saveRDS(Demo,"Clean Data/DEMO.rds")
-
-rm(list=ls())
 ```
 
 ## 11. Clean datasets from excluded primaryids
