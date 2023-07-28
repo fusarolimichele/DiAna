@@ -1156,4 +1156,44 @@ rm(list = ls())
 
 ## 12. Rule-based deduplication
 
+```{r eval = FALSE}
+# replace the name of the directory
+# according to the last quarter downloaded
+
+data_directory <- "data23Q1"
+
+Reac <- setDT(readRDS(paste0(data_directory,"/REAC.rds")))
+Demo <- setDT(readRDS(paste0(data_directory,"/DEMO.rds")))
+Drug <- setDT(readRDS(paste0(data_directory,"/DRUG.rds")))
+
+complete_duplicates <- c("event_dt","sex","reporter_country","age_in_days","wt_in_kgs","pt","PS","SS","IC")
+temp_reac <- Reac[order(pt)][,.(pt=paste0(pt,collapse="; ")),by="primaryid"] %>%
+  distinct()
+temp_drug_PS <- Drug[order(substance)][role_cod=="PS"][
+  ,.(PS=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
+temp_drug_SS <- Drug[order(substance)][role_cod=="SS"][
+  ,.(SS=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
+temp_drug_IC <- Drug[order(substance)][role_cod%in%c("I","C")][
+  ,.(IC=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
+temp <- temp_reac[temp_drug_IC[temp_drug_SS[temp_drug_PS[Demo,
+                                                         on="primaryid"],
+                                            on="primaryid"],
+                               on="primaryid"],
+                  on="primaryid"]
+rm(temp_reac)
+rm(temp_drug_PS)
+rm(temp_drug_SS)
+rm(temp_drug_IC)
+
+
+temp <- temp[order(fda_dt)]
+temp_grouped <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
+singlets_pids <- temp_grouped[DUP_ID %in% temp_grouped[,.N,by="DUP_ID"][N==1]$DUP_ID]$primaryid
+duplicates <- temp_grouped[!primaryid %in% singlets_pids]
+duplicates_pids <- duplicates[duplicates[,.I[primaryid==last(primaryid)],by="DUP_ID"]$V1]$primaryid
+
+Demo[,RB_duplicates:=!primaryid%in% c(singlets_pids,duplicates_pids)]
+saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
+```
+
 ## 13. Probabilistic deduplication
