@@ -1,7 +1,7 @@
 ## Set up packages-------------------------------------------------------------
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load("tidyverse","data.table","janitor","foreach","xml2","rvest","readxl")
+pacman::p_load("tidyverse","data.table","janitor","foreach","xml2","rvest","readxl","distr")
 
 ## Download FAERS--------------------------------------------------------------
 options(timeout=500)#increase if it times out because of low wifi power
@@ -778,13 +778,14 @@ saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
 
 ##From now on draft in progress.
 #+ solo PS e SS + colonna
+
 ## Probabilistic deduplication ----------------------------------------------
 Demo <- setDT(readRDS("~/Desktop/2707/DEMO.rds"))
 Outc <- setDT(readRDS("~/Desktop/2707/OUTC.rds"))
 Drug <- setDT(readRDS("~/Desktop/2707/DRUG.rds"))[,.(primaryid,substance)] %>% distinct()
 Reac <- setDT(readRDS("~/Desktop/2707/REAC.rds"))[,.(primaryid,pt)] %>% distinct()
 
-sample <- Demo[sample(.N, 20), ]
+sample <- Demo[sample(.N, 1000), ]
 df_weights <- data.frame(var="any",value=c("W_NA"),weight=as.numeric(0))
 
 vars <- c("sex","reporter_country")
@@ -840,62 +841,74 @@ for (value in setdiff(unique(Reac[[var]]),NA)){
   df_weights <- rbind(df_weights,c(var,value,Weight))
 }
 
-var <- "age_in_years"
-Demo <- Demo[,age_in_years:=round(age_in_days/365)]
-a1 <- 0.036
-a2 <- 0.010
-b <- sum(is.na(Demo[[var]]))/nrow(Demo)
-s1 <- 2.1
-s2 <- 32.9
-temp <- Demo$age_in_years
-hist(temp)
-hist(rnorm(10000,mean(temp,na.rm = T),sd(temp,na.rm = T))) # f(d) per NA
-samp1 <- sample(temp[!is.na(temp)],10000)
-samp2 <- sample(temp[!is.na(temp)],10000)
-diff <- samp1-samp2
-hist(diff)
-hist(rnorm(10000,0,s1)) # HD
-hist(rnorm(10000,0,2*s1)) # DD
-dnorm(d,mean=0,sd=2.1)
-dnorm(0,mean=0,sd=2.1)
-dnorm(2,mean=0,sd=2.1)
-
-integrate(dnorm(0,mean=0,sd=2.1),
-          dnorm(2,mean=0,sd=2.1))
-
-d <- 4
-Dirac <- ifelse(d==0,1,0)
-F_d <- dnorm(d,mean(diff,na.rm = T),sd(diff,na.rm = T))
-HD <- dnorm(d,0,s1)
-DD <- dnorm(d,0,2*s1)
-Pr <- ((1-a1-a2-b)^2) * Dirac +
-  a2*(2-a2-2*b) * F_d +
-  2*a1*(1-a1-a2-b) * HD +
-  (a1^2)* DD
-Pu <- ((1-b)^2)*F_d
-W <- log2(Pr/Pu)
-
-c <- a*(2-a-2*b)
-not_NA <- nrow(Demo)
-frequencies <- Reac[,.N,by="pt"][,freq:=N/not_NA]
-df_weights <- rbind(df_weights,c(var,"W_disc",log2(c-2*log2(1-b))))
-for (value in setdiff(unique(Reac[[var]]),NA)){
-  Beta <- frequencies[pt==value]$freq
-  Weight <- log2(1-c*(1-Beta)*(1-b)^(-2))-log2(Beta) 
-  df_weights <- rbind(df_weights,c(var,value,Weight))
-}
-
 setDT(df_weights)[,weight:=as.numeric(weight)]
 
+var <- "age_in_years"
+Demo <- Demo[,age_in_years:=age_in_days/365]
+a1_VigiMatch <- 0.036
+a2_VigiMatch <- 0.010
+b_VigiMatch <- 0.186
+# we calculate the parameters according to our frequency of blanks and keeping
+# the proportion betweeen Hit, Miss, and Deviation proposed by VigiMatch
+b_age <- sum(is.na(Demo[[var]]))/nrow(Demo)
+a1_age <- a1_VigiMatch*b_age/b_VigiMatch
+a2_age <- a2_VigiMatch*b_age/b_VigiMatch
+s1_age <- 2.1
+diff_age <- sample(Demo[!is.na(age_in_years)]$age_in_years,
+                   10000) - sample(Demo[!is.na(age_in_years)]$age_in_years,
+                                   10000)
+
+var <- "event_dt"
+Demo <- Demo[,date_lower:=ifelse(nchar(event_dt==8),as.numeric(ymd(event_dt)-1),
+                                 ifelse(nchar(event_dt==6),as.numeric(ym(event_dt)),
+                                        as.numeric(ymd(event_dt, truncated = 2L))))]
+Demo <- Demo[,date_upper:=ifelse(nchar(event_dt==8),as.numeric(ymd(event_dt)+1),
+                                 ifelse(nchar(event_dt==6),as.numeric(ceiling_date(ym(event_dt),"month")-days(1)),
+                                        as.numeric(ceiling_date(ymd(event_dt, truncated = 2L),"year")-days(1))))]
+a1_VigiMatch <- 0.051
+a2_VigiMatch <- 0.01
+b_VigiMatch <- 0.229
+# we calculate the parameters according to our frequency of blanks and keeping
+# the proportion betweeen Hit, Miss, and Deviation proposed by VigiMatch
+b_date <- sum(is.na(Demo[[var]]))/nrow(Demo)
+a1_date <- a1_VigiMatch*b_date/b_VigiMatch
+a2_date <- a2_VigiMatch*b_date/b_VigiMatch
+s1_date <- 50.2
+diff_date <- sample(Demo[!is.na(date_lower)]$date_lower,
+                    10000,replace=TRUE) - sample(Demo[!is.na(date_lower)]$date_lower,
+                                                 10000,replace=TRUE)
 
 df_scores <- data.frame(pid1=as.numeric(NA),pid2=as.numeric(NA),
-                        sex=as.numeric(NA),country=as.numeric(NA),
-                        outcome=as.numeric(NA),substance=as.numeric(NA),
-                        pt=as.numeric(NA))
+                        sex=as.numeric(NA),country=as.numeric(NA),#outcome=as.numeric(NA),
+                        substance=as.numeric(NA),
+                        pt=as.numeric(NA),age=as.numeric(NA),date=as.numeric(NA))
+
 
 combinations <- combn(sample$primaryid, 2, simplify = FALSE)
+calculate_pu_age <- function(d){
+  pu <- ((1-b_age)^2)*dnorm(d,mean(diff_age,na.rm = T),sd(diff_age,na.rm = T))
+  return(pu)
+}
+calculate_pr_age <- function(d){
+  pr <- ((1-a1_age-a2_age-b_age)^2) *  d(distr::Dirac(0))(d) +
+    a2_age*(2-a2_age-2*b_age) * ((1-b_age)^2)*dnorm(d,mean(diff_age,na.rm = T),sd(diff_age,na.rm = T)) +
+    2*a1_age*(1-a1_age-a2_age-b_age) * dnorm(d,0,s1_age) +
+    (a1_age^2)* dnorm(d,0,2*s1_age)
+  return(pr)
+}
+calculate_pu_date <- function(d){
+  pu <- ((1-b_date)^2)*dnorm(d,mean(diff_date,na.rm = T),sd(diff_date,na.rm = T))
+  return(pu)
+}
+calculate_pr_date <- function(d){
+  pr <- ((1-a1_date-a2_date-b_date)^2) *  d(distr::Dirac(0))(d) +
+    a2_date*(2-a2_date-2*b_date) * ((1-b_date)^2)*dnorm(d,mean(diff_date,na.rm = T),sd(diff_date,na.rm = T)) +
+    2*a1_date*(1-a1_date-a2_date-b_date) * dnorm(d,0,s1_date) +
+    (a1_date^2)* dnorm(d,0,2*s1_date)
+  return(pr)
+}
 
-for (i in 1:length(combination)){
+for (i in 1:length(combinations)){
   pid_i <- combinations[[i]][[1]]
   pid_j <- combinations[[i]][[2]]
   scores <- c()
@@ -908,21 +921,21 @@ for (i in 1:length(combination)){
     scores <- c(scores,score)
   }
   ##outc
-  outc_i <- as.character(Outc[primaryid==pid_i]$outc_cod)
-  outc_j <- as.character(Outc[primaryid==pid_j]$outc_cod)
-  concordance <- intersect(outc_i,outc_j)
-  discordance <- unique(c(setdiff(outc_i,outc_j), setdiff(outc_j,outc_i)))
-  w_discordance <- length(discordance)*df_weights[var=="outc_cod"&value=="W_disc"]$weight
-  score <- 0 - w_discordance
-  for (outc in concordance){score <- score + df_weights[var=="outc_cod"&value==outc]$weight}
-  scores <- c(scores,score)
+  # outc_i <- as.character(Outc[primaryid==pid_i]$outc_cod)
+  # outc_j <- as.character(Outc[primaryid==pid_j]$outc_cod)
+  # concordance <- intersect(outc_i,outc_j)
+  # discordance <- unique(c(setdiff(outc_i,outc_j), setdiff(outc_j,outc_i)))
+  # w_discordance <- length(discordance)*df_weights[var=="outc_cod"&value=="W_disc"]$weight
+  # score <-w_discordance
+  # for (outc in concordance){score <- score + df_weights[var=="outc_cod"&value==outc]$weight}
+  # scores <- c(scores,score)
   ##drug
-  drug_i <- as.character(Drug[primaryid==pid_i]$substance)
-  drug_j <- as.character(Drug[primaryid==pid_j]$substance)
+  drug_i <- setdiff(as.character(Drug[primaryid==pid_i]$substance),NA)
+  drug_j <- setdiff(as.character(Drug[primaryid==pid_j]$substance),NA)
   concordance <- intersect(drug_i,drug_j)
   discordance <- unique(c(setdiff(drug_i,drug_j), setdiff(drug_j,drug_i)))
   w_discordance <- length(discordance)*df_weights[var=="substance"&value=="W_disc"]$weight
-  score <- 0 - w_discordance
+  score <-w_discordance
   for (drug in concordance){score <- score + df_weights[var=="substance"&value==drug]$weight}
   scores <- c(scores,score)
   ##pt
@@ -931,33 +944,33 @@ for (i in 1:length(combination)){
   concordance <- intersect(reac_i,reac_j)
   discordance <- unique(c(setdiff(reac_i,reac_j), setdiff(reac_j,reac_i)))
   w_discordance <- length(discordance)*df_weights[var=="pt"&value=="W_disc"]$weight
-  score <- 0 - w_discordance
+  score <- w_discordance
   for (reac in concordance){score <- score + df_weights[var=="pt"&value==reac]$weight}
+  scores <- c(scores,score)
+  #age_in_years
+  d=Demo[primaryid==pid_i]$age_in_years - Demo[primaryid==pid_j]$age_in_years
+  if (is.na(d)){score=0} else {
+    int_pu <- integrate(calculate_pu_age, lower = d-1, upper = d+1)$value
+    int_pr <- integrate(calculate_pr_age, lower = d-1, upper = d+1)$value
+    score <- log2(int_pr/int_pu)
+  }
+  scores <- c(scores,score)
+  #event_dt
+  di_l <-  Demo[primaryid==pid_i]$date_lower
+  di_u <- Demo[primaryid==pid_i]$date_upper
+  dj_l <-  Demo[primaryid==pid_j]$date_lower
+  dj_u <- Demo[primaryid==pid_j]$date_upper
+  difference <- abs(c(di_l-dj_l,di_l-dj_u,di_u-dj_l,di_u-dj_u))
+  if (anyNA(difference)){score=0} else {
+    int_pu <- integrate(calculate_pu_date, lower = min(difference), upper = max(difference))$value
+    int_pr <- integrate(calculate_pr_date, lower = min(difference), upper = max(difference))$value
+    score <- log2(int_pr/int_pu)
+  }
   scores <- c(scores,score)
   df_scores <- rbind(c(pid_i,pid_j,scores),df_scores)
 }
 
-df_scores <- setDT(df_scores)[,total:=sex+country+outcome+substance+pt]
+df_scores <- setDT(df_scores)[,total:=sex+country+outcome+substance+pt+age+date]
 
-#event_dt, age_in_years
-#remove inverse 
-
-##old_script-------------------------
-temp1_plus <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
-temp1_plus_1 <- temp1_plus[,.N,by="DUP_ID"][N==1]
-pids_kept <- temp1_plus[DUP_ID%in%temp1_plus_1$DUP_ID]$primaryid
-temp1_plus_2 <- temp1_plus[!DUP_ID%in%temp1_plus_1$DUP_ID]
-temp1_plus_2 <- temp1_plus_2[temp1_plus_2[,.I[fda_dt==max(fda_dt)],by="DUP_ID"]$V1]
-temp1_plus_1fda <- temp1_plus_2[,.N,by="DUP_ID"][N==1]
-pids_kept <- c(pids_kept,temp1_plus_2[DUP_ID%in%temp1_plus_1fda$DUP_ID]$primaryid)
-temp1_plus_3 <- temp1_plus_2[!DUP_ID%in%temp1_plus_1fda$DUP_ID]
-temp1_plus_1_last <- temp1_plus_3[temp1_plus_3[,.I[primaryid==last(primaryid)],by="DUP_ID"]$V1]
-pids_kept <- c(pids_kept,temp1_plus_3[DUP_ID%in%temp1_plus_1_last$DUP_ID]$primaryid)
-
-DEMO <- setDT(readRDS("Clean Data/DEMO.rds"))
-DEMO <- DEMO[primaryid%in%pids_kept]
-DEMO <- DEMO[,.(primaryid,caseid,sex,occp_cod,rept_cod,fda_dt,init_fda_dt,age_in_days,wt_in_kgs,country,quarter)]
-saveRDS(DEMO,"DIANA/data/DEMO.rds")
-write.csv2(pids_kept,"Clean Data/pids_kept.csv")
-rm(list=ls())
-
+#event_dt
+#remove outcome
