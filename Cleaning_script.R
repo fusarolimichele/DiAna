@@ -895,7 +895,8 @@ t2 <- t1[t,on="primaryid",allow.cartesian = TRUE][,id:=paste0(group,"-",i.group)
 combinations <- c()
 combine <- function(x){
   print(x)
-  union(combinations,combn(t2[id==x]$primaryid,2,simplify = FALSE))
+  combinations <- union(combinations,combn(t2[id==x]$primaryid,2,simplify = FALSE))
+  unique(lapply(combinations_final,sort))
 }
 groups <- t2[,.N,by=c("id")][N>1]
 
