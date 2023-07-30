@@ -889,11 +889,7 @@ calculate_pr <- function(d, variable){
 #sample <- Demo[sample(.N, 50), ]
 #combinations <- combn(Demo[sample(.N, 10000), ]$primaryid, 2, simplify = FALSE)
 t <- Drug[!is.na(substance)][, group:=as.numeric(as.factor(substance))][,.(primaryid,group)] %>% distinct()
-t1 <- setDT(read_delim("External Sources/Dictionaries/MedDRA/meddra_primary.csv", 
-                           delim = ";", escape_double = FALSE, trim_ws = TRUE))[
-                             ,.(soc,pt)] %>% distinct()
-t1 <- t1[Reac,on="pt"][,.(primaryid,soc)][!is.na(soc)] %>% distinct()
-t1[, group:=as.numeric(as.factor(soc))][,.(primaryid,group)] %>% distinct()
+t1 <- Reac[, group:=as.numeric(as.factor(pt))][,.(primaryid,group)] %>% distinct()
 t2 <- t1[t,on="primaryid",allow.cartesian = TRUE][,id:=paste0(group,"-",i.group)]
 
 combinations <- c()
@@ -919,17 +915,14 @@ combinations_100_500 <- combinations
 
 
 
+combinations_final <- readRDS("Clean Data/combinations_dedup.rds") %>% flatten() %>% unique()
 
-num_groups <- t2[,.N,by=c("id")][order(-N)]
-num_groups[,.N,by="N"]
-combinations <- lapply(t2[,.N,by=c("id")][N>4]$id, combine)
 
-for(n in 1:max(t$group)){
-  combinations <- 
-  }
+comb_list <- unique(lapply(combinations_final,sort))
 
-df_scores <- data.table(pid1 = rapply(combinations, function(x) head(x, 1)),
-                        pid2 = rapply(combinations, function(x) tail(x, 1)))
+
+df_scores <- data.table(pid1 = rapply(combinations_final, function(x) head(x, 1)),
+                        pid2 = rapply(combinations_final, function(x) tail(x, 1)))
 df_scores <- Demo[,.(pid1=primaryid,sex1=sex,country1=reporter_country,
                        age1=age_in_years,date_l1=date_lower,date_u1=date_upper)][
                          df_scores,on="pid1"]
