@@ -780,198 +780,6 @@ saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
 #+ solo PS e SS + colonna
 
 ## Probabilistic deduplication ----------------------------------------------
-Demo <- setDT(readRDS("~/Desktop/2707/DEMO.rds"))
-Outc <- setDT(readRDS("~/Desktop/2707/OUTC.rds"))
-Drug <- setDT(readRDS("~/Desktop/2707/DRUG.rds"))[,.(primaryid,substance)] %>% distinct()
-Reac <- setDT(readRDS("~/Desktop/2707/REAC.rds"))[,.(primaryid,pt)] %>% distinct()
-
-sample <- Demo[sample(.N, 1000), ]
-df_weights <- data.frame(var="any",value=c("W_NA"),weight=as.numeric(0))
-
-vars <- c("sex","reporter_country")
-a_values <- c(0.051,0.036)
-for (v in 1:length(vars)){
-a <- a_values[v]
-var <- vars[v]
-b <- sum(is.na(Demo[[var]]))/nrow(Demo)
-c <- a*(2-a-2*b)
-df_weights <- rbind(df_weights,c(var,"W_disc",log2(c-2*log2(1-b))))
-not_NA <- sum(!is.na(Demo[[var]]))
-for (value in setdiff(unique(Demo[[var]]),NA)){
-  Beta <- nrow(Demo[get(var)==value])/not_NA
-  Weight <- log2(1-c*(1-Beta)*(1-b)^(-2))-log2(Beta) 
-  df_weights <- rbind(df_weights,c(var,value,Weight))
-}
-}
-# var <- "outc_cod"
-# a <- 0.101
-# b <- length(unique(Outc$primaryid))/nrow(Demo)
-# c <- a*(2-a-2*b)
-# df_weights <- rbind(df_weights,c(var,"W_disc",log2(c-2*log2(1-b))))
-# not_NA <- nrow(Demo)-length(unique(Outc$primaryid))
-# for (value in setdiff(unique(Outc[[var]]),NA)){
-#   Beta <- nrow(Outc[get(var)==value])/not_NA
-#   Weight <- log2(1-c*(1-Beta)*(1-b)^(-2))-log2(Beta) 
-#   df_weights <- rbind(df_weights,c(var,value,Weight))
-# }
-
-var <- "substance"
-a <- 0.107
-b <- 0
-c <- a*(2-a-2*b)
-not_NA <- nrow(Demo)
-frequencies <- Drug[,.N,by="substance"][,freq:=N/not_NA]
-df_weights <- rbind(df_weights,c(var,"W_disc",log2(c-2*log2(1-b))))
-for (value in setdiff(unique(Drug[[var]]),NA)){
-  Beta <- frequencies[substance==value]$freq
-  Weight <- log2(1-c*(1-Beta)*(1-b)^(-2))-log2(Beta) 
-  df_weights <- rbind(df_weights,c(var,value,Weight))
-}
-
-var <- "pt"
-a <- 0.387
-b <- 0
-c <- a*(2-a-2*b)
-not_NA <- nrow(Demo)
-frequencies <- Reac[,.N,by="pt"][,freq:=N/not_NA]
-df_weights <- rbind(df_weights,c(var,"W_disc",log2(c-2*log2(1-b))))
-for (value in setdiff(unique(Reac[[var]]),NA)){
-  Beta <- frequencies[pt==value]$freq
-  Weight <- log2(1-c*(1-Beta)*(1-b)^(-2))-log2(Beta) 
-  df_weights <- rbind(df_weights,c(var,value,Weight))
-}
-
-setDT(df_weights)[,weight:=as.numeric(weight)]
-
-var <- "age_in_years"
-Demo <- Demo[,age_in_years:=age_in_days/365]
-a1_VigiMatch <- 0.036
-a2_VigiMatch <- 0.010
-b_VigiMatch <- 0.186
-# we calculate the parameters according to our frequency of blanks and keeping
-# the proportion betweeen Hit, Miss, and Deviation proposed by VigiMatch
-b_age <- sum(is.na(Demo[[var]]))/nrow(Demo)
-a1_age <- a1_VigiMatch*b_age/b_VigiMatch
-a2_age <- a2_VigiMatch*b_age/b_VigiMatch
-s1_age <- 2.1
-diff_age <- sample(Demo[!is.na(age_in_years)]$age_in_years,
-                   10000) - sample(Demo[!is.na(age_in_years)]$age_in_years,
-                                   10000)
-
-var <- "event_dt"
-Demo <- Demo[,date_lower:=ifelse(nchar(event_dt==8),as.numeric(ymd(event_dt)-1),
-                                 ifelse(nchar(event_dt==6),as.numeric(ym(event_dt)),
-                                        as.numeric(ymd(event_dt, truncated = 2L))))]
-Demo <- Demo[,date_upper:=ifelse(nchar(event_dt==8),as.numeric(ymd(event_dt)+1),
-                                 ifelse(nchar(event_dt==6),as.numeric(ceiling_date(ym(event_dt),"month")-days(1)),
-                                        as.numeric(ceiling_date(ymd(event_dt, truncated = 2L),"year")-days(1))))]
-a1_VigiMatch <- 0.051
-a2_VigiMatch <- 0.01
-b_VigiMatch <- 0.229
-# we calculate the parameters according to our frequency of blanks and keeping
-# the proportion betweeen Hit, Miss, and Deviation proposed by VigiMatch
-b_date <- sum(is.na(Demo[[var]]))/nrow(Demo)
-a1_date <- a1_VigiMatch*b_date/b_VigiMatch
-a2_date <- a2_VigiMatch*b_date/b_VigiMatch
-s1_date <- 50.2
-diff_date <- sample(Demo[!is.na(date_lower)]$date_lower,
-                    10000,replace=TRUE) - sample(Demo[!is.na(date_lower)]$date_lower,
-                                                 10000,replace=TRUE)
-
-df_scores <- data.frame(pid1=as.numeric(NA),pid2=as.numeric(NA),
-                        sex=as.numeric(NA),country=as.numeric(NA),#outcome=as.numeric(NA),
-                        substance=as.numeric(NA),
-                        pt=as.numeric(NA),age=as.numeric(NA),date=as.numeric(NA))
-
-
-combinations <- combn(sample$primaryid, 2, simplify = FALSE)
-calculate_pu_age <- function(d){
-  pu <- ((1-b_age)^2)*dnorm(d,mean(diff_age,na.rm = T),sd(diff_age,na.rm = T))
-  return(pu)
-}
-calculate_pr_age <- function(d){
-  pr <- ((1-a1_age-a2_age-b_age)^2) *  d(distr::Dirac(0))(d) +
-    a2_age*(2-a2_age-2*b_age) * ((1-b_age)^2)*dnorm(d,mean(diff_age,na.rm = T),sd(diff_age,na.rm = T)) +
-    2*a1_age*(1-a1_age-a2_age-b_age) * dnorm(d,0,s1_age) +
-    (a1_age^2)* dnorm(d,0,2*s1_age)
-  return(pr)
-}
-calculate_pu_date <- function(d){
-  pu <- ((1-b_date)^2)*dnorm(d,mean(diff_date,na.rm = T),sd(diff_date,na.rm = T))
-  return(pu)
-}
-calculate_pr_date <- function(d){
-  pr <- ((1-a1_date-a2_date-b_date)^2) *  d(distr::Dirac(0))(d) +
-    a2_date*(2-a2_date-2*b_date) * ((1-b_date)^2)*dnorm(d,mean(diff_date,na.rm = T),sd(diff_date,na.rm = T)) +
-    2*a1_date*(1-a1_date-a2_date-b_date) * dnorm(d,0,s1_date) +
-    (a1_date^2)* dnorm(d,0,2*s1_date)
-  return(pr)
-}
-
-for (i in 1:length(combinations)){
-  pid_i <- combinations[[i]][[1]]
-  pid_j <- combinations[[i]][[2]]
-  scores <- c()
-  for (var in vars){
-    x <- as.character(sample[primaryid==pid_i,get(var)])
-    y <- as.character(sample[primaryid==pid_j,get(var)])
-    score <- ifelse(is.na(x)|is.na(y), 0,
-                    ifelse(x!=y, df_weights[var==var&value=="W_disc"]$weight,
-                           df_weights[var==var&value==x]$weight))
-    scores <- c(scores,score)
-  }
-  ##outc
-  # outc_i <- as.character(Outc[primaryid==pid_i]$outc_cod)
-  # outc_j <- as.character(Outc[primaryid==pid_j]$outc_cod)
-  # concordance <- intersect(outc_i,outc_j)
-  # discordance <- unique(c(setdiff(outc_i,outc_j), setdiff(outc_j,outc_i)))
-  # w_discordance <- length(discordance)*df_weights[var=="outc_cod"&value=="W_disc"]$weight
-  # score <-w_discordance
-  # for (outc in concordance){score <- score + df_weights[var=="outc_cod"&value==outc]$weight}
-  # scores <- c(scores,score)
-  ##drug
-  drug_i <- setdiff(as.character(Drug[primaryid==pid_i]$substance),NA)
-  drug_j <- setdiff(as.character(Drug[primaryid==pid_j]$substance),NA)
-  concordance <- intersect(drug_i,drug_j)
-  discordance <- unique(c(setdiff(drug_i,drug_j), setdiff(drug_j,drug_i)))
-  w_discordance <- length(discordance)*df_weights[var=="substance"&value=="W_disc"]$weight
-  score <-w_discordance
-  for (drug in concordance){score <- score + df_weights[var=="substance"&value==drug]$weight}
-  scores <- c(scores,score)
-  ##pt
-  reac_i <- as.character(Reac[primaryid==pid_i]$pt)
-  reac_j <- as.character(Reac[primaryid==pid_j]$pt)
-  concordance <- intersect(reac_i,reac_j)
-  discordance <- unique(c(setdiff(reac_i,reac_j), setdiff(reac_j,reac_i)))
-  w_discordance <- length(discordance)*df_weights[var=="pt"&value=="W_disc"]$weight
-  score <- w_discordance
-  for (reac in concordance){score <- score + df_weights[var=="pt"&value==reac]$weight}
-  scores <- c(scores,score)
-  #age_in_years
-  d=Demo[primaryid==pid_i]$age_in_years - Demo[primaryid==pid_j]$age_in_years
-  if (is.na(d)){score=0} else {
-    int_pu <- integrate(calculate_pu_age, lower = d-1, upper = d+1)$value
-    int_pr <- integrate(calculate_pr_age, lower = d-1, upper = d+1)$value
-    score <- log2(int_pr/int_pu)
-  }
-  scores <- c(scores,score)
-  #event_dt
-  di_l <-  Demo[primaryid==pid_i]$date_lower
-  di_u <- Demo[primaryid==pid_i]$date_upper
-  dj_l <-  Demo[primaryid==pid_j]$date_lower
-  dj_u <- Demo[primaryid==pid_j]$date_upper
-  difference <- abs(c(di_l-dj_l,di_l-dj_u,di_u-dj_l,di_u-dj_u))
-  if (anyNA(difference)){score=0} else {
-    int_pu <- integrate(calculate_pu_date, lower = min(difference), upper = max(difference))$value
-    int_pr <- integrate(calculate_pr_date, lower = min(difference), upper = max(difference))$value
-    score <- log2(int_pr/int_pu)
-  }
-  scores <- c(scores,score)
-  df_scores <- rbind(c(pid_i,pid_j,scores),df_scores)
-}
-
-df_scores <- setDT(df_scores)[,total:=sex+country+substance+pt+age+date]
-## Probabilistic deduplication v2 ----------------------------------------------
 ###upload datasets--------------
 Demo <- setDT(readRDS("~/Desktop/2707/DEMO.rds"))
 Drug <- setDT(readRDS("~/Desktop/2707/DRUG.rds"))[,.(primaryid,drug_seq,substance)][order(substance)] %>% distinct()
@@ -986,6 +794,9 @@ rm(temp_single)
 rm(temp_multi)
 rm(temp)
 Reac <- setDT(readRDS("~/Desktop/2707/REAC.rds"))[,.(primaryid,pt)] %>% distinct()
+temp_drug <- Drug[,.(drug=list(as.character(substance))),by="primaryid"]
+temp <- Reac[,.(reac=list(as.character(pt))),by="primaryid"]
+
 
 ###calculate weights categorical------------
 tot <- nrow(Demo)
@@ -1018,7 +829,6 @@ df_weights <- df_weights[,Weight:=log2(1-c*(1-Beta)*(1-b)^(-2))-log2(Beta)]
 df_weights <- rbindlist(list(df_weights,W_disc),fill=TRUE)
 
 ###calculate weights continuous------------
-
 Demo <- Demo[,age_in_years:=age_in_days/365]
 Demo <- Demo[,date_lower:=ifelse(nchar(event_dt==8),
                                  as.numeric(ymd(event_dt)),
@@ -1076,8 +886,48 @@ calculate_pr <- function(d, variable){
 }
 
 ###compute scores-----------
-sample <- Demo[sample(.N, 50), ]
-combinations <- combn(sample$primaryid, 2, simplify = FALSE)
+#sample <- Demo[sample(.N, 50), ]
+#combinations <- combn(Demo[sample(.N, 10000), ]$primaryid, 2, simplify = FALSE)
+t <- Drug[!is.na(substance)][, group:=as.numeric(as.factor(substance))][,.(primaryid,group)] %>% distinct()
+t1 <- setDT(read_delim("External Sources/Dictionaries/MedDRA/meddra_primary.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE))[
+                             ,.(soc,pt)] %>% distinct()
+t1 <- t1[Reac,on="pt"][,.(primaryid,soc)][!is.na(soc)] %>% distinct()
+t1[, group:=as.numeric(as.factor(soc))][,.(primaryid,group)] %>% distinct()
+t2 <- t1[t,on="primaryid",allow.cartesian = TRUE][,id:=paste0(group,"-",i.group)]
+
+combinations <- c()
+combine <- function(x){
+  print(x)
+  union(combinations,combn(t2[id==x]$primaryid,2,simplify = FALSE))
+}
+groups <- t2[,.N,by=c("id")][N>1]
+
+combinations <- c()
+combinations <- lapply(t2[,.N,by=c("id")][N>1&N<=10]$id, combine)
+combinations_2_10 <- combinations
+
+combinations <- c()
+combinations <- lapply(t2[,.N,by=c("id")][N>10&N<=100]$id, combine)
+combinations_10_100 <- combinations
+
+combinations_final <- unique(c(combinations_2_10,combinations_10_100))
+saveRDS(combinations_final,"Clean Data/combinations_dedup.rds")
+combinations <- c()
+combinations <- lapply(t2[,.N,by=c("id")][N>100&N<=500]$id, combine)
+combinations_100_500 <- combinations
+
+
+
+
+num_groups <- t2[,.N,by=c("id")][order(-N)]
+num_groups[,.N,by="N"]
+combinations <- lapply(t2[,.N,by=c("id")][N>4]$id, combine)
+
+for(n in 1:max(t$group)){
+  combinations <- 
+  }
+
 df_scores <- data.table(pid1 = rapply(combinations, function(x) head(x, 1)),
                         pid2 = rapply(combinations, function(x) tail(x, 1)))
 df_scores <- Demo[,.(pid1=primaryid,sex1=sex,country1=reporter_country,
@@ -1096,9 +946,8 @@ df_scores <- df_weights[var=="reporter_country",.(country1=value,country_score=W
                                            fifelse(country1!=country2,
                                                    df_weights[var=="reporter_country"&value=="W_disc"]$Weight,
                                                    country_score))]
-temp <- Drug[,.(drug=list(as.character(substance))),by="primaryid"]
-df_scores <- temp[,.(pid1=primaryid,drug1=drug)][df_scores,on="pid1"]
-df_scores <- temp[,.(pid2=primaryid,drug2=drug)][df_scores,on="pid2"]
+df_scores <- temp_drug[,.(pid1=primaryid,drug1=drug)][df_scores,on="pid1"]
+df_scores <- temp_drug[,.(pid2=primaryid,drug2=drug)][df_scores,on="pid2"]
 df_scores[, drug_concordance := apply(.SD, 1, function(row) {
   intersect(row["drug1"], row["drug2"])
 }), .SDcols = c("drug1", "drug2")]
@@ -1112,15 +961,14 @@ df_scores[, drug_score := apply(.SD, 1, function(row) {
     sum(df_weights[var == "substance" & value %in% unlist(row["drug_concordance"])]$Weight)
 }), .SDcols = c("drug_discordance","drug_concordance")]
 
-temp <- Reac[,.(reac=list(as.character(pt))),by="primaryid"]
-df_scores <- temp[,.(pid1=primaryid,reac1=reac)][df_scores,on="pid1"]
-df_scores <- temp[,.(pid2=primaryid,reac2=reac)][df_scores,on="pid2"]
+df_scores <- temp_reac[,.(pid1=primaryid,reac1=reac)][df_scores,on="pid1"]
+df_scores <- temp_reac[,.(pid2=primaryid,reac2=reac)][df_scores,on="pid2"]
 df_scores[, reac_concordance := apply(.SD, 1, function(row) {
   intersect(row["reac1"], row["reac2"])
 }), .SDcols = c("reac1", "reac2")]
 
 df_scores[, reac_discordance := apply(.SD, 1, function(row) {
-  union(setdiff(row["reac11"], row["reac2"]), setdiff(row["reac2"], row["reac1"]))
+  union(setdiff(row["reac1"], row["reac2"]), setdiff(row["reac2"], row["reac1"]))
 }), .SDcols = c("reac1", "reac2")]
 
 df_scores[, reac_score := apply(.SD, 1, function(row) {
@@ -1145,7 +993,7 @@ df_scores[, date_diff_min := apply(.SD, 1, function(row) {
   min(abs(c(l1-l2,
             l1-u2,
             u1-l2,
-            u1-u2)-1),na.rm = T)
+            u1-u2))-1,na.rm = T)
 }), .SDcols = c("date_l1", "date_l2","date_u1", "date_u2")]
 df_scores[, date_diff_max := apply(.SD, 1, function(row) {
   l1 <- row["date_l1"]
@@ -1155,7 +1003,7 @@ df_scores[, date_diff_max := apply(.SD, 1, function(row) {
   max(abs(c(l1-l2,
             l1-u2,
             u1-l2,
-            u1-u2)+1),na.rm = T)
+            u1-u2))+1,na.rm = T)
 }), .SDcols = c("date_l1", "date_l2","date_u1", "date_u2")]
 df_scores[, date_score := apply(.SD, 1, function(row) {
   dl <- row["date_diff_min"]
@@ -1166,8 +1014,8 @@ df_scores[, date_score := apply(.SD, 1, function(row) {
 }), .SDcols = c("date_diff_min", "date_diff_max")]
 
 
-df_scores <- setDT(df_scores)[,total:=sex+country+substance+pt+age+date]
+df_scores <- df_scores[,total_score:=sex_score+country_score+drug_score+reac_score+age_score+date_score]
 
-#mettere insieme farmaci in stesso medicinale
+saveRDS(df_scores,"deduplication_scores.rds")
 #validare threshold
 
