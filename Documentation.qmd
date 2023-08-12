@@ -432,7 +432,7 @@ Please note that we are unable to provide the MedDRA directly. To access it, you
 
 ![](images/Screenshot%202023-07-18%20at%2015.18.37.png)
 
-```{r}
+```{r eval=FALSE}
 ##MedDRA standardization-------------------------------------------------------
 # Importing MedDRA
 soc <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc.asc",
@@ -733,7 +733,7 @@ Furthermore, weights exceeding the heaviest human weight ever documented (635 kg
 
 ![](images/Screenshot%202023-07-19%20at%2014.54.24.png)
 
-```{r eval = T}
+```{r eval = FALSE}
 Demo[,.N,by="wt_cod"][order(-N)]
 Demo$wt_corrector  <-  as.numeric(NA)
 Demo[wt_cod=="LBS"]$wt_corrector   <-  0.453592
@@ -1068,7 +1068,7 @@ Here we removed the excluded primaryid from each database, and we split the data
 # replace the name of the directory
 # according to the last quarter downloaded
 
-data_directory <- "data23Q1"
+data_directory <- "Data/23Q1"
 
 dir.create(data_directory)
 Demo_Supp <-  Demo[,.(primaryid,caseid,caseversion,i_f_cod,auth_num,e_sub,
@@ -1156,11 +1156,13 @@ rm(list = ls())
 
 ## 12. Rule-based deduplication
 
+We included, in the Demo dataset, two columns specifying whether the report is a plausible duplicate or not based on two commonly used algorithm, one more conservative (RB_duplicates) that searches for exactly the same values in the date of event, sex, reporter_country, age, weight, list of PTs and list of drugs, and one more speculative (RB_duplicates_only_susp) assessing among the drugs only the suspected ones. The conservative algorithm tagged 2835936 potential duplicates, the speculative one 3275048 potential duplicates.
+
 ```{r eval = FALSE}
 # replace the name of the directory
 # according to the last quarter downloaded
 
-data_directory <- "data23Q1"
+data_directory <- "Data/23Q1"
 
 Reac <- setDT(readRDS(paste0(data_directory,"/REAC.rds")))
 Demo <- setDT(readRDS(paste0(data_directory,"/DEMO.rds")))
@@ -1175,15 +1177,18 @@ temp_drug_SS <- Drug[order(substance)][role_cod=="SS"][
   ,.(SS=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
 temp_drug_IC <- Drug[order(substance)][role_cod%in%c("I","C")][
   ,.(IC=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
-temp <- temp_reac[temp_drug_IC[temp_drug_SS[temp_drug_PS[Demo,
-                                                         on="primaryid"],
-                                            on="primaryid"],
-                               on="primaryid"],
-                  on="primaryid"]
+temp_drug_suspected <- Drug[order(substance)][role_cod%in%c("PS","SS")][
+  ,.(suspected=paste0(substance,collapse="; ")),by="primaryid"] %>% distinct()
+temp <- temp_reac[temp_drug_suspected[temp_drug_IC[temp_drug_SS[temp_drug_PS[Demo,
+                                                                             on="primaryid"],
+                                                                on="primaryid"],
+                                                   on="primaryid"],
+                                      on="primaryid"],on="primaryid"]
 rm(temp_reac)
 rm(temp_drug_PS)
 rm(temp_drug_SS)
 rm(temp_drug_IC)
+rm(temp_drug_suspected)
 
 
 temp <- temp[order(fda_dt)]
@@ -1194,6 +1199,19 @@ duplicates_pids <- duplicates[duplicates[,.I[primaryid==last(primaryid)],by="DUP
 
 Demo[,RB_duplicates:=!primaryid%in% c(singlets_pids,duplicates_pids)]
 saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
+
+##and based only on suspect drugs
+complete_duplicates <- c("event_dt","sex","reporter_country","age_in_days","wt_in_kgs","pt","suspected")
+temp_grouped <- temp[,DUP_ID:=.GRP,by=complete_duplicates]
+singlets_pids <- temp_grouped[DUP_ID %in% temp_grouped[,.N,by="DUP_ID"][N==1]$DUP_ID]$primaryid
+duplicates <- temp_grouped[!primaryid %in% singlets_pids]
+duplicates_pids <- duplicates[duplicates[,.I[primaryid==last(primaryid)],by="DUP_ID"]$V1]$primaryid
+Demo[,RB_duplicates_only_susp:=!primaryid%in% c(singlets_pids,duplicates_pids)]
+saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
 ```
 
 ## 13. Probabilistic deduplication
+
+Nonetheless, mistakes and incompleteness should be taken into account when searching for duplicates. To account for these problems probabilistc algorithms can be implemented, but require higher computing power.
+
+WORK IN PROGRESS
