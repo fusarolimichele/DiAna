@@ -20,7 +20,11 @@ Stages
 
 [X] DiAna dictionary for drug name standardization (continuous refinement)
 
-[ ] DiAna access to a clean FAERS (work in progress)
+[X] DiAna access to a clean FAERS (continuous refinement)
+
+[ ] Probabilistic deduplication (work in progress)
+
+[ ] Imputation of missing data
 
 [ ] DiAna R package for drug safety investigations
 
