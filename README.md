@@ -1,8 +1,8 @@
 # DiAna
 Repository for FAERS cleaning and analysis
 
-# IMPORTANT
-# THE ZIP with the FAERS dataset cleaned according to the scripts here documented can be downloaded at: https://osf.io/zqu89/files/osfstorage
+# Download the ZIP with the FAERS dataset cleaned according to the scripts here documented: 
+https://osf.io/zqu89/files/osfstorage
 
 
 DiAna (Disproportionality Analyses) is a project to develop a shared procedure to clean and analyse the FDA Adverse Event Reporting System database for signal detection.
