@@ -361,9 +361,9 @@ Demo[,age_corrector:=ifelse(age_cod=="DEC",3650,
                                    ifelse(age_cod=="MON",30.41667,
                                           ifelse(age_cod=="WK",7,
                                                  ifelse(age_cod=="DY",1,
-                                                        ifelse(age_cod=="HR",0.04166667,
-                                                               ifelse(age_cod=="SEC",
-                                                                      1.157407e-05,NA)))))))]
+                                                        ifelse(age_cod=="HR",0.00011415525114155251,
+                                                               ifelse(age_cod=="SEC", 3.1709791983764586e-08,
+                                                                      ifelse(age_cod=="MIN", 1.9025875190259e-06, NA))))))))]
 
 Demo <- Demo[,age_in_days:=round(abs(as.numeric(age))*age_corrector)]
 summary(Demo$age_in_days)
