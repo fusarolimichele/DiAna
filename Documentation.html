@@ -671,19 +671,20 @@ The Entity Relationship Diagram (ERD) of the FAERS illustrates the relationships
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"MON"</span>,<span class="fl">30.41667</span>,</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                                          <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"WK"</span>,<span class="dv">7</span>,</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                                                 <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"DY"</span>,<span class="dv">1</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                                                        <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"HR"</span>,<span class="fl">0.04166667</span>,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                                                               <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"SEC"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="fl">1.157407e-05</span>,<span class="cn">NA</span>)))))))]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                                                        <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"HR"</span>,<span class="fl">0.00011415525114155251</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                                                               <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"SEC"</span>, <span class="fl">3.1709791983764586e-08</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                                                                      <span class="fu">ifelse</span>(age_cod<span class="sc">==</span><span class="st">"MIN"</span>, <span class="fl">1.9025875190259e-06</span>, <span class="cn">NA</span>))))))))]</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo[,age_in_days<span class="sc">:</span><span class="er">=</span><span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">as.numeric</span>(age))<span class="sc">*</span>age_corrector)]</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Demo<span class="sc">$</span>age_in_days)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>Demo[,age_in_days<span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(age_in_days<span class="sc">&lt;=</span><span class="dv">122</span><span class="sc">*</span><span class="dv">365</span>,age_in_days,</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ifelse</span> (age_cod<span class="sc">==</span><span class="st">"DEC"</span>,age_in_days<span class="sc">/</span>age_corrector,</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                                   <span class="cn">NA</span>))]<span class="co">#plausible compilation error</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo[,age_in_years<span class="sc">:</span><span class="er">=</span><span class="fu">round</span>(age_in_days<span class="sc">/</span><span class="dv">365</span>)]</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Demo<span class="sc">$</span>age_in_years, <span class="at">xlab =</span> <span class="st">"Age (years old)"</span>)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Demo<span class="sc">$</span>age_in_years)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>age_corrector,<span class="sc">-</span>age,<span class="sc">-</span>age_cod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo[,age_in_days<span class="sc">:</span><span class="er">=</span><span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">as.numeric</span>(age))<span class="sc">*</span>age_corrector)]</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Demo<span class="sc">$</span>age_in_days)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>Demo[,age_in_days<span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(age_in_days<span class="sc">&lt;=</span><span class="dv">122</span><span class="sc">*</span><span class="dv">365</span>,age_in_days,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ifelse</span> (age_cod<span class="sc">==</span><span class="st">"DEC"</span>,age_in_days<span class="sc">/</span>age_corrector,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>                                   <span class="cn">NA</span>))]<span class="co">#plausible compilation error</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo[,age_in_years<span class="sc">:</span><span class="er">=</span><span class="fu">round</span>(age_in_days<span class="sc">/</span><span class="dv">365</span>)]</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Demo<span class="sc">$</span>age_in_years, <span class="at">xlab =</span> <span class="st">"Age (years old)"</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Demo<span class="sc">$</span>age_in_years)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>age_corrector,<span class="sc">-</span>age,<span class="sc">-</span>age_cod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/Screenshot%202023-07-18%20at%2016.29.52.png" class="img-fluid" width="112"></p>
 <p><img src="images/Screenshot%202023-07-18%20at%2017.15.50.png" class="img-fluid"></p>
@@ -744,7 +745,7 @@ The Entity Relationship Diagram (ERD) of the FAERS illustrates the relationships
 <li><p>LBS - Pounds</p></li>
 <li><p>GMS - Grams</p></li>
 </ol>
-<p>Additionally, we included “KGS” as an alternative representation for kilograms.</p>
+<p>Additionally, we included “KGS” and “IB” as alternative representations for kilograms and pounds, respectively, and “MG” for milligrams (as submultiple of grams).</p>
 <p>Any missing values (NAs) were considered as kilograms (KG) for consistency.</p>
 <p>To ensure uniformity and accuracy, we made the following transformations:</p>
 <ol type="1">
@@ -756,19 +757,20 @@ The Entity Relationship Diagram (ERD) of the FAERS illustrates the relationships
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Demo[,.N,by<span class="ot">=</span><span class="st">"wt_cod"</span>][<span class="fu">order</span>(<span class="sc">-</span>N)]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Demo<span class="sc">$</span>wt_corrector  <span class="ot">&lt;-</span>  <span class="fu">as.numeric</span>(<span class="cn">NA</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>Demo[wt_cod<span class="sc">==</span><span class="st">"LBS"</span>]<span class="sc">$</span>wt_corrector   <span class="ot">&lt;-</span>  <span class="fl">0.453592</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>Demo[wt_cod<span class="sc">==</span><span class="st">"KG"</span>]<span class="sc">$</span>wt_corrector  <span class="ot">&lt;-</span>  <span class="dv">1</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>Demo[wt_cod <span class="sc">%in%</span><span class="fu">c</span>(<span class="st">"LBS"</span>, <span class="st">"IB"</span>)]<span class="sc">$</span>wt_corrector   <span class="ot">&lt;-</span>  <span class="fl">0.453592</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>Demo[wt_cod<span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"KG"</span>, <span class="st">"KGS"</span>)]<span class="sc">$</span>wt_corrector  <span class="ot">&lt;-</span>  <span class="dv">1</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>Demo[wt_cod<span class="sc">==</span><span class="st">"GMS"</span>]<span class="sc">$</span>wt_corrector  <span class="ot">&lt;-</span>  <span class="fl">0.001</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>Demo[<span class="fu">is.na</span>(wt_cod)]<span class="sc">$</span>wt_corrector  <span class="ot">&lt;-</span>  <span class="dv">1</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo[,wt_in_kgs<span class="sc">:</span><span class="er">=</span><span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">as.numeric</span>(wt))<span class="sc">*</span>wt_corrector)]</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>Demo[wt_in_kgs<span class="sc">&gt;</span><span class="dv">635</span>]<span class="sc">$</span>wt_in_kgs <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> Demo[,.N,by<span class="ot">=</span><span class="st">"wt_in_kgs"</span>][<span class="fu">order</span>(<span class="sc">-</span>N)]</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>temp) <span class="sc">+</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span>wt_in_kgs,<span class="at">y=</span>N))</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>wt_corrector,<span class="sc">-</span>wt,<span class="sc">-</span>wt_cod)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(Demo,<span class="st">"Clean Data/DEMO.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>Demo[wt_cod<span class="sc">==</span><span class="st">"MG"</span>]<span class="sc">$</span>wt_corrector <span class="ot">&lt;-</span> <span class="fl">1e-06</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>Demo[<span class="fu">is.na</span>(wt_cod)]<span class="sc">$</span>wt_corrector  <span class="ot">&lt;-</span>  <span class="dv">1</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo[,wt_in_kgs<span class="sc">:</span><span class="er">=</span><span class="fu">round</span>(<span class="fu">abs</span>(<span class="fu">as.numeric</span>(wt))<span class="sc">*</span>wt_corrector)]</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>Demo[wt_in_kgs<span class="sc">&gt;</span><span class="dv">635</span>]<span class="sc">$</span>wt_in_kgs <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> Demo[,.N,by<span class="ot">=</span><span class="st">"wt_in_kgs"</span>][<span class="fu">order</span>(<span class="sc">-</span>N)]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>temp) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span>wt_in_kgs,<span class="at">y=</span>N))</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>Demo <span class="ot">&lt;-</span> Demo <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>wt_corrector,<span class="sc">-</span>wt,<span class="sc">-</span>wt_cod)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(Demo,<span class="st">"Clean Data/DEMO.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="section" class="level3">

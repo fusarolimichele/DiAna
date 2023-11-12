@@ -633,9 +633,10 @@ Demo[,age_corrector:=ifelse(age_cod=="DEC",3650,
                                    ifelse(age_cod=="MON",30.41667,
                                           ifelse(age_cod=="WK",7,
                                                  ifelse(age_cod=="DY",1,
-                                                        ifelse(age_cod=="HR",0.04166667,
-                                                               ifelse(age_cod=="SEC",
-                                                                      1.157407e-05,NA)))))))]
+                                                        ifelse(age_cod=="HR",0.00011415525114155251,
+                                                               ifelse(age_cod=="SEC", 3.1709791983764586e-08,
+                                                                      ifelse(age_cod=="MIN", 1.9025875190259e-06, NA))))))))]
+
 
 Demo <- Demo[,age_in_days:=round(abs(as.numeric(age))*age_corrector)]
 summary(Demo$age_in_days)
@@ -719,7 +720,7 @@ Next, we proceeded to extract the weight units utilized in the database. However
 
 3.  GMS - Grams
 
-Additionally, we included "KGS" as an alternative representation for kilograms.
+Additionally, we included "KGS" and "IB" as alternative representations for kilograms and pounds, respectively, and "MG" for milligrams (as submultiple of grams).
 
 Any missing values (NAs) were considered as kilograms (KG) for consistency.
 
@@ -736,9 +737,10 @@ Furthermore, weights exceeding the heaviest human weight ever documented (635 kg
 ```{r eval = FALSE}
 Demo[,.N,by="wt_cod"][order(-N)]
 Demo$wt_corrector  <-  as.numeric(NA)
-Demo[wt_cod=="LBS"]$wt_corrector   <-  0.453592
-Demo[wt_cod=="KG"]$wt_corrector  <-  1
+Demo[wt_cod %in%c("LBS", "IB")]$wt_corrector   <-  0.453592
+Demo[wt_cod%in% c("KG", "KGS")]$wt_corrector  <-  1
 Demo[wt_cod=="GMS"]$wt_corrector  <-  0.001
+Demo[wt_cod=="MG"]$wt_corrector <- 1e-06
 Demo[is.na(wt_cod)]$wt_corrector  <-  1
 
 Demo <- Demo[,wt_in_kgs:=round(abs(as.numeric(wt))*wt_corrector)]
