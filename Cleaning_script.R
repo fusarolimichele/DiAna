@@ -414,9 +414,10 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 ## Weight standardization---------------------------------------------------
 Demo[,.N,by="wt_cod"][order(-N)]
 Demo$wt_corrector  <-  as.numeric(NA)
-Demo[wt_cod=="LBS"]$wt_corrector   <-  0.453592
-Demo[wt_cod=="KG"]$wt_corrector  <-  1
+Demo[wt_cod %in%c("LBS", "IB")]$wt_corrector   <-  0.453592
+Demo[wt_cod%in% c("KG", "KGS")]$wt_corrector  <-  1
 Demo[wt_cod=="GMS"]$wt_corrector  <-  0.001
+Demo[wt_cod=="MG"]$wt_corrector <- 1e-06
 Demo[is.na(wt_cod)]$wt_corrector  <-  1
 
 Demo <- Demo[,wt_in_kgs:=round(abs(as.numeric(wt))*wt_corrector)]
@@ -446,7 +447,7 @@ rm(list=ls())
 
 ## Dates and duration standardization ---------------------------------------
 #please change according to the last quarter
-max_date <- 20230331
+max_date <- 20230930
 
 Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
 
@@ -652,9 +653,9 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 # replace the name of the directory
 # according to the last quarter downloaded
 
-data_directory <- "Data/23Q1"
+data_directory <- "Data/23Q3"
 
-dir.create(data_directory)
+dir.create(data_directory, recursive = TRUE)
 Demo_Supp <-  Demo[,.(primaryid,caseid,caseversion,i_f_cod,auth_num,e_sub,
                       lit_ref,rept_dt,to_mfr,mfr_sndr,mfr_num,mfr_dt,quarter)]
 saveRDS(Demo_Supp,paste0(data_directory,"/DEMO_SUPP.rds"))
@@ -742,7 +743,7 @@ rm(list = ls())
 # replace the name of the directory
 # according to the last quarter downloaded
 
-data_directory <- "Data/23Q1"
+data_directory <- "Data/23Q3"
 
 Reac <- setDT(readRDS(paste0(data_directory,"/REAC.rds")))
 Demo <- setDT(readRDS(paste0(data_directory,"/DEMO.rds")))
