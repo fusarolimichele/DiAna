@@ -42,7 +42,7 @@ The script was tested on the following operative systems:
 Michele’s Macbook
 
 - **Platform**: aarch64-apple-darwin20
-- - **RAM**: 8 GB
+- **RAM**: 8 GB
 - **Processor**: Apple M1
 - **Language**: R version 4.3.1 (2023-06-16)
 - **Software**: RStudio Version 2023.09.0+463 "Desert Sunflower"
