@@ -25,7 +25,7 @@ Stages
 
 [X] DiAna dictionary for drug name standardization (continuous refinement)
 
-[X] DiAna access to a clean FAERS (continuous refinement)
+[X] DiAna access to a clean FAERS with all quarters collapsed together (continuous refinement). 
 
 [ ] Probabilistic deduplication (work in progress)
 
