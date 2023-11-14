@@ -47,17 +47,11 @@ Michele’s Macbook
 
 Valentina’s Windows
 
-- **Platform**: Windows 10 Pro Version 21H1
-- **RAM**: 8 GB
-- **Processor**: Intel Core i57200U CPU 2.50 GHz
-- **Language**: R version 4.2.1 ((2022-06-23 Funny-Looking Kid)
-- **Software**: RStudio Version 2022.07.1+554
-
-Santa’s Windows
-
-- **Platform**: Windows 10 Pro Version 21H1
+- **Platform**: Windows 11 Pro version 22H2
 - **RAM**: 16 GB
-- **Processor**: Intel Core i5-4590 CPU 3.30 GHz
-- **Language**: R version 4.2.1 (2022-06-23 Funny-Looking Kid)
-- **Software**: RStudio Version 2022.07.2+576
+- **Processor**: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz   1.69 GHz
+- **Language**: R version 4.3.1 (2023-06-16 ucrt) -- "Beagle Scouts"
+- **Software**: RStudio Version 2023.03.1 Build 446
+
+
 
