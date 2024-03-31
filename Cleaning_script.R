@@ -272,12 +272,12 @@ standardize_PT <- function(data_file, pt_variable) {
   pt_fixed <- distinct(rbindlist(list(pt_fixed, manual, llts[!is.na(standard_pt), .(pt, standard_pt)])))
   unstandardized_pts <- pt_fixed[is.na(standard_pt)]
   # Write updated manual fix file
-  write.csv2(pt_fixed, manual_fix_file)
+  write.csv2(pt_fixed, "manual_fix_file.csv")
   print(paste0(nrow(unstandardized_pts),
                " pts are not standardized using LLTs or previously proposed manual fix: ",
                paste0(unstandardized_pts$pt,collapse = "; "),
                ". Consider updating the pt_fixed.csv file."))
-  pt_fixed <- setDT(read.csv2(manual_fix_file))[, .(pt_temp=pt, standard_pt)]
+  pt_fixed <- setDT(read.csv2("manual_fix_file.csv"))[, .(pt_temp=pt, standard_pt)]
   # Update PTs in the data file
   data <- pt_fixed[data[, pt_temp := tolower(trimws(get(pt_variable)))], on = "pt_temp"][
     ,pt_temp := ifelse(is.na(standard_pt), pt_temp, standard_pt)] %>% select(-standard_pt)
@@ -447,7 +447,7 @@ rm(list=ls())
 
 ## Dates and duration standardization ---------------------------------------
 #please change according to the last quarter
-max_date <- 20230930
+max_date <- 20231231
 
 Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
 
@@ -538,6 +538,7 @@ dose_form_st <- setDT(read_delim("External Sources/Manual_fix/dose_form_st.csv",
                                    ,.(dose_form,dose_form_st)]
 DRUG_INFO <- dose_form_st[DRUG_INFO,on="dose_form"]
 DRUG_INFO$dose_form_st <- as.factor(DRUG_INFO$dose_form_st)
+
 dose_form_st <- DRUG_INFO[,.N,by=c("dose_form","dose_form_st")][order(-N)]
 write.csv2(dose_form_st,
            "External Sources/Manual_fix/dose_form_st.csv")
@@ -653,7 +654,7 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 # replace the name of the directory
 # according to the last quarter downloaded
 
-data_directory <- "Data/23Q3"
+data_directory <- "Data/23Q4"
 
 dir.create(data_directory, recursive = TRUE)
 Demo_Supp <-  Demo[,.(primaryid,caseid,caseversion,i_f_cod,auth_num,e_sub,
@@ -743,7 +744,7 @@ rm(list = ls())
 # replace the name of the directory
 # according to the last quarter downloaded
 
-data_directory <- "Data/23Q3"
+data_directory <- "Data/23Q4"
 
 Reac <- setDT(readRDS(paste0(data_directory,"/REAC.rds")))
 Demo <- setDT(readRDS(paste0(data_directory,"/DEMO.rds")))
