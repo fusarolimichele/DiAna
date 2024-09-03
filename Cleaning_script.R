@@ -237,11 +237,13 @@ write.csv2(distinct(meddra[,.(def,soc, hlgt,hlt,pt,llt)]),
 write.csv2(distinct(meddra[soc_cod==primary_soc_cod][,.(def,soc, hlgt,hlt,pt)]),
            "External Sources/Dictionaries/MedDRA/meddra_primary.csv")
 
-
 # Read PT file and extract unique lowercase PT values
 pt_list <- unique(tolower(trimws(
   setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))$pt)))
 manual_fix_file <- "External Sources/Manual_fix/pt_fixed.csv"
+
+
+
 standardize_PT <- function(data_file, pt_variable) {
   # Read data file
   data <- setDT(readRDS(data_file))
@@ -265,12 +267,17 @@ standardize_PT <- function(data_file, pt_variable) {
   not_llts <- llts[is.na(standard_pt)] %>% select(-standard_pt)
   
   # If still untraslated, use manual integration
-  pt_fixed <- setDT(read.csv2(manual_fix_file))[, .(pt, standard_pt)]
+  pt_fixed <- setDT(read.csv2("manual_fix_file.csv"))[, .(pt, standard_pt)]
   manual <- left_join(not_llts, pt_fixed)[is.na(standard_pt),][, .(pt, standard_pt)]
   
   # Combine PTs from LLTs, manual integration, and already standardized PTs
   pt_fixed <- distinct(rbindlist(list(pt_fixed, manual, llts[!is.na(standard_pt), .(pt, standard_pt)])))
   unstandardized_pts <- pt_fixed[is.na(standard_pt)]
+  pt_fixed <- distinct(pt_fixed)
+  # check that all pts in pt_fixed are in the meddra
+  
+  pt_fixed[duplicated(pt_fixed$pt)]
+  
   # Write updated manual fix file
   write.csv2(pt_fixed, "manual_fix_file.csv")
   print(paste0(nrow(unstandardized_pts),
@@ -278,6 +285,8 @@ standardize_PT <- function(data_file, pt_variable) {
                paste0(unstandardized_pts$pt,collapse = "; "),
                ". Consider updating the pt_fixed.csv file."))
   pt_fixed <- setDT(read.csv2("manual_fix_file.csv"))[, .(pt_temp=pt, standard_pt)]
+  # check that all pts in pt_fixed are in the meddra
+  pt_fixed[duplicated(pt_fixed$pt_temp)]
   # Update PTs in the data file
   data <- pt_fixed[data[, pt_temp := tolower(trimws(get(pt_variable)))], on = "pt_temp"][
     ,pt_temp := ifelse(is.na(standard_pt), pt_temp, standard_pt)] %>% select(-standard_pt)
@@ -445,12 +454,26 @@ Demo <- Demo %>% droplevels()
 saveRDS(Demo,"Clean Data/DEMO.rds")
 rm(list=ls())
 
+## rept_cod standardization ----------------------------------------------------
+Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
+Demo[, .N, by="rept_cod"][order(-N)]
+Demo[rept_cod %in% c("30DAY", "5DAY")]$rept_cod <- "EXP"
+rm(Demo)
+
 ## Dates and duration standardization ---------------------------------------
-#please change according to the last quarter
-max_date <- 20231231
+# automatically detect the max date 
+faers_list <- read.csv2("Clean Data/faers_list.csv")$x
+quarter <- tail(faers_list, 1)
+quarter <- sub(".*DELETE", "", quarter)
+quarter <- gsub(".txt", "", quarter)
+max_date_current_year <- paste0("20", substr(quarter, start = 1, stop = 2))
+max_date_current_monthday <- ifelse(substr(quarter, start = 3, stop = 4) == "Q1", "0331", 
+                                    ifelse(substr(quarter, start = 3, stop = 4) == "Q2", "0630", 
+                                           ifelse(substr(quarter, start = 3, stop = 4) == "Q3", "0930", 
+                                                  "1231")))
+max_date <- as.numeric(paste0(max_date_current_year, max_date_current_monthday))
 
 Demo <- setDT(readRDS("Clean Data/DEMO.rds"))
-
 check_date <- function(dt) {
   n <- nchar(dt)
   invalid_dates <- (n == 4 & (dt <1985|dt > as.numeric(substr(max_date, 0,4)))) |
@@ -654,7 +677,12 @@ saveRDS(Demo,"Clean Data/DEMO.rds")
 # replace the name of the directory
 # according to the last quarter downloaded
 
-data_directory <- "Data/23Q4"
+faers_list <- read.csv2("Clean Data/faers_list.csv")$x
+quarter <- tail(faers_list, 1)
+quarter <- sub(".*DELETE", "", quarter)
+quarter <- gsub(".txt", "", quarter)
+
+data_directory <- paste0("Data/", quarter)
 
 dir.create(data_directory, recursive = TRUE)
 Demo_Supp <-  Demo[,.(primaryid,caseid,caseversion,i_f_cod,auth_num,e_sub,
@@ -743,8 +771,12 @@ rm(list = ls())
 ## Rule-based deduplication --------------------------------------------------
 # replace the name of the directory
 # according to the last quarter downloaded
+faers_list <- read.csv2("Clean Data/faers_list.csv")$x
+quarter <- tail(faers_list, 1)
+quarter <- sub(".*DELETE", "", quarter)
+quarter <- gsub(".txt", "", quarter)
 
-data_directory <- "Data/23Q4"
+data_directory <- paste0("Data/", quarter)
 
 Reac <- setDT(readRDS(paste0(data_directory,"/REAC.rds")))
 Demo <- setDT(readRDS(paste0(data_directory,"/DEMO.rds")))
