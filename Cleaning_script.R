@@ -2,7 +2,7 @@
 
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load("tidyverse","data.table","janitor","foreach","xml2","rvest",
-               "readxl","distr","furrr","Rfast","dbplyr","RSQLite")
+               "readxl","distr","furrr","Rfast","dbplyr","RSQLite", "dplyr")
 
 ## Download FAERS--------------------------------------------------------------
 options(timeout=500)#increase if it times out because of low wifi power
