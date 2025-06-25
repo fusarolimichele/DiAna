@@ -201,41 +201,39 @@ rm(THER)
 
 ##MedDRA standardization-------------------------------------------------------
 # Importing MedDRA
-soc <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc.asc",
-                 sep = "$", header=F) %>% select(1:3)
-colnames(soc) <- c("soc_cod","soc","def")
-soc_hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc_hlgt.asc",
-                      sep = "$", header=F) %>% select(1:2)
-colnames(soc_hlgt) <- c("soc_cod","hlgt_cod")
-hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt.asc",
-                  sep = "$", header=F) %>% select(1:2)
-colnames(hlgt) <- c("hlgt_cod","hlgt")
-hlgt_hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt_hlt.asc",
-                      sep = "$", header=F) %>% select(1:2)
-colnames(hlgt_hlt) <- c("hlgt_cod","hlt_cod")
-hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt.asc",
-                 sep = "$", header=F) %>% select(1:2)
-colnames(hlt) <- c("hlt_cod","hlt")
-hlt_pt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt_pt.asc",
-                    sep = "$", header=F)  %>% select(1:2)
-colnames(hlt_pt) <- c("hlt_cod","pt_cod")
-pts <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/pt.asc",
-                 sep = "$", header=F) %>% select(1:2,4)
-colnames(pts) <- c("pt_cod","pt","primary_soc_cod")
-llt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/llt.asc",
-                 sep = "$", header=F) %>% select(1:3)
-colnames(llt) <- c("llt_cod","llt","pt_cod")
+#soc <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc.asc",
+#                 sep = "$", header=F) %>% select(1:3)
+#colnames(soc) <- c("soc_cod","soc","def")
+#soc_hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/soc_hlgt.asc",
+#                      sep = "$", header=F) %>% select(1:2)
+#colnames(soc_hlgt) <- c("soc_cod","hlgt_cod")
+#hlgt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt.asc",
+#                  sep = "$", header=F) %>% select(1:2)
+#colnames(hlgt) <- c("hlgt_cod","hlgt")
+#hlgt_hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlgt_hlt.asc",
+#                      sep = "$", header=F) %>% select(1:2)
+#colnames(hlgt_hlt) <- c("hlgt_cod","hlt_cod")
+#hlt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt.asc",
+#                 sep = "$", header=F) %>% select(1:2)
+#colnames(hlt) <- c("hlt_cod","hlt")
+#hlt_pt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/hlt_pt.asc",
+#                    sep = "$", header=F)  %>% select(1:2)
+#colnames(hlt_pt) <- c("hlt_cod","pt_cod")
+#pts <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/pt.asc",
+#                 sep = "$", header=F) %>% select(1:2,4)
+#colnames(pts) <- c("pt_cod","pt","primary_soc_cod")
+#llt <- read.csv2("External Sources/Dictionaries/MedDRA/MedAscii/llt.asc",
+#                 sep = "$", header=F) %>% select(1:3)
+#colnames(llt) <- c("llt_cod","llt","pt_cod")
 # Merge the data
-meddra <- setDT(merge(merge(merge(merge(merge(merge(merge(
-  soc, soc_hlgt,all = TRUE),hlgt, all = TRUE),hlgt_hlt,all = TRUE),
-  hlt, all = TRUE), hlt_pt, all = TRUE), pts, all = TRUE), llt,all=TRUE))
+meddra <- setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))
 # Convert to lowercase
 meddra[,(colnames(meddra)):=lapply(.SD, tolower),]
 # Write the data to CSV files
-write.csv2(distinct(meddra[,.(def,soc, hlgt,hlt,pt,llt)]),
-           "External Sources/Dictionaries/MedDRA/meddra.csv")
-write.csv2(distinct(meddra[soc_cod==primary_soc_cod][,.(def,soc, hlgt,hlt,pt)]),
-           "External Sources/Dictionaries/MedDRA/meddra_primary.csv")
+#write.csv2(distinct(meddra[,.(def,soc, hlgt,hlt,pt,llt)]),
+#           "External Sources/Dictionaries/MedDRA/meddra.csv")
+#write.csv2(distinct(meddra[soc_cod==primary_soc_cod][,.(def,soc, hlgt,hlt,pt)]),
+#           "External Sources/Dictionaries/MedDRA/meddra_primary.csv")
 
 # Read PT file and extract unique lowercase PT values
 pt_list <- unique(tolower(trimws(
@@ -262,7 +260,7 @@ standardize_PT <- function(data_file, pt_variable) {
                round(sum(not_pts$N)*100/nrow(data[!is.na(get(pt_variable))]),3)))
   
   # Try to translate unstandardized PTs through LLTs
-  llts <- left_join(not_pts, setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))[
+  llts <- left_join(not_pts, meddra[
     , .(standard_pt = pt, pt = llt)])
   not_llts <- llts[is.na(standard_pt)] %>% select(-standard_pt)
   
@@ -587,7 +585,7 @@ route_form_st <- setDT(read_delim("External Sources/Manual_fix/route_form_st.csv
                                escape_double = FALSE, trim_ws = TRUE))[
                                  ,.(dose_form_st,route_plus)] %>% distinct()
 DRUG_INFO <- route_form_st[DRUG_INFO,on="dose_form_st"]
-route_form_st <- DRUG_INFO[,.N,by=c("dose_form_st","route_st","route_plus")][order(-N)]
+route_form_st <- DRUG_INFO[,.N,by=list(dose_form_st,route_st,route_plus)][order(-N)]
 write.csv2(route_form_st,
            "External Sources/Manual_fix/route_form_st.csv")
 
@@ -705,7 +703,9 @@ saveRDS(Drug,paste0(data_directory,"/DRUG.rds"))
 rm(Drug)
 
 Reac <- Reac[primaryid %in% Demo$primaryid]
-meddra_primary <- setDT(read_csv2("External Sources/Dictionaries/MedDRA/meddra_primary.csv"))
+meddra_primary <- setDT(read_csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))
+meddra_primary <- meddra_primary[, -c("llt")]
+meddra_primary <- distinct(meddra_primary)
 setorderv(meddra_primary,c("soc","hlgt","hlt","pt"))
 
 Reac <- Reac[,.(primaryid,
