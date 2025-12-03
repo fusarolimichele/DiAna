@@ -236,11 +236,8 @@ meddra[,(colnames(meddra)):=lapply(.SD, tolower),]
 #           "External Sources/Dictionaries/MedDRA/meddra_primary.csv")
 
 # Read PT file and extract unique lowercase PT values
-pt_list <- unique(tolower(trimws(
-  setDT(read.csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))$pt)))
+pt_list <- unique(tolower(trimws(meddra$pt)))
 manual_fix_file <- "External Sources/Manual_fix/pt_fixed.csv"
-
-
 
 standardize_PT <- function(data_file, pt_variable) {
   # Read data file
@@ -705,6 +702,10 @@ rm(Drug)
 Reac <- Reac[primaryid %in% Demo$primaryid]
 meddra_primary <- setDT(read_csv2("External Sources/Dictionaries/MedDRA/meddra.csv"))
 meddra_primary <- meddra_primary[, -c("llt")]
+meddra_primary$soc <- tolower(meddra_primary$soc)
+meddra_primary$hlgt <- tolower(meddra_primary$hlgt)
+meddra_primary$hlt <- tolower(meddra_primary$hlt)
+meddra_primary$pt <- tolower(meddra_primary$pt)
 meddra_primary <- distinct(meddra_primary)
 setorderv(meddra_primary,c("soc","hlgt","hlt","pt"))
 
@@ -823,6 +824,38 @@ duplicates_pids <- duplicates[duplicates[,.I[primaryid==last(primaryid)],by="DUP
 Demo[,RB_duplicates_only_susp:=!primaryid%in% c(singlets_pids,duplicates_pids)]
 saveRDS(Demo,paste0(data_directory,"/DEMO.rds"))
 
+# export in .parquet -----------------------------------------------------------
+data_directory_parquet <- paste0("Data/", quarter, "_parquet")
+dir.create(data_directory_parquet, recursive = TRUE)
+
+library(arrow)
+write_parquet(Demo, paste0(data_directory_parquet,"/DEMO.parquet"))
+write_parquet(Drug, paste0(data_directory_parquet,"/DRUG.parquet"))
+write_parquet(Reac, paste0(data_directory_parquet,"/REAC.parquet"))
+rm(Demo)
+rm(Drug)
+rm(Reac)
+Demo_Supp <- setDT(readRDS(paste0(data_directory,"/DEMO_SUPP.rds")))
+write_parquet(Demo_Supp, paste0(data_directory_parquet,"/DEMO_SUPP.parquet"))
+rm(Demo_Supp)
+Doses <- setDT(readRDS(paste0(data_directory,"/DOSES.rds")))
+write_parquet(Doses, paste0(data_directory_parquet,"/DOSES.parquet"))
+rm(Doses)
+Drug_Name <- setDT(readRDS(paste0(data_directory,"/DRUG_NAME.rds")))
+write_parquet(Drug_Name, paste0(data_directory_parquet,"/DRUG_NAME.parquet"))
+rm(Drug_Name)
+Drug_Supp <- setDT(readRDS(paste0(data_directory,"/DRUG_SUPP.rds")))
+write_parquet(Drug_Supp, paste0(data_directory_parquet,"/DRUG_SUPP.parquet"))
+rm(Drug_Supp)
+Indi <- setDT(readRDS(paste0(data_directory,"/INDI.rds")))
+write_parquet(Indi, paste0(data_directory_parquet,"/INDI.parquet"))
+rm(Indi)
+Outc <- setDT(readRDS(paste0(data_directory,"/OUTC.rds")))
+write_parquet(Outc, paste0(data_directory_parquet,"/OUTC.parquet"))
+rm(Outc)
+Ther <- setDT(readRDS(paste0(data_directory,"/THER.rds")))
+write_parquet(Ther, paste0(data_directory_parquet,"/THER.parquet"))
+rm(Ther)
 
 ## Probabilistic deduplication ----------------------------------------------
 ###upload datasets--------------
